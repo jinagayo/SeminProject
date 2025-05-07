@@ -15,6 +15,7 @@ import model.user.User;
 
 @WebServlet(urlPatterns= {"/student/*"},
 initParams= {@WebInitParam(name="view",value="/view/student/")})
+
 public class StudentController extends MskimRequestMapping{
 	private StudentDao dao = new StudentDao();
 	

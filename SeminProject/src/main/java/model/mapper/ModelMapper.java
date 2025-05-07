@@ -12,4 +12,7 @@ public interface ModelMapper {
 	
 	@Select("SELECT s.tograde,s.entry,s.grade, m.mname AS major FROM student s JOIN major m ON s.mcode = m.mcode where s.studno = #{id}")
 	Map<String, Object> selectStudent(@Param("id") int id);
+	
+	@Select("SELECT m.mname AS major FROM professor p JOIN major m ON p.mcode = m.mcode where p.profno = #{id}")
+	Map<String, Object> selectProfessor(@Param("id") int id);
 }

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
   <head>
@@ -19,37 +19,31 @@
     	<table id="datatablesSimple" border="1">
        		<tr>
        			<th>이름</th>
-       			<td>${user_std.name}</td>
+       			<td>${user_prof.name}</td>
        			<th>계열</th>
        			<td>자연대학</td>
        		</tr>
        		<tr>
-       			<th>학번</th>
-       			<td>${user_std.id}</td>
-       			<th>전공</th>
-       			<td>${std.major}</td>
+       			<th>교수번호</th>
+       			<td>${user_prof.id}</td>
+       			<th>소속학과</th>
+       			<td>${prof.major}</td>
        		</tr>
        		<tr>
        			<th>생년월일</th>
-       			<td>${user_std.birth}</td>
-       			<th>학년</th>
-       			<td>${std.grade}</td>
+       			<td>${user_prof.birth}</td>
        		</tr>
        		<tr>
        			<th>전화번호</th>
-       			<td>${user_std.phone}</td>
-       			<th>학점</th>
-       			<td>${std.tograde}</td>
+       			<td>${user_prof.phone}</td>
        		</tr>
        		<tr>
        			<th>이메일</th>
-       			<td>${user_std.email}</td>
-       			<th>졸업 요건 충족</th>
-       			<td>x</td>
+       			<td>${user_prof.email}</td>
        		</tr>
        		<tr>
        			<th>주소</th>
-       			<td>${user_std.address}</td>
+       			<td>${user_prof.address}</td>
        		</tr>
     	</table>
     </div>
