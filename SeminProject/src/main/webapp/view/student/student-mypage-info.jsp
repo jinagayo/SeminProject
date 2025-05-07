@@ -9,11 +9,10 @@
   </head>
   <body>
   <br>
-  <h2 class="breadcrumb-item active">  학적 정보 조회</h2>
   <div class="card mb-4">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
-              DataTable Example
+              학적 정보 조회
      </div>
      <div class="card-body">
     	<table id="datatablesSimple" border="1">

@@ -8,7 +8,6 @@ import org.sitemesh.config.ConfigurableSiteMeshFilter;
 public class Sitemesh_student extends ConfigurableSiteMeshFilter{
 	@Override
 	protected void applyCustomConfiguration(SiteMeshFilterBuilder builder) {
-		builder.addDecoratorPath("/student/*", "/view/student/studentLayout.jsp")
-		.addDecoratorPath("/professor/*", "/view/student/studentLayout.jsp");
+		builder.addDecoratorPath("/student/*", "/view/student/studentLayout.jsp");
 	}
 }
