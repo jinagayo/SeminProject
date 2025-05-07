@@ -319,6 +319,7 @@ svg {
 table {
   caption-side: bottom;
   border-collapse: collapse;
+  background-image: url("../assests/img/logo.png");
 }
 
 caption {
