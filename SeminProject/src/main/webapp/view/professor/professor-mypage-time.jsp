@@ -9,7 +9,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<br>
+
+
+  <br>
   <div class="card mb-4">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
@@ -20,40 +22,15 @@
          <tr>
             <th></th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th>
          </tr>
-         
-         <tr>
-            <td>09:00</td><td></td><td></td><td></td><td></td><td></td>
-         </tr>
-         <tr>
-            <td>10:00</td><td></td><td></td><td></td><td></td><td></td>
-         </tr>
-         <tr>
-            <td>11:00</td><td></td><td></td><td></td><td></td><td></td>
-         </tr>
-         <tr>
-            <td>12:00</td><td></td><td></td><td></td><td></td><td></td>
-         </tr>
-         <tr>
-            <td>13:00</td><td></td><td></td><td></td><td></td><td></td>
-         </tr>
-         <tr>
-            <td>14:00</td><td></td><td></td><td></td><td></td><td></td>
-         </tr>
-         <tr>
-            <td>15:00</td><td></td><td></td><td></td><td></td><td></td>
-         </tr>
-         <tr>
-            <td>16:00</td><td></td><td></td><td></td><td></td><td></td>
-         </tr>
-         <tr>
-            <td>17:00</td><td></td><td></td><td></td><td></td><td></td>
-         </tr>
-         <tr>
-            <td>18:00</td><td></td><td></td><td></td><td></td><td></td>
-         </tr>
-         
+         <c:forEach var="t" items="${time}">
+		    <tr>
+		        <c:out value="${t}" escapeXml="false"/>
+		    </tr>
+		</c:forEach>
       </table>
    </div>
  </div>
+ 
+
 </body>
 </html>

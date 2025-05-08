@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Select;
 
 import model.attendance.Attendance;
 import model.graduation.Graduation;
+import model.student.Student;
 import model.subject.Subject;
 import model.teacher.Teacher;
 import model.user.User;
@@ -31,6 +32,21 @@ public interface ModelMapper {
 	@Select("SELECT subcode from attendance where studno= #{id}")
 	List<Attendance> selectAttend(Integer id);
 	
+	@Select("SELECT subcode FROM subject sub JOIN professor p ON p.profno = sub.profno where p.profno = #{id}")
+	List<Subject> selectLcode(Integer id);
+	
+	@Select(
+			{
+			    "<script>",
+			    "SELECT * FROM subject",
+			    "WHERE subcode IN",
+			    "<foreach item='code' collection='list' open='(' separator=',' close=')'>",
+			    "#{code}",
+			    "</foreach>",
+			    "</script>"
+			})
+	List<Subject> selectLecture(List<Integer> subcodes);
+	
 	@Select({
 	    "<script>",
 	    "SELECT * FROM subject",
@@ -41,5 +57,19 @@ public interface ModelMapper {
 	    "</script>"
 	})
 	List<Subject> selectSub(List<Integer> subcodes);
+
+	@Select("SELECT studno FROM student s JOIN professor p ON s.profno = p.profno where p.profno = #{id} ")
+	List<Student> selectStudentId(int id);
+
+	@Select({
+	    "<script>",
+	    "SELECT * FROM user",
+	    "WHERE id IN",
+	    "<foreach item='id' collection='list' open='(' separator=',' close=')'>",
+	    "#{id}",
+	    "</foreach>",
+	    "</script>"
+	})
+	List<User> selectMany(List<Integer> studno);
 
 }

@@ -49,8 +49,8 @@
                             </a>
                             <div class="collapse" id="collapseMypage" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="student-mypage-info">교수 정보 조회</a>
-                                    <a class="nav-link" href="student-mypage-grad">내 시간표 조회</a>
+                                    <a class="nav-link" href="professor-mypage-info">교수 정보 조회</a>
+                                    <a class="nav-link" href="professor-mypage-time">내 시간표 조회</a>
                                 </nav>
                             </div>
                             <a class="nav-link" href="notice.jsp">
@@ -61,10 +61,9 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 내강의실
                             </a>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTeach" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            <a class="nav-link" href="professor-student-manage">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 학생관리
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                            
                         </div>
