@@ -65,8 +65,33 @@ public class StudentController extends MskimRequestMapping{
                 .collect(Collectors.toList());
 		List<Subject>  sub_info = subdao.selectSub(subcodes);
 	    request.setAttribute("sub", sub_info);
+
 		
-		
+	    String[] time = new String[10];
+	    int[] count = {5,5,5,5,5,5,5,5,5,5};
+	    for(int i=0;i<10;i++) {
+			time[i]="<td>"+(i+9)+":00</td>";
+			    	for(int j=2;j<=6;j++) {
+				    	for(Subject sub : sub_info) {
+				    		if(sub.getDay()==j&&sub.getStarttime()==(i+9)) {
+				    			time[i]+="<td rowspan="+sub.getTime()+">"
+				    		+sub.getSubname()+"<hr>"+(i+9)+":00~"+(i+9+sub.getTime())+":00<hr>"+sub.getLocation()+"</td>";
+				    			for(int k=(i+1);k<=(i+sub.getTime()-1);k++) {
+				    				--count[k];
+				    			}
+				    			count[i]--;
+				    		}
+				    	}
+				    if(count[i]>0) {
+				    	time[i]+="<td></td>";
+				    	count[i]--;
+				    }
+			    	
+	    		}
+	    
+			
+		}
+	    request.setAttribute("time", time);
 		return "student-mypage-time";
 	}
 	@RequestMapping("student-teach-personality") 
