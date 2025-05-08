@@ -15,7 +15,7 @@
               DataTable Example
      </div>
      <div class="card-body">
-     <form action="studentInsert" name="f" method="post" onsubmit="return input_check(this)">
+     <form action="studentInsert" name="f" method="post" onsubmit="return input_check(this)" accept-charset="UTF-8">
     	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align:left;">
        		<tr>
        			<th>이름</th>

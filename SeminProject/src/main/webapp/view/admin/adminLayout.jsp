@@ -49,8 +49,8 @@
                             </a>
                             <div class="collapse" id="collapseMypage" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="student-mypage-info">강의 개설</a>
-                                    <a class="nav-link" href="student-mypage-grad">전체 강의 조회</a>
+                                    <a class="nav-link" onclick="location.href='../admin/subjectInsert'">강의 개설</a>
+                                    <a class="nav-link" onclick="location.href='../admin/subjectList'">전체 강의 조회</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseStudent" aria-expanded="false" aria-controls="collapseLayouts">
@@ -61,7 +61,7 @@
                             <div class="collapse" id="collapseStudent" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" onclick="location.href='../admin/studentInsert'">학생 등록</a>
-                                    <a class="nav-link" onclick="location.href='../admin/studentInfo'">학생 조회</a>
+                                    <a class="nav-link" onclick="location.href='../admin/studentList'">학생 조회</a>
                                     <a class="nav-link" href="student-teach-personality">교육 실습 일지</a>
                                     <a class="nav-link" href="student-teach-personality">교육 봉사</a>
                                 </nav>
@@ -73,8 +73,8 @@
                             </a>
                             <div class="collapse" id="collapseProfessor" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="student-teach-practice">교수 등록</a>
-                                    <a class="nav-link" href="student-teach-personality">교수 조회</a>
+                                    <a class="nav-link" onclick="location.href='../admin/professorInsert'">교수 등록</a>
+                                    <a class="nav-link" onclick="location.href='../admin/professorList'">교수 조회</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseNotice" aria-expanded="false" aria-controls="collapseLayouts">

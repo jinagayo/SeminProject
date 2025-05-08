@@ -25,7 +25,7 @@ public class StudentDao {
 	 public Map<String, Object> selectStudent(int id) {
 		    SqlSession session = MybatisConnection.getConnection();
 		    try {
-		        return session.getMapper(ModelMapper.class).selectStudent(id);
+		        return session.getMapper(cls).selectStudent(id);
 		    } catch (Exception e) {
 		        e.printStackTrace();
 		    } finally {

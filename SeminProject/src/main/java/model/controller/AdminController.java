@@ -1,5 +1,8 @@
 package model.controller;
 
+import java.io.UnsupportedEncodingException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
@@ -12,8 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 import gdu.mskim.MskimRequestMapping;
 import gdu.mskim.RequestMapping;
 import model.admin.AdminDao;
+import model.professor.Professor;
+import model.professor.ProfessorDao;
 import model.student.Student;
 import model.student.StudentDao;
+import model.subject.Subject;
 import model.user.User;
 import model.user.UserDao;
 
@@ -23,6 +29,7 @@ public class AdminController extends MskimRequestMapping {
 	private StudentDao dao = new StudentDao();
 	private UserDao user_dao = new UserDao();
 	private AdminDao admin_dao = new AdminDao();
+	private ProfessorDao pro_dao = new ProfessorDao();
 	
 	//학번 랜덤생성
 	public String StudentId(String entry, String majorcode) {
@@ -30,9 +37,15 @@ public class AdminController extends MskimRequestMapping {
 	    return entry + majorcode + random;
 	}
 	
+	//교수번호 랜덤 생성
+	public String ProfessorNo() {
+		int random = (int)(Math.random() * 9000) + 1000;
+		return random + "";
+	}
+	
 	@RequestMapping("studentInfo")
 	public String adminStudentInfo(HttpServletRequest request,HttpServletResponse response) {
-		Integer id = (Integer) request.getSession().getAttribute("login");
+		int id = Integer.parseInt(request.getParameter("studno"));
 		User user_std = user_dao.selectOne(id);
 		Map<String, Object> student = dao.selectStudent(id);
 		
@@ -45,8 +58,16 @@ public class AdminController extends MskimRequestMapping {
 	// 학생 등록
 	@RequestMapping("studentInsert")
 	public String adminStudentInsert(HttpServletRequest request,HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
 		User user = new User();
 		Student std = new Student();
+		String msg = "";
+		String url = "";
 		
 		String name = request.getParameter("name");
 		String birth = request.getParameter("birth");
@@ -56,10 +77,12 @@ public class AdminController extends MskimRequestMapping {
 		String entry = request.getParameter("entry");
 		String majorcode = request.getParameter("majorcode");
 		String profcode = request.getParameter("profcode");
-		//학번 랜덤 생성번호
+		
 		if(entry == null || majorcode == null) {
 			return "studentInsert";
 		}
+		
+		//학번 랜덤 생성번호
 		int r_stdno = Integer.parseInt(StudentId(entry, majorcode));
 		user.setId(r_stdno);
 		user.setName(name);
@@ -69,19 +92,187 @@ public class AdminController extends MskimRequestMapping {
 		user.setEmail(email);
 		user.setPosition(1);
 		
+		
 		std.setStudno(r_stdno);
 		std.setEntry(entry);
 		std.setProfno(Integer.parseInt(profcode));
 		std.setMcode(Integer.parseInt(majorcode));
 		
+		
 		if(admin_dao.insertUser(user) && admin_dao.insertStudent(std)) {
-			request.setAttribute("msg", "학생등록이 완료되었습니다.");
-			request.setAttribute("url", "studentInfo");
+			msg = "학생등록이 완료되었습니다.";
+			url = "studentInfo";
 		}
 		else {
-			request.setAttribute("msg", "학생 등록 중 오류가 발생했습니다.");
-			request.setAttribute("url", "studentInsert");
+			msg = "학생등록중 오류가 발생했습니다.";
+			url = "studentInsert";
 		}
+		request.setAttribute("msg", msg);
+		request.setAttribute("url", url);
 		return "alert";
 	}
+	
+	//학생 리스트
+	@RequestMapping("studentList")
+	public String adminStudentList(HttpServletRequest request,HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		String select = request.getParameter("select");
+		String keyword = request.getParameter("searchList");
+		
+		List<Map<String, Object>> map;
+		Map<String, Object> param = new HashMap<String, Object>();
+		
+		param.put("select", select);
+		param.put("keyword", keyword);
+		
+		if(keyword != null && !keyword.trim().equals("")) { //검색이 존재
+			map = admin_dao.list(param);
+		}else {
+			map = admin_dao.list(null);	//검색어 존재 안할때
+		}
+		request.setAttribute("list", map);
+		return "studentList";
+	}
+	
+	
+	
+	//교수 등록
+	@RequestMapping("professorInsert")
+	public String adminProfessorInsert(HttpServletRequest request,HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		User user = new User();
+		Professor pro = new Professor();
+		String msg = "";
+		String url = "";
+		
+
+		
+		String name = request.getParameter("name");
+		String birth = request.getParameter("birth");
+		String phone = request.getParameter("phone");
+		String address = request.getParameter("address");
+		String email = request.getParameter("email");
+		String major = request.getParameter("majorcode");
+		String sub = request.getParameter("subcode");
+						
+	    if(name == null || birth == null || phone == null || address == null || email == null || major == null || sub == null) {
+	        return "professorInsert";
+	    }
+	    
+		//교수번호 랜덤생성
+		int r_profno = Integer.parseInt(ProfessorNo());
+	    
+		user.setId(r_profno);
+		user.setName(name);
+		user.setBirth(birth);
+		user.setPhone(phone);
+		user.setAddress(address);
+		user.setEmail(email);
+		user.setPosition(2);
+		
+		pro.setProfno(r_profno);
+		pro.setSub(sub);
+		pro.setMcode(Integer.parseInt(major));
+		
+		
+		if(admin_dao.insertUser(user) && admin_dao.insertProfessor(pro)) {
+			msg = "교수 등록이 완료되었습니다.";
+			url = "professorInfo";
+		}
+		else {
+			msg = "교수 등록중 오류가 발생했습니다.";
+			url = "professorInsert";
+		}
+		request.setAttribute("msg", msg);
+		request.setAttribute("url", url);
+		return "alert";
+	}
+	
+	//교수 리스트
+	@RequestMapping("professorList")
+	public String adminProfessorList(HttpServletRequest request,HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		String select = request.getParameter("select");
+		String keyword = request.getParameter("searchList");
+		
+		List<Map<String, Object>> map;
+		Map<String, Object> param = new HashMap<String, Object>();
+		
+		param.put("select", select);
+		param.put("keyword", keyword);
+		
+		if(keyword != null && !keyword.trim().equals("")) { //검색이 존재
+			map = admin_dao.listPrno(param);
+		}else {
+			map = admin_dao.listPrno(null);	//검색어 존재 안할때
+		}
+		request.setAttribute("list", map);
+		return "professorList";
+	}
+	
+	//교수정보
+	@RequestMapping("professorInfo")
+	public String adminProfessorInfo(HttpServletRequest request,HttpServletResponse response) {
+		int id = Integer.parseInt(request.getParameter("profno"));
+		
+		User user_pro = user_dao.selectOne(id);
+		Map<String, Object> prof = pro_dao.selectProfessor(id);
+		System.out.println("prof"+prof);
+		
+		
+		request.setAttribute("user_pro", user_pro); //user 테이블 정보
+		request.setAttribute("pro", prof); //professor 테이블 정보
+		return "professorInfo";
+	}
+	
+	//강의 개설
+	@RequestMapping("subjectInsert")
+	public String adminSubjectInsert(HttpServletRequest request,HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		Subject sub = new Subject();
+		
+		String subcode = request.getParameter("subcode");
+		String subname = request.getParameter("subname");
+		String time = request.getParameter("time");
+		String starttime = request.getParameter("starttime");
+		String day = request.getParameter("day");
+		String location = request.getParameter("location");
+		String profno = request.getParameter("profno");
+		String teachsub = request.getParameter("teachsub");
+		
+		/*
+		sub.setSubcode(Integer.parseInt(subcode));
+		sub.setSubname(subname);
+		sub.setTime(Integer.parseInt(time));
+		sub.setStarttime(Integer.parseInt(starttime));
+		sub.setDay(Integer.parseInt(day));
+		sub.setLocation(location);
+		sub.setProfno(Integer.parseInt(profno));
+		*/
+		//sub.setTeachsub(Integer.parseInt(teachsub));
+		
+		return "subjectInsert";
+	}
+	
+	
+	
+	
+	
 }
