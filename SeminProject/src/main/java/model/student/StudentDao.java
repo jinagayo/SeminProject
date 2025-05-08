@@ -33,4 +33,16 @@ public class StudentDao {
 		    }
 		    return null;
 		}
+
+	public Student selectStu(Integer id) {
+		 SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).selectStu(id);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		return null;
+	}
 }

@@ -15,6 +15,8 @@ import model.attendance.Attendance;
 import model.attendance.AttendanceDao;
 import model.graduation.Graduation;
 import model.graduation.GraduationDao;
+import model.personality.Personality;
+import model.personality.PersonalityDao;
 import model.pratice.Practice;
 import model.pratice.PracticeDao;
 import model.service.Service;
@@ -35,6 +37,7 @@ public class StudentController extends MskimRequestMapping{
 	private SubjectDao subdao = new SubjectDao();
 	private AttendanceDao attdao = new AttendanceDao();
 	private PracticeDao pradao = new PracticeDao();
+	private PersonalityDao perdao = new PersonalityDao();
 	
 	
 	@RequestMapping("student-mypage-info") 
@@ -103,14 +106,22 @@ public class StudentController extends MskimRequestMapping{
 			HttpServletResponse response) {
 		Integer id = (Integer) request.getSession().getAttribute("login");
 		Practice practice = pradao.selectparct(id);
+		Teacher teacher = teadao.selectTeach(id);
 		System.out.println(practice);
-		if(practice==null) {
-			return "student-teach-practice";
-		}else {
+		if(practice!=null) {
 			request.setAttribute("msg", "실습 일지 심사 중입니다");
 			request.setAttribute("url", "student-teach-info" );
 			
 			return "alert";
+		}else{
+			if(teacher.isPracice()) {
+				request.setAttribute("msg", "실습 일지가 통과 되었습니다");
+				request.setAttribute("url", "student-teach-info" );
+				
+				return "alert";
+				
+			}
+			return "student-teach-practice";
 		}
 		
 	}
@@ -169,11 +180,60 @@ public class StudentController extends MskimRequestMapping{
 	@RequestMapping("student-teach-personality") 
 	public String TeachPerson(HttpServletRequest request,
 			HttpServletResponse response) {
-		return "student-teach-personality";
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		Personality person = perdao.selectper(id);
+		Teacher teacher = teadao.selectTeach(id);
+		System.out.println(person);
+		if(person!=null) {
+			request.setAttribute("msg", "제출 완료 되었습니다");
+			request.setAttribute("url", "student-teach-info" );
+			
+			return "alert";
+		}else{
+			if(teacher.isPersonsubmit()) {
+				request.setAttribute("msg", "심사 완료 되었습니다");
+				request.setAttribute("url", "student-teach-info" );
+				
+				return "alert";
+				
+			}
+			return "student-teach-personality";
+		}
+		
 	}
+
+	@RequestMapping("persubmit")
+	public String persubmit(HttpServletRequest request,
+			HttpServletResponse response) {
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		Student student = dao.selectStu(id);
+		Personality person = new Personality();
+		person.setStudno(id);
+		person.setProfno(student.getProfno());
+		person.setSelf1(Integer.parseInt(request.getParameter("num1")));
+		person.setSelf2(Integer.parseInt(request.getParameter("num2")));
+		person.setSelf3(Integer.parseInt(request.getParameter("num3")));
+		
+		request.setAttribute("url","student-teach-personality");
+
+		if(perdao.persubmit(person)) {
+			request.setAttribute("msg", "등록되었습니다");
+		}else {
+			request.setAttribute("msg", "등록 실패");	
+		}
+		
+		return "alert"; 
+			
+	}
+	
 	@RequestMapping("student-teach-info") 
 	public String TeachInfo(HttpServletRequest request,
 			HttpServletResponse response) {
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		Teacher teach_info = teadao.selectTeach(id);
+		
+		request.setAttribute("teacher", teach_info);
+		
 		return "student-teach-info";
 	}
 }

@@ -9,8 +9,10 @@ import org.apache.ibatis.annotations.Select;
 
 import model.attendance.Attendance;
 import model.graduation.Graduation;
+import model.personality.Personality;
 import model.pratice.Practice;
 import model.service.Service;
+import model.student.Student;
 import model.subject.Subject;
 import model.teacher.Teacher;
 import model.user.User;
@@ -51,5 +53,14 @@ public interface ModelMapper {
 	@Insert("insert into service (studno,day,servicename,groupname,time,content,emotion) "
 			+ "values (#{studno},#{day},#{servicename},#{groupname},#{time},#{content},#{emotion})")
 	boolean servsubmit(Service service);
+
+	@Insert("insert into personality (studno,self1,self2,self3,profno) values (#{studno},#{self1},#{self2},#{self3},#{profno})")
+	boolean persubmit(Personality person);
+
+	@Select("select * from personality where studno=#{id}")
+	Personality selectper(Integer id);
+
+	@Select("select * from student where studno=#{id}")
+	Student selectStu(Integer id);
 
 }
