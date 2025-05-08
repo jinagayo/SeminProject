@@ -3,11 +3,14 @@ package model.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import model.attendance.Attendance;
 import model.graduation.Graduation;
+import model.pratice.Practice;
+import model.service.Service;
 import model.subject.Subject;
 import model.teacher.Teacher;
 import model.user.User;
@@ -37,4 +40,16 @@ public interface ModelMapper {
 	    "</script>"
 	})
 	List<Subject> selectSub(List<Integer> subcodes);
+
+	@Insert("insert into pratice (studno,day,activename,content,emotion) "
+			+ "values (#{studno},#{day},#{activename},#{content},#{emotion})")
+	boolean prasubmit(Practice practice);
+
+	@Select("select * from pratice where studno= #{id}")
+	Practice selectparct(Integer id);
+
+	@Insert("insert into service (studno,day,servicename,groupname,time,content,emotion) "
+			+ "values (#{studno},#{day},#{servicename},#{groupname},#{time},#{content},#{emotion})")
+	boolean servsubmit(Service service);
+
 }

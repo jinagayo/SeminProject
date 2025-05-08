@@ -15,6 +15,9 @@ import model.attendance.Attendance;
 import model.attendance.AttendanceDao;
 import model.graduation.Graduation;
 import model.graduation.GraduationDao;
+import model.pratice.Practice;
+import model.pratice.PracticeDao;
+import model.service.Service;
 import model.student.Student;
 import model.student.StudentDao;
 import model.subject.Subject;
@@ -31,6 +34,7 @@ public class StudentController extends MskimRequestMapping{
 	private TeacherDao teadao = new TeacherDao();
 	private SubjectDao subdao = new SubjectDao();
 	private AttendanceDao attdao = new AttendanceDao();
+	private PracticeDao pradao = new PracticeDao();
 	
 	
 	@RequestMapping("student-mypage-info") 
@@ -94,26 +98,82 @@ public class StudentController extends MskimRequestMapping{
 	    request.setAttribute("time", time);
 		return "student-mypage-time";
 	}
+	@RequestMapping("student-teach-practice") 
+	public String TeachPractice(HttpServletRequest request,
+			HttpServletResponse response) {
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		Practice practice = pradao.selectparct(id);
+		System.out.println(practice);
+		if(practice==null) {
+			return "student-teach-practice";
+		}else {
+			request.setAttribute("msg", "실습 일지 심사 중입니다");
+			request.setAttribute("url", "student-teach-info" );
+			
+			return "alert";
+		}
+		
+	}
+	@RequestMapping("praticesubmit")
+	public String praticesubmit(HttpServletRequest request,
+			HttpServletResponse response) {
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		Practice practice = new Practice();
+		practice.setStudno(id);
+		practice.setActivename(request.getParameter("activename"));
+		practice.setDay(request.getParameter("date"));
+		practice.setContent(request.getParameter("content"));
+		practice.setEmotion(request.getParameter("emotion"));
+
+		request.setAttribute("url", "student-teach-practice" );
+		if(pradao.prasubmit(practice)) {
+			request.setAttribute("msg", "일지가 등록되었습니다");
+		}else {
+			request.setAttribute("msg", "일지 등록 실패");	
+		}
+		return "alert";
+		
+	}
+
+	@RequestMapping("student-teach-service") 
+	public String TeachService(HttpServletRequest request,
+			HttpServletResponse response) {
+		return "student-teach-service";
+	}
+
+	@RequestMapping("servicesubmit")
+	public String servicesubmit(HttpServletRequest request,
+			HttpServletResponse response) {
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		Service service = new Service();
+		service.setStudno(id);
+		service.setServicename(request.getParameter("servicename"));
+		service.setGroupname(request.getParameter("groupname"));
+		service.setDay(request.getParameter("date"));
+		int time= Integer.parseInt(request.getParameter("time"));
+		service.setTime(time);
+		service.setContent(request.getParameter("content"));
+		service.setEmotion(request.getParameter("emotion"));
+
+		request.setAttribute("url", "student-teach-service" );
+		if(pradao.servsubmit(service)) {
+			request.setAttribute("msg", "일지가 등록되었습니다");
+		}else {
+			request.setAttribute("msg", "일지 등록 실패");	
+		}
+		return "alert";
+		
+	}
+	
+	
 	@RequestMapping("student-teach-personality") 
 	public String TeachPerson(HttpServletRequest request,
 			HttpServletResponse response) {
 		return "student-teach-personality";
-	}
-	@RequestMapping("student-teach-practice") 
-	public String TeachPractice(HttpServletRequest request,
-			HttpServletResponse response) {
-		return "student-teach-practice";
 	}
 	@RequestMapping("student-teach-info") 
 	public String TeachInfo(HttpServletRequest request,
 			HttpServletResponse response) {
 		return "student-teach-info";
 	}
-	@RequestMapping("student-teach-service") 
-	public String TeachService(HttpServletRequest request,
-			HttpServletResponse response) {
-		return "student-teach-service";
-	}
-	
-	
 }
