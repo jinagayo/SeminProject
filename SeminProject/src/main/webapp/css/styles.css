@@ -320,6 +320,14 @@ table {
   caption-side: bottom;
   border-collapse: collapse;
   background-image: url("../assests/img/logo.png");
+	width: 90%;
+    max-width: 1200px;
+    text-align: center;
+    border: 1px solid #fff;
+    border-spacing: 1px;
+    font-family: 'Cairo', sans-serif;
+  margin: auto;
+
 }
 
 caption {
@@ -327,24 +335,45 @@ caption {
   padding-bottom: 0.5rem;
   color: #6c757d;
   text-align: left;
+   font-weight: bold;
 }
 
-th {
-  text-align: inherit;
-  text-align: -webkit-match-parent;
+
+table td {
+    padding: 10px;
+    background-color: #eee;
 }
 
-thead,
-tbody,
-tfoot,
-tr,
-td,
-th {
-  border-color: inherit;
-  border-style: solid;
-  border-width: 0;
+table th {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
 }
 
+img {
+    width: 90px;
+    height: 90px;
+}
+.view,
+.delete {
+    border: none;
+    padding: 5px 10px;
+    color: #fff;
+    font-weight: bold;
+}
+
+.view {
+    background-color: #03A9F4;
+}
+
+.delete {
+    background-color: #E91E63;
+}
+
+.tablefoot {
+    padding: 0;
+    border-bottom: 3px solid #009688;
+}
 label {
   display: inline-block;
 }

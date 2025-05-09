@@ -1,3 +1,4 @@
+
 package model.controller;
 
 import java.io.IOException;
@@ -62,11 +63,5 @@ public class MainController extends MskimRequestMapping {
 	public String logout(HttpServletRequest request,HttpServletResponse response) {
 		request.getSession().invalidate();
 		return "redirect:main";
-	}
-	
-	@RequestMapping("main")
-	public String main(HttpServletRequest request,HttpServletResponse response) {
-		String login = (String)request.getSession().getAttribute("login");
-		return "main/main?id=" + login;
 	}
 }
