@@ -1,5 +1,6 @@
 package model.controller;
 
+import java.nio.file.spi.FileSystemProvider;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -9,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import gdu.mskim.MSLogin;
 import gdu.mskim.MskimRequestMapping;
 import gdu.mskim.RequestMapping;
 import model.attendance.Attendance;
@@ -38,8 +40,29 @@ public class StudentController extends MskimRequestMapping{
 	private AttendanceDao attdao = new AttendanceDao();
 	private PracticeDao pradao = new PracticeDao();
 	private PersonalityDao perdao = new PersonalityDao();
-	
-	
+
+	public String noticecheck(HttpServletRequest request, HttpServletResponse response ) {
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		System.out.println(id);
+		if(id==null) {
+			System.out.println("아이디가 널이다");
+			request.setAttribute("msg", "접근 불가");
+			System.out.println("메세지 입력");
+			request.setAttribute("url", "/main/main");
+			System.out.println("url 입력");
+			return "/alert";
+		}else {
+			User user_std = dao.selectOne(id);
+			if(user_std.getPosition()!=1) {
+				request.setAttribute("msg", "접근 불가");
+				request.setAttribute("url", "/main/main");
+				return "/alert";
+			}
+			return null;
+		}
+	}
+
+	@MSLogin("noticecheck")
 	@RequestMapping("student-mypage-info") 
 	public String MypageInfo(HttpServletRequest request,HttpServletResponse response) {
 		Integer id = (Integer) request.getSession().getAttribute("login");
@@ -50,6 +73,7 @@ public class StudentController extends MskimRequestMapping{
 		request.setAttribute("std", student); //student 테이블 정보
 		return "student-mypage-info";
 	}
+	@MSLogin("noticecheck")
 	@RequestMapping("student-mypage-grad") 
 	public String MypageGrade(HttpServletRequest request,
 			HttpServletResponse response) {
@@ -61,6 +85,7 @@ public class StudentController extends MskimRequestMapping{
 		request.setAttribute("teach", teach_info);
 		return "student-mypage-grad";
 	}
+	@MSLogin("noticecheck")
 	@RequestMapping("student-mypage-time") 
 	public String MypageTime(HttpServletRequest request,
 			HttpServletResponse response) {
@@ -101,6 +126,7 @@ public class StudentController extends MskimRequestMapping{
 	    request.setAttribute("time", time);
 		return "student-mypage-time";
 	}
+	@MSLogin("noticecheck")
 	@RequestMapping("student-teach-practice") 
 	public String TeachPractice(HttpServletRequest request,
 			HttpServletResponse response) {
@@ -125,6 +151,7 @@ public class StudentController extends MskimRequestMapping{
 		}
 		
 	}
+	@MSLogin("noticecheck")
 	@RequestMapping("praticesubmit")
 	public String praticesubmit(HttpServletRequest request,
 			HttpServletResponse response) {
@@ -146,12 +173,14 @@ public class StudentController extends MskimRequestMapping{
 		
 	}
 
+	@MSLogin("noticecheck")
 	@RequestMapping("student-teach-service") 
 	public String TeachService(HttpServletRequest request,
 			HttpServletResponse response) {
 		return "student-teach-service";
 	}
 
+	@MSLogin("noticecheck")
 	@RequestMapping("servicesubmit")
 	public String servicesubmit(HttpServletRequest request,
 			HttpServletResponse response) {
@@ -176,7 +205,8 @@ public class StudentController extends MskimRequestMapping{
 		
 	}
 	
-	
+
+	@MSLogin("noticecheck")
 	@RequestMapping("student-teach-personality") 
 	public String TeachPerson(HttpServletRequest request,
 			HttpServletResponse response) {
@@ -202,6 +232,7 @@ public class StudentController extends MskimRequestMapping{
 		
 	}
 
+	@MSLogin("noticecheck")
 	@RequestMapping("persubmit")
 	public String persubmit(HttpServletRequest request,
 			HttpServletResponse response) {
@@ -225,7 +256,8 @@ public class StudentController extends MskimRequestMapping{
 		return "alert"; 
 			
 	}
-	
+
+	@MSLogin("noticecheck")
 	@RequestMapping("student-teach-info") 
 	public String TeachInfo(HttpServletRequest request,
 			HttpServletResponse response) {
