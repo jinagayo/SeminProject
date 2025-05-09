@@ -32,20 +32,20 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
                     	<!--  로그인 되었을때 -->
+                    	<c:if test="${sessionScope.login != null}">
+                    	<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../main/logout'">로그아웃</a></li>
                     		<c:choose>
-                    			<c:when test="${sessionScope.user.position == 1 && sessionScope.login != null}">
-                    				 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../main/logout'">로그아웃</a></li>
+                    			<c:when test="${sessionScope.user.position == 1}">
                     				 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../student/student-mypage-info'">마이페이지</a></li>
                     			</c:when>
-                    			<c:when test="${sessionScope.user.position == 2 && sessionScope.login != null}">
-                    				 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../main/logout'">로그아웃</a></li>
+                    			<c:when test="${sessionScope.user.position == 2}">
                     				 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../professor/professor-mypage-info'">마이페이지</a></li>
                     			</c:when>
-                    			<c:when test="${sessionScope.user.position == 3 && sessionScope.login != null}">
-                    				 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../main/logout'">로그아웃</a></li>
+                    			<c:when test="${sessionScope.user.position == 3}">
                     				 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../admin/studentList'">관리자페이지</a></li>
                     			</c:when>
                     		</c:choose>
+                    	</c:if>
                     	<!-- 로그인되지 않았을때 -->
                     	<c:if test="${sessionScope.login == null }">
                     		<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../main/login'">로그인</a></li>

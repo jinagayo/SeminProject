@@ -77,17 +77,10 @@
                                     <a class="nav-link" onclick="location.href='../admin/professorList'">교수 조회</a>
                                 </nav>
                             </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseNotice" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            <a class="nav-link" href="../admin/notice.jsp">
+                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 알림마당
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
-                            <div class="collapse" id="collapseNotice" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="student-teach-practice">교육 실습 일지</a>
-                                    <a class="nav-link" href="student-teach-personality">교육 봉사</a>
-                                </nav>
-                            </div>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">

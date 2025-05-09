@@ -67,6 +67,10 @@ public class MainController extends MskimRequestMapping {
 	@RequestMapping("main")
 	public String main(HttpServletRequest request,HttpServletResponse response) {
 		String login = (String)request.getSession().getAttribute("login");
-		return "main/main?id=" + login;
+		String user = (String)request.getSession().getAttribute("user");
+		request.setAttribute("login", login);
+	    request.setAttribute("user", user);
+
+	    return "main/main";
 	}
 }

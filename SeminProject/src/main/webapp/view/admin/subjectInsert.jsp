@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <html>
   <head>
   	<link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" />
     <title>강의 관리</title>
+    
   </head>
   <body>
   <br>
@@ -47,14 +49,28 @@
        		</tr>
        		<tr>
        			<th>교직이수</th>
-       			<td><input type="radio" name="teachsub1" value="1"> O
-       			<input type="radio" name="teachsub2" value="2"> X</td>
+       			<td><input type="checkbox" name="teachsub" value="1" id="sub1"> O </td>
+       			<td><input type="checkbox" name="teachsub" value="2" id="sub2"> X </td>
        		</tr>
     	</table>
     	<button type="submit" onclick="chk()">등록</button>
     	</form>
-    	
     </div>
  </div>
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+     <script>
+      $(document).ready(function () {
+        $("#sub1").click(function () {
+          if ($(this).is(":checked")) {
+            $("#sub2").prop("checked", false);
+          }
+        });
+        $("#sub2").click(function () {
+          if ($(this).is(":checked")) {
+            $("#sub1").prop("checked", false);
+          }
+        });
+      });
+    </script>
   </body>
-</html>>
+</html>

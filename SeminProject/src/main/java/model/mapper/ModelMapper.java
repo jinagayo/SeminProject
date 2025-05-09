@@ -34,7 +34,7 @@ public interface ModelMapper {
 	int InsertProfessor(Professor pro);
 	
 	@Insert("insert into subject (subcode,subname,time,starttime,day,location,profno,teachsub)"
-			+ " values (#{subcode},#{subname},#{time},#{starttime},#{day},#{location},#{profno},#{teachsub}")
+			+ " values (#{subcode},#{subname},#{time},#{starttime},#{day},#{location},#{profno},#{teachsub})")
 	int InsertSubject(Subject sub);
 	
 	@Select({
@@ -78,6 +78,23 @@ public interface ModelMapper {
 		  "</script>"
 		})
 	List<Map<String, Object>> ListProfessor(Map<String, Object> params);
+
+	@Select({
+		  "<script>",
+		  "SELECT s.subname AS subname, s.time AS time, s.starttime AS starttime, s.teachsub AS teachsub, u.name AS name",
+		  "FROM subject s",
+		  "JOIN user u ON s.profno = u.id",
+		  "<where>",
+		  "  <if test='select == \"subname\" and keyword != null'>",
+		  "    s.subname LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "  <if test='select == \"name\" and keyword != null'>",
+		  "    u.name LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "</where>",
+		  "</script>"
+		})
+	List<Map<String, Object>> ListSubject(Map<String, Object> param);
 
 	
 }
