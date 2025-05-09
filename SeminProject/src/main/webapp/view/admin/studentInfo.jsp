@@ -66,7 +66,7 @@
               DataTable Example
      </div>
      <div class="card-body">
-    	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align: right;">
+    	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align: center;">
        		<tr>
        			<td></td>
        			<th>이름</th>

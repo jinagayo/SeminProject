@@ -9,21 +9,34 @@ import model.MybatisConnection;
 import model.mapper.ModelMapper;
 import model.professor.Professor;
 
+import model.attendance.Attendance;
+import model.mapper.ModelMapper;
+
 public class SubjectDao {
 	private Class<ModelMapper> cls = ModelMapper.class;
 	 
 	public boolean insertSubject(Subject sub) {
 		 SqlSession session  = MybatisConnection.getConnection();
 		 try {
-			 if(session.getMapper(cls).InsertSubject(sub) > 0) return true;
+			 if(session.getMapper(cls).InsertSubject(sub) > 0);
 		 } catch (Exception e) {
 			 e.printStackTrace();
 		 } finally {
 			 MybatisConnection.close(session);
 		 }
-		 return false;	
-	 }
-	
+		 return false;
+	}
+	public List<Subject> selectSub(List<Integer> subcodes) {
+		 SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).selectSub(subcodes);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		 return null;	
+	}
 	 public List<Map<String, Object>> listSubject(Map<String, Object> param) {
 		 SqlSession session = MybatisConnection.getConnection();
 		 try {
@@ -33,7 +46,18 @@ public class SubjectDao {
 		 } finally {
 			 MybatisConnection.close(session);
 		 }
+		 return null;	
+	}
+
+	public List<Subject> selectLcode(Integer id) {
+		SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).selectLcode(id);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
 		 return null;
 	 }
-	
 }

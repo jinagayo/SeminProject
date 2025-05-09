@@ -16,9 +16,6 @@
      </div>
      <div class="card-body">
     	<table id="datatablesSimple" border="1">
-    		<tr>
-    			<td><img width="30" height="30"></td>
-    		</tr>
        		<tr>
        			<th>이름</th>
        			<td>${user_std.name}</td>

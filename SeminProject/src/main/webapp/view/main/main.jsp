@@ -50,7 +50,6 @@
                     	<c:if test="${sessionScope.login == null }">
                     		<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../main/login'">로그인</a></li>
                     	</c:if>
-
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">알림마당</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">내 강의실</a></li>
                     </ul>

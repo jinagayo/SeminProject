@@ -1,7 +1,6 @@
 package model.controller;
 
 import java.io.IOException;
-
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -74,3 +73,4 @@ public class MainController extends MskimRequestMapping {
 	    return "main/main";
 	}
 }
+
