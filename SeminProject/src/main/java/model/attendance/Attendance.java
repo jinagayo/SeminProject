@@ -28,6 +28,7 @@ public class Attendance {
 		return absent;
 	}
 	public void setAbsent(int absent) {
+		
 		this.absent = absent;
 	}
 	public String getGrade() {
