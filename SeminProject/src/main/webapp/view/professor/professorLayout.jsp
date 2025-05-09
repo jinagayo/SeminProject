@@ -57,7 +57,7 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 알림마당
                             </a>
-                            <a class="nav-link" href="myclass.jsp">
+                            <a class="nav-link" href="professor-myclass">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 내강의실
                             </a>

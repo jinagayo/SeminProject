@@ -26,10 +26,8 @@
 	    	<td>${s.studno}</td>
 	    		<c:forEach var="u" items="${user}" varStatus="vs">
 	    				<c:if test="${s.studno == u.id }">
-	    					<td>
-	    						<form>
+	    					<td onclick="location.href='professor-student-info?studno=${s.studno}'">
 	    							${u.name}
-	    						</form>
 	    					</td>
 	    				</c:if>
 	    		</c:forEach>
@@ -40,3 +38,5 @@
  </div>
 </body>
 </html>
+
+

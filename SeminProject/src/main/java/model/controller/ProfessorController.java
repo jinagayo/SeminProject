@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import gdu.mskim.MskimRequestMapping;
 import gdu.mskim.RequestMapping;
 import model.attendance.Attendance;
+import model.graduation.Graduation;
+import model.graduation.GraduationDao;
 import model.professor.ProfessorDao;
 import model.student.Student;
 import model.student.StudentDao;
@@ -27,6 +29,7 @@ public class ProfessorController extends MskimRequestMapping {
 	private SubjectDao subdao = new SubjectDao();
 	private StudentDao stddao = new StudentDao();
 	private UserDao userdao = new UserDao();
+	private GraduationDao graddao = new GraduationDao();
 	
 	@RequestMapping("professor-mypage-info")
 	public String MypageInfo(HttpServletRequest request,HttpServletResponse response) {
@@ -99,6 +102,36 @@ public class ProfessorController extends MskimRequestMapping {
 		
 		return "professor-student-manage";
 	}
+	
+	@RequestMapping("professor-student-info")
+	public String MypageInfo2(HttpServletRequest request,HttpServletResponse response) {
+		String studno = request.getParameter("studno");
+		int id = Integer.parseInt(studno);
+		Student student = stddao.pickStudent(id);
+		request.setAttribute("student", student);	
+		User user_s = dao.selectOne(id);
+		request.setAttribute("user_s", user_s);
+		Graduation graduation = graddao.selectGrad(id);
+		request.setAttribute("gradu", graduation);
+		Map<String, Object> major = stddao.selectStudent(id);
+		request.setAttribute("m",major);
+		return "professor-student-info";
+	}
+	
+	@RequestMapping("professor-myclass")
+	public String MyClass(HttpServletRequest request,HttpServletResponse response) {
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		List<Subject>sublist = subdao.selectPsubject(id);
+		request.setAttribute("sublist",sublist);
+		return "professor-myclass";
+	}
+	
+	@RequestMapping("professor-classHome")	
+	public String ClassHome(HttpServletRequest request,HttpServletResponse response) {
+		
+		return "professor-classHome";
+	}
+		
 	
 }
 

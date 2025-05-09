@@ -72,4 +72,10 @@ public interface ModelMapper {
 	})
 	List<User> selectMany(List<Integer> studno);
 
+	@Select("SELECT * FROM subject WHERE profno=#{id}")
+	List<Subject> selectPsubject(int id);
+
+	@Select("SELECT * FROM student WHERE studno = #{id}")
+	Student pickStudent(int id);
+
 }
