@@ -47,4 +47,18 @@ public class SubjectDao {
 		 return null;
 	}
 
+	public Subject selectSubject(String sub) {
+		SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).selectSubject(sub);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		 return null;
+	}
+
+
+
 }

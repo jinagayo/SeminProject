@@ -78,4 +78,14 @@ public interface ModelMapper {
 	@Select("SELECT * FROM student WHERE studno = #{id}")
 	Student pickStudent(int id);
 
+	@Select("SELECT * FROM subject WHERE subcode=#{sub}")
+	Subject selectSubject(String sub);
+
+	@Select("SELECT studno FROM attendance WHERE subcode=#{subcode}")
+	List<Student> select_sub_stdno(Integer subcode);
+
+	@Select("SELECT * FROM attendance WHERE subcode=#{subcode}")
+	List<Attendance> fixatt(Integer subcode);
+
+
 }

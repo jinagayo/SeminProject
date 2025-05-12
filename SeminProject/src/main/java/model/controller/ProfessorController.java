@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import gdu.mskim.MskimRequestMapping;
 import gdu.mskim.RequestMapping;
 import model.attendance.Attendance;
+import model.attendance.AttendanceDao;
 import model.graduation.Graduation;
 import model.graduation.GraduationDao;
 import model.professor.ProfessorDao;
@@ -30,6 +31,7 @@ public class ProfessorController extends MskimRequestMapping {
 	private StudentDao stddao = new StudentDao();
 	private UserDao userdao = new UserDao();
 	private GraduationDao graddao = new GraduationDao();
+	private AttendanceDao attdao = new AttendanceDao();
 	
 	@RequestMapping("professor-mypage-info")
 	public String MypageInfo(HttpServletRequest request,HttpServletResponse response) {
@@ -128,14 +130,28 @@ public class ProfessorController extends MskimRequestMapping {
 	
 	@RequestMapping("professor-classHome")	
 	public String ClassHome(HttpServletRequest request,HttpServletResponse response) {
-		Subject sub = request.getParameter("subcode");
-		request.setAttribute("subject",sub);
+		String sub = request.getParameter("subcode");
+		Subject subject =  subdao.selectSubject(sub);
+		request.setAttribute("subject",subject);
 		return "professor-classHome";
 	}
 	
 
 	@RequestMapping("professor-CkAtt")	
-	public String ClassHome(HttpServletRequest request,HttpServletResponse response) {
+	public String CkAtt(HttpServletRequest request,HttpServletResponse response) {
+		String sub = request.getParameter("subcode");
+		Integer subcode = Integer.parseInt(sub);
+		List<Student> studentlist = attdao.select_sub_stdno(subcode);
+		request.setAttribute("studentlist", studentlist);
+		List<Integer> stdnos = studentlist.stream()
+                .map(Student::getStudno)
+                .collect(Collectors.toList());
+		
+		List<User> std_list = userdao.selectMany(stdnos);
+		request.setAttribute("std_list", std_list);
+		
+		List<Attendance> att = attdao.fixatt(subcode);
+		request.setAttribute("att",att);
 		
 		return "professor-CkAtt";
 	}

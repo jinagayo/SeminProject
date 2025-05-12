@@ -1,19 +1,84 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>폼 입력 팝업</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>출결관리</title>
+<style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            font-family: sans-serif;
+            box-sizing: border-box;
+        }
+        .container {
+            max-width: 100%;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: auto;
+            display: block;
+        }
+
+        th {
+            padding: 5px;
+            text-align: center;
+            font-size: 14px;
+            white-space: nowrap;
+        }
+
+
+        @media screen and (max-width: 600px) {
+            th {
+                font-size: 12px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h2>입력 폼</h2>
-    <form action="submitForm.jsp" method="post">
-        <label for="name">이름:</label>
-        <input type="text" id="name" name="name"><br><br>
-
-        <label for="email">이메일:</label>
-        <input type="email" id="email" name="email"><br><br>
-
-        <input type="submit" value="제출">
-    </form>
+    <div class="container">
+        <h2>출결관리</h2>
+        <form action="professor-CkAtt" method="post">
+            <table border="1" style="border-collapse: collapse; width: 100%;">
+                <tr> 
+                	<th style="border: 1px solid black; padding: 5px;"></th>
+                    <c:forEach var="i" begin="1" end="15">
+                        <th style="border: 1px solid black; padding: 5px;">WEEK${i}</th>	
+                    </c:forEach>
+                </tr>
+                   <c:forEach var="u" items="${std_list}" varStatus="s">
+                   <tr>
+                   <c:forEach var="a" items="${att}" varStatus="as">
+                   		<c:if test="${u.id == a.studno}">
+                        <th style="border: 1px solid black; padding: 5px;">${u.name}</th>
+                        	<c:forEach var="i" begin="1" end="15">
+                        		<td style="border: 1px solid black; padding: 5px;">
+                        				<c:set var="weekKey" value="${'WEEK'}${i}" />
+                        				<input type="checkbox" name="att" ${a[weekKey] == 1 ? "checked" : ""}>
+                        		</td>	
+                    		</c:forEach>
+                    	</c:if>
+                    </c:forEach>
+                    </tr>
+                    </c:forEach>
+            </table>
+            <div style="padding: 20px 20px;"><button onclick="fixing()">확인</button></div>
+        </form>
+    </div>
+    
+     <script type="text/javascript">
+   		function fixing() {
+   			alert("저장되었습니다.")
+   			window.close();
+ 		}
+   
+    </script>
 </body>
 </html>

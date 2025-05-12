@@ -13,7 +13,7 @@
 <div class="card mb-4">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
-              선형대수학
+             ${subject.subname}
      </div>
  
  <div>
@@ -29,7 +29,8 @@
 
    <script type="text/javascript">
    		function openAttPopup() {
-     	  	window.open("professor-CkAtt", "professor-CkAtt", "width=350,height=400, left=500,top=100, scrollbars=yes");
+   			const url = "professor-CkAtt?subcode=${subject.subcode}";
+     	  	window.open( url, "professor-CkAtt", "width=350,height=400, left=500,top=100, scrollbars=yes");
  		}
    
         function openGradePopup() {
