@@ -4,6 +4,7 @@ import model.mapper.ModelMapper;
 
 import java.sql.Connection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -22,5 +23,17 @@ public class UserDao{
 		 }
 		 return null;		 
 	 }
+	 
+	public List<User> selectMany(List<Integer> studno) {
+		 SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).selectMany(studno);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		 return null;		
 
+}
 }

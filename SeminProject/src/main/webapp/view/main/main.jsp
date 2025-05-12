@@ -33,8 +33,16 @@
                     <ul class="navbar-nav ms-auto">
                     	<!--  로그인 되었을때 -->
                     	<c:if test="${sessionScope.login != null }">
-                    	    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../main/logout'">로그아웃</a></li>
-                    		<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../student/student-mypage-info'">마이페이지</a></li>
+                    		<c:choose>
+                    			<c:when test="${sessionScope.user.position == 1}">
+                    				 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../main/logout'">로그아웃</a></li>
+                    				 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../student/student-mypage-info'">마이페이지</a></li>
+                    			</c:when>
+                    			<c:when test="${sessionScope.user.position == 2}">
+                    				 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../main/logout'">로그아웃</a></li>
+                    				 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../professor/professor-mypage-info'">마이페이지</a></li>
+                    			</c:when>
+                    		</c:choose>
                     	</c:if>
                     	<!-- 로그인되지 않았을때 -->
                     	<c:if test="${sessionScope.login == null }">
@@ -96,7 +104,6 @@
                         <p class="lead mb-0">
                             Freelance is a free to use, MIT licensed Bootstrap theme created by
                             <a href="http://startbootstrap.com">Start Bootstrap</a>
-                            .
                         </p>
                     </div>
                 </div>
