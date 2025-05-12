@@ -1,5 +1,6 @@
 package model.controller;
 
+import java.io.UnsupportedEncodingException;
 import java.nio.file.spi.FileSystemProvider;
 import java.util.List;
 import java.util.Map;
@@ -184,7 +185,12 @@ public class StudentController extends MskimRequestMapping{
 	@MSLogin("noticecheck")
 	@RequestMapping("servicesubmit")
 	public String servicesubmit(HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) {      
+		try {
+		         request.setCharacterEncoding("UTF-8");
+		      } catch (UnsupportedEncodingException e) {
+		         e.printStackTrace();
+		      }
 		Integer id = (Integer) request.getSession().getAttribute("login");
 		Service service = new Service();
 		service.setStudno(id);

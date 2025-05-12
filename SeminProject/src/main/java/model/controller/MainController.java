@@ -1,7 +1,6 @@
 package model.controller;
 
 import java.io.IOException;
-
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -63,4 +62,15 @@ public class MainController extends MskimRequestMapping {
 		request.getSession().invalidate();
 		return "redirect:main";
 	}
+	
+	@RequestMapping("main")
+	public String main(HttpServletRequest request,HttpServletResponse response) {
+		String login = (String)request.getSession().getAttribute("login");
+		String user = (String)request.getSession().getAttribute("user");
+		request.setAttribute("login", login);
+	    request.setAttribute("user", user);
+
+	    return "main/main";
+	}
 }
+

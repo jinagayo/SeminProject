@@ -318,11 +318,17 @@ svg {
 
 table {
 	width: 100%;
+  caption-side: bottom;
+  border-collapse: collapse;
+  background-image: url("../assests/img/logo.png");
+	width: 90%;
+    max-width: 1200px;
     text-align: center;
     border: 1px solid #fff;
     border-spacing: 1px;
     font-family: 'Cairo', sans-serif;
   margin: auto;
+
 }
 
 caption {

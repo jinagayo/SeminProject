@@ -44,44 +44,43 @@
                         <div class="nav">
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseMypage" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                마이페이지
+                                강의 관리
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
                             <div class="collapse" id="collapseMypage" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="student-mypage-info">학적 정보 조회</a>
-                                    <a class="nav-link" href="student-mypage-grad">졸업 사정표</a>
-                                    <a class="nav-link" href="student-mypage-time">내 시간표 조회</a>
+                                    <a class="nav-link" onclick="location.href='../admin/subjectInsert'">강의 개설</a>
+                                    <a class="nav-link" onclick="location.href='../admin/subjectList'">전체 강의 조회</a>
                                 </nav>
                             </div>
-                            <a class="nav-link" href="notice.jsp">
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseStudent" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                학생관리
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseStudent" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" onclick="location.href='../admin/studentInsert'">학생 등록</a>
+                                    <a class="nav-link" onclick="location.href='../admin/studentList'">학생 조회</a>
+                                    <a class="nav-link" href="student-teach-personality">교육 실습 일지</a>
+                                    <a class="nav-link" href="student-teach-personality">교육 봉사</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProfessor" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                교수관리
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseProfessor" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" onclick="location.href='../admin/professorInsert'">교수 등록</a>
+                                    <a class="nav-link" onclick="location.href='../admin/professorList'">교수 조회</a>
+                                </nav>
+                            </div>
+                            <a class="nav-link" href="../admin/notice.jsp">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 알림마당
                             </a>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseClass" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                내 강의실
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseClass" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="student-class-application">수강신청</a>
-                                    <a class="nav-link" href="student-class-list">내 강의 목록</a>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTeach" aria-expanded="false" aria-controls="collapseLayouts">
-                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                                교원자격
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseTeach" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="student-teach-practice">교육 실습</a>
-                                    <a class="nav-link" href="student-teach-personality">교직 적성 검사</a>
-                                    <a class="nav-link" href="student-teach-service">교육 봉사</a>
-                                    <a class="nav-link" href="student-teach-info">교원 자격 취득 조건 조회</a>
-                                </nav>
-                            </div>
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
