@@ -10,6 +10,13 @@ public class Board {
 	private String content;
 	private Date regdate;
 	private int subcode;
+	private String file1;
+	public void setFile1(String file1) {
+		this.file1 = file1;
+	}
+	public String getFile1() {
+		return file1;
+	}
 	public int getNum() {
 		return num;
 	}

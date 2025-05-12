@@ -10,7 +10,7 @@
 </head>
 <body>
 <h2>알림마당</h2>
-<form action="list?boardid=${boardid}" method="post" name="sf">
+<form action="notice" method="post" name="sf">
 	<input type="hidden" name="pageNum" value="1">
 		<select class="w3-select" name="column">
 			<option value="">선택하시오</option>
@@ -25,7 +25,7 @@
 			placeholder="Search" name="find" value="${param.find}">
 		<button class="btn btn-primary" type="submit">Search</button>
 </form>
-<table class="talbe">
+<table class="table">
 	<c:if test="${boardcount==0}">
 		<tr>
 			<td colspan="5">등록된 게시글이 없습니다.</td>
@@ -37,30 +37,19 @@
 		</tr>
 	</c:if>
 		<tr>	
-			<td colspan="5" style="text-align:right">글개수 : ${boardcount}</td>
+			<td></td>
 		</tr>
 		<tr>
-			<th width="8%">번호</th><th width="50%">제목</th>
-			<th width="14%">작성자</th><th width="%">등록일</th>
-			<th width="%">조회수</th>
+			<th width="8%">번호</th><th width="80%">제목</th>
+			<th width="%">등록일</th>
 		</tr>
 	<c:forEach var="b" items="${list}">
 		<tr>
 			<td>${b.num}</td>
 			<td style="text-align:left">
-			<c:if test="${!empty b.file1}"><a href="../upload/board/${b.file1}">@</a></c:if>
-			<c:if test="${empty b.file1}">&nbsp;&nbsp;&nbsp; </c:if>
-			<%--답글인 경우 level만큼 공백주기 --%>
-			<c:if test ="${b.grplevel>0}">
-				<c:forEach var="i" begin="2" end="${b.grplevel}">
-					&nbsp;&nbsp;&nbsp;
-				</c:forEach>
-				↳
-			</c:if>
 			
 			<a href="info?num=${b.num}">
 			${b.title}</a></td>
-			<td>${b.writer}</td>
 			<td><fmt:formatDate value="${b.regdate}" pattern="yyyy-MM-dd" var="rdate" />
 			<fmt:formatDate value="${today}" pattern="yyyy-MM-dd HH:mm:ss" var="tdate" />
 			<c:if test="${rdate==tdate}">
@@ -69,7 +58,6 @@
 			<c:if test="${rdate!=today}">
 				<fmt:formatDate value="${b.regdate}" pattern="yyyy-MM-dd"/>
 			</c:if></td>
-			<td>${b.readcnt}</td>
 		</tr>
 	</c:forEach>
 	<%--페이지 처리하기 --%>
@@ -90,7 +78,7 @@
 		</td>
 	</tr>
 	<%-- 공지사항 게시판의 경우 관리자 로그인인 경우에만 글쓰기 출력 --%>
-		<c:if test="${boardid!=1 || sessionScope.login=='admin'}">
+		<c:if test="${user.position==3}">
 			<tr>
 				<td colspan="5" style="text-align:right">
 				<p align="right"> <a href="writeForm">글쓰기</a></p>

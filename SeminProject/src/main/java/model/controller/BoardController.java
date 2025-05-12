@@ -1,22 +1,167 @@
 package model.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.Date;
+import java.util.List;
+
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oreilly.servlet.MultipartRequest;
+
+import gdu.mskim.MSLogin;
 import gdu.mskim.MskimRequestMapping;
 import gdu.mskim.RequestMapping;
+import model.board.Board;
 import model.board.BoardDao;
+import model.comment.Comment;
+import model.student.StudentDao;
+import model.user.User;
+import model.user.UserDao;
 
 @WebServlet(urlPatterns= {"/board/*"},
 initParams= {@WebInitParam(name="view",value="/view/board/")})
 public class BoardController extends MskimRequestMapping{
 	private BoardDao boardDao = new BoardDao();
+	private StudentDao stuDao = new StudentDao();
+	private UserDao userDao= new UserDao();
 
 	public String noticecheck(HttpServletRequest request, HttpServletResponse response ) {
-		return null;
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		System.out.println(id);
+		if(id==null) {
+			request.setAttribute("msg", "접근 불가");
+			request.setAttribute("url", "/main/main");
+			return "/alert";
+		}else {
+			User user_std = userDao.selectOne(id);
+			if(user_std.getPosition()!=3) {
+				request.setAttribute("msg", "접근 불가");
+				request.setAttribute("url", "/main/main");
+				return "/alert";
+			}
+			return null;
+		}
+	}
+
+	@RequestMapping("boardlayout") 
+	public String boardlayout(HttpServletRequest request,HttpServletResponse response) {
+		return "boardlayout";
+	}
+
+	@RequestMapping("notice") 
+	public String Notice(HttpServletRequest request,HttpServletResponse response) {
+		 try {
+	         request.setCharacterEncoding("UTF-8");
+	      } catch (UnsupportedEncodingException e) {
+	         e.printStackTrace();
+	      }
+		int pageNum=1;
+		try {
+			pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		}catch(NumberFormatException e) {}
+		
+		
+		String column = request.getParameter("column");
+		String find = request.getParameter("find");
+				
+		if(column==null || column.trim().equals("") ||
+					find==null || find.trim().equals("")) {
+						column=null;
+						find=null;
+		}
+				
+		int limit=10; //페이지당 출력되는 게시물의 건수
+		int boardcount=boardDao.MainboardCount(pageNum,limit,column,find);
+		List<Board> list= boardDao.Mainlist(pageNum,limit,column,find);
+		int maxpage =(int)((double)boardcount/limit +0.95);
+		int startpage=((int)(pageNum/10.0+0.9)-1)*10+1;
+		int endpage=startpage+9;
+		if(endpage>maxpage) endpage=maxpage;
+		String boardName="알림마당";
+		request.setAttribute("boardName", boardName); //개시판 일믐
+		request.setAttribute("boardCount", boardcount); 
+				
+		request.setAttribute("pageNum", pageNum); //현페
+		request.setAttribute("list", list);//현재페이지에 출력할 겜시물 목록
+		request.setAttribute("startpage", startpage);//페이지 시작번호
+		request.setAttribute("endpage", endpage); //페이지의 마지막 번호
+		request.setAttribute("maxpage", maxpage);//페이지 최대번호
+				
+		//boardnum : 보여주기 위한 번호
+		request.setAttribute("boardName", boardName);
+		request.setAttribute("today", new Date());
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		if(id!=null) {
+			User user_std = userDao.selectOne(id);
+			request.setAttribute("user", user_std);
+			
+		}
+		
+				
+				return "notice";
+		
+	}
+	@MSLogin("noticecheck")
+	@RequestMapping("writeForm") 
+	public String writeForm(HttpServletRequest request,HttpServletResponse response) {
+		return "writeForm";
 	}
 	
-	
+	@RequestMapping("write")
+	@MSLogin("noticecheck")
+	public String write(HttpServletRequest request, HttpServletResponse response ) {
+		//파일업로드 되는 폴더 설정
+		String path=request.getServletContext().getRealPath("/")+"/upload/board/";
+		File f= new File(path);
+		if(!f.exists()) f.mkdirs(); //폴더 생성.
+		//mkdir() :  한단계 폴더만 생성
+		//mkdirs() : 여러단계 폴더 생성
+		int size=10*1024*1024;	//10M. 업로드 파일의 최대 크기
+		MultipartRequest multi = null; //파일 업로드 클래스
+		try {
+			multi = new MultipartRequest(request,path,size,"UTF-8"); //파일 업롣,
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		//파라미터 값 저장
+		Board board = new Board();
+		board.setTitle(multi.getParameter("title"));
+		board.setContent(multi.getParameter("content"));
+		board.setFile1(multi.getFilesystemName("file1")); //업로드 된 파일이름
+		System.out.println(multi.getParameter("content"));
+		//시스템에서 필요한 정보를 저장
+		String boardid =(String)request.getSession().getAttribute("boardid");
+		if(boardid==null) boardid="1"; //공지사항 기본 게시판 설정
+		board.setBoardid(boardid); //게시판 종류 : 1. 공지사항, 2:자유게시판
+		if(board.getFile1()==null) board.setFile1(""); //업로드 파일이 없는 경우
+		int num = boardDao.maxnum();
+		board.setNum(++num);	//게시글의 키값. 게시글 번호.
+		String msg="게시물 등록 실패";
+		String url="writeForm";
+		if(boardDao.insert(board)) { //게시글 등록 성공
+			return "redirect:notice";
+		}
+		//게시글 등록 실패
+		request.setAttribute("msg", msg);
+		request.setAttribute("url", url);
+		return "alert";
+	}
+	@RequestMapping("info")
+	public String info(HttpServletRequest request, HttpServletResponse response ) {
+		int num = Integer.parseInt(request.getParameter("num"));
+		Board board;
+		try {
+			board = BoardDao.getBoard(num);
+			request.setAttribute("b", board);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} //num의 게시물 데이터 저장
+		return "info";
+	}
 }
