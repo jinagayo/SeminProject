@@ -12,7 +12,7 @@
   <div class="card mb-4">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
-              DataTable Example
+              교육 봉사
      </div>
      <form action="studentList" name="f" method="post" accept-charset="UTF-8">
 	     <div class="card-body">
