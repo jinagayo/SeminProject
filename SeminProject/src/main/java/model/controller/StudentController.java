@@ -28,6 +28,7 @@ import model.personality.PersonalityDao;
 import model.pratice.Practice;
 import model.pratice.PracticeDao;
 import model.service.Service;
+import model.service.ServiceDao;
 import model.student.Student;
 import model.student.StudentDao;
 import model.subject.Subject;
@@ -47,6 +48,7 @@ public class StudentController extends MskimRequestMapping{
 	private AttendanceDao attdao = new AttendanceDao();
 	private PracticeDao pradao = new PracticeDao();
 	private PersonalityDao perdao = new PersonalityDao();
+	private ServiceDao serdao= new ServiceDao(); 
 
 	public String noticecheck(HttpServletRequest request, HttpServletResponse response ) {
 		Integer id = (Integer) request.getSession().getAttribute("login");
@@ -201,6 +203,14 @@ public class StudentController extends MskimRequestMapping{
 	@RequestMapping("student-teach-service") 
 	public String TeachService(HttpServletRequest request,
 			HttpServletResponse response) {
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		Service service = serdao.serviceInfo(id);
+		if(service!=null) {
+			request.setAttribute("msg", "봉사 확인 중입니다");
+			request.setAttribute("url", "student-teach-info" );
+			
+			return "alert";
+		}
 		return "student-teach-service";
 	}
 
@@ -213,16 +223,27 @@ public class StudentController extends MskimRequestMapping{
 		      } catch (UnsupportedEncodingException e) {
 		         e.printStackTrace();
 		      }
+		String path=request.getServletContext().getRealPath("/")+"/upload/service/";
+		File f= new File(path);
+		if(!f.exists()) f.mkdirs(); 
+		int size=10*1024*1024;	//10M. 업로드 파일의 최대 크기
+		MultipartRequest multi = null; //파일 업로드 클래스
+		try {
+			multi = new MultipartRequest(request,path,size,"UTF-8"); //파일 업롣,
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
 		Integer id = (Integer) request.getSession().getAttribute("login");
 		Service service = new Service();
 		service.setStudno(id);
-		service.setServicename(request.getParameter("servicename"));
-		service.setGroupname(request.getParameter("groupname"));
-		service.setDay(request.getParameter("date"));
-		int time= Integer.parseInt(request.getParameter("time"));
+		service.setServicename(multi.getParameter("servicename"));
+		service.setGroupname(multi.getParameter("groupname"));
+		service.setDay(multi.getParameter("date"));
+		int time= Integer.parseInt(multi.getParameter("time"));
 		service.setTime(time);
-		service.setContent(request.getParameter("content"));
-		service.setEmotion(request.getParameter("emotion"));
+		service.setContent(multi.getParameter("content"));
+		service.setEmotion(multi.getParameter("emotion"));
+		service.setFile1(multi.getFilesystemName("file1"));
 
 		request.setAttribute("url", "student-teach-service" );
 		if(pradao.servsubmit(service)) {

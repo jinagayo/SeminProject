@@ -3,9 +3,11 @@ package model.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import model.professor.Professor;
 import model.student.Student;
@@ -147,8 +149,8 @@ public interface ModelMapper {
 	@Select("select * from pratice where studno= #{id}")
 	Practice selectparct(Integer id);
 
-	@Insert("insert into service (studno,day,servicename,groupname,time,content,emotion) "
-			+ "values (#{studno},#{day},#{servicename},#{groupname},#{time},#{content},#{emotion})")
+	@Insert("insert into service (studno,day,servicename,groupname,time,content,emotion,file1) "
+			+ "values (#{studno},#{day},#{servicename},#{groupname},#{time},#{content},#{emotion},#{file1})")
 	boolean servsubmit(Service service);
 
 	@Insert("insert into personality (studno,self1,self2,self3,profno) values (#{studno},#{self1},#{self2},#{self3},#{profno})")
@@ -182,7 +184,7 @@ public interface ModelMapper {
 
 
 	
-	@Select("SELECT p.studno as studno, p.day as day, t.teacherYN as teacher,t.service as service, u.name as name"
+	@Select("SELECT p.studno as studno, p.day as day, t.pracice as pra,t.service as service, u.name as name"
 			+ " FROM pratice p JOIN teacher t ON p.studno = t.studno JOIN user u ON p.studno = u.id")
 	List<Map<String, Object>> ListPratice();
 	
@@ -214,4 +216,23 @@ public interface ModelMapper {
 
 	@Select("SELECT * FROM pratice where studno=#{id}")
 	Practice InfoPracticeOne(int id);
+
+	@Update("update teacher set pracice=#{accept} where studno=#{id}")
+	boolean teacherUpdate(@Param("id")int id, @Param("accept")String accept);
+
+	@Delete("delete from pratice where studno=#{id}")
+	boolean praciceDelete(int id);
+
+	@Select("select u.name as name, s.time as time ,s.studno as studno,s.day as day from service s join user u on s.studno=u.id")
+	List<Map<String, Object>> ServiceList();
+
+	@Select("select *  from service where studno=#{id}")
+	Service serviceInfo(int id);
+
+	@Update("UPDATE teacher SET service = service + #{time} WHERE studno = #{id}")
+	boolean serviceUpdate(@Param("id")int id, @Param("time")int time);
+
+	@Delete("delete from service where studno=#{id}")
+	boolean deleteservice(int id);
+
 }

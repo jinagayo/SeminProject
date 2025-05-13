@@ -30,7 +30,7 @@
 		       				<td>${row.day}</td>
 							<td>
 								<c:choose>
-							        <c:when test="${row.teacher eq true}">
+							        <c:when test="${row.pra eq true}">
 						    			Y
 						            </c:when>
 						            <c:otherwise>

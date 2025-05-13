@@ -16,28 +16,61 @@
               DataTable Example
      </div>
      <div class="card-body">
+     
     	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align: center;">
        		<tr>
        			<th>학번</th>
-       			<td>${list.studno}</td>
+       			<td>${user.id}</td>
        		</tr>
        		<tr>
        			<th>이름</th>
-       			<td>${list.name}</td>
+       			<td>${user.name}</td>
        		</tr>
        		<tr>
        			<th>봉사 일시</th>
-       			<td>${list.day}</td>
+       			<td>${service.day}</td>
+       		</tr>
+       		<tr>
+       			<th>봉사명</th>
+       			<td>${service.servicename}</td>
+       		</tr>
+       		<tr>
+       			<th>봉사 단체명</th>
+       			<td>${service.groupname}</td>
        		</tr>
        		<tr>
        			<th>봉사 시간</th>
-       			<td>${list.service}</td>
+       			<td>${service.time}</td>
        		</tr>
        		<tr>
-       			<th>활동 이름</th>
-       			<td>${list.active}</td>
+       			<th>봉사 내용</th>
+       			<td>${service.content}</td>
+       		</tr>
+       		<tr>
+       			<th>소감</th>
+       			<td>${service.emotion}</td>
+       		</tr>
+       		<tr>
+       			<th>증명서</th>
+       			<td><a href="../upload/service/${service.file1}">${service.file1}</a></td>
        		</tr>
     	</table>
+       	<form action="serviceaccept?studno=${service.studno }" method="post" accept-charset="UTF-8"  name="f" >
+       		<table>
+	       		<tr>
+	       			<td colspan=2>
+	       				<input type="radio" name="accept" value="1"/>승인
+	       				<input type="radio" name="accept" value="0"/>반려
+	       			</td>
+	       		</tr>
+	       		<tr>
+				    <td class="text-center">
+       				<input type="hidden" name="time" value="${service.time}"/>
+				      <button type="submit" class="btn btn-secondary">제출</button>
+				    </td>
+	       		</tr>
+       		</table>
+       	</form>
     </div>
  </div>
   </body>

@@ -95,4 +95,16 @@ public class PracticeDao {
 		return null;
 	}
 
+	public boolean praciceDelete(int id) {
+		SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).praciceDelete(id);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		return false;
+	}
+
 }

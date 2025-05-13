@@ -45,7 +45,23 @@
        			<th>증명서</th>
        			<td><a href="../upload/practice/${list.file1}">${list.file1}</a></td>
        		</tr>
-    	</table>
+       	</table>
+       	<form action="practiceaccept?studno=${list.studno }" method="post" accept-charset="UTF-8"  name="f" >
+       		<table>
+	       		<tr>
+	       			<td colspan=2>
+	       				<input type="radio" name="accept" value="1"/>승인
+	       				<input type="radio" name="accept" value="0"/>반려
+	       			</td>
+	       		</tr>
+	       		<tr>
+				    <td class="text-center">
+				      <button type="submit" class="btn btn-secondary">제출</button>
+				    </td>
+	       		</tr>
+       		</table>
+       	</form>
+    	
     </div>
  </div>
   </body>
