@@ -1,12 +1,11 @@
 package model.controller;
 
-<<<<<<< HEAD
-=======
+
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.spi.FileSystemProvider;
->>>>>>> branch 'cheawon' of https://github.com/jinagayo/SeminProject.git
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -26,14 +25,11 @@ import model.attendance.Attendance;
 import model.attendance.AttendanceDao;
 import model.graduation.Graduation;
 import model.graduation.GraduationDao;
-<<<<<<< HEAD
-=======
 import model.personality.Personality;
 import model.personality.PersonalityDao;
 import model.pratice.Practice;
 import model.pratice.PracticeDao;
 import model.service.Service;
->>>>>>> branch 'cheawon' of https://github.com/jinagayo/SeminProject.git
 import model.student.Student;
 import model.student.StudentDao;
 import model.subject.Subject;
@@ -51,10 +47,6 @@ public class StudentController extends MskimRequestMapping{
 	private TeacherDao teadao = new TeacherDao();
 	private SubjectDao subdao = new SubjectDao();
 	private AttendanceDao attdao = new AttendanceDao();
-<<<<<<< HEAD
-	
-	
-=======
 	private PracticeDao pradao = new PracticeDao();
 	private PersonalityDao perdao = new PersonalityDao();
 
@@ -80,7 +72,6 @@ public class StudentController extends MskimRequestMapping{
 	}
 
 	@MSLogin("noticecheck")
->>>>>>> branch 'cheawon' of https://github.com/jinagayo/SeminProject.git
 	@RequestMapping("student-mypage-info") 
 	public String MypageInfo(HttpServletRequest request,HttpServletResponse response) {
 		Integer id = (Integer) request.getSession().getAttribute("login");
@@ -115,10 +106,6 @@ public class StudentController extends MskimRequestMapping{
                 .collect(Collectors.toList());
 		List<Subject>  sub_info = subdao.selectSub(subcodes);
 	    request.setAttribute("sub", sub_info);
-<<<<<<< HEAD
-		
-		
-=======
 
 		
 	    String[] time = new String[10];
@@ -146,7 +133,6 @@ public class StudentController extends MskimRequestMapping{
 			
 		}
 	    request.setAttribute("time", time);
->>>>>>> branch 'cheawon' of https://github.com/jinagayo/SeminProject.git
 		return "student-mypage-time";
 	}
 	

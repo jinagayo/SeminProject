@@ -233,4 +233,13 @@ public interface ModelMapper {
 			+ " GROUP BY s.subcode,s.subname")
 	List<Map<String, Object>> myclassSubjectHome(@Param("code")int code);
 
+	@Select("SELECT * from personality")
+	List<Personality> selectPersonalities();
+
+	@Select("SELECT * FROM personality WHERE studno = #{studno}")
+	Personality selectPersonality(Integer studno);
+	
+	@Update("UPDATE personality SET prof1 = #{prof1}, prof2 = #{prof2}, prof3 = #{prof3}, personsubmit = 1 WHERE studno=#{studno}")
+	boolean perChek(Personality p);
+
 }
