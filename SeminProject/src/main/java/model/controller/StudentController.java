@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.spi.FileSystemProvider;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -23,11 +24,13 @@ import model.attendance.Attendance;
 import model.attendance.AttendanceDao;
 import model.graduation.Graduation;
 import model.graduation.GraduationDao;
+
 import model.personality.Personality;
 import model.personality.PersonalityDao;
 import model.pratice.Practice;
 import model.pratice.PracticeDao;
 import model.service.Service;
+
 import model.student.Student;
 import model.student.StudentDao;
 import model.subject.Subject;
@@ -104,8 +107,6 @@ public class StudentController extends MskimRequestMapping{
                 .collect(Collectors.toList());
 		List<Subject>  sub_info = subdao.selectSub(subcodes);
 	    request.setAttribute("sub", sub_info);
-
-		
 	    String[] time = new String[10];
 	    int[] count = {5,5,5,5,5,5,5,5,5,5};
 	    for(int i=0;i<10;i++) {

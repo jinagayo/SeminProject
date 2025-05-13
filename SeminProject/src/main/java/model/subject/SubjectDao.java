@@ -1,6 +1,7 @@
 package model.subject;
 
 import java.util.List;
+
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -13,8 +14,7 @@ import model.attendance.Attendance;
 import model.mapper.ModelMapper;
 
 public class SubjectDao {
-	private Class<ModelMapper> cls = ModelMapper.class;
-	 
+	private Class<ModelMapper> cls = ModelMapper.class; 
 	public boolean insertSubject(Subject sub) {
 		 SqlSession session  = MybatisConnection.getConnection();
 		 try {
@@ -26,6 +26,7 @@ public class SubjectDao {
 		 }
 		 return false;
 	}
+
 	public List<Subject> selectSub(List<Integer> subcodes) {
 		 SqlSession session  = MybatisConnection.getConnection();
 		 try {
@@ -37,7 +38,7 @@ public class SubjectDao {
 		 }
 		 return null;	
 	}
-	 public List<Map<String, Object>> listSubject(Map<String, Object> param) {
+	public List<Map<String, Object>> listSubject(Map<String, Object> param) {
 		 SqlSession session = MybatisConnection.getConnection();
 		 try {
 			 return session.getMapper(cls).ListSubject(param);
@@ -73,5 +74,16 @@ public class SubjectDao {
 		 return null;
 	}
 
-	 
+	public Subject selectSubject(String sub) {
+		SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).selectSubject(sub);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		 return null;
+	}
+
 }

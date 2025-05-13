@@ -50,7 +50,6 @@
                        <c:if test="${sessionScope.login == null }">
                           <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../main/login'">로그인</a></li>
                        </c:if>
-
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="../board/notice">알림마당</a></li>
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">내 강의실</a></li>
                     </ul>
@@ -106,7 +105,6 @@
                         <p class="lead mb-0">
                             Freelance is a free to use, MIT licensed Bootstrap theme created by
                             <a href="http://startbootstrap.com">Start Bootstrap</a>
-                            .
                         </p>
                     </div>
                 </div>
@@ -285,7 +283,7 @@
                     <div class="modal-body text-center pb-5">
                         <div class="container">
                             <div class="row justify-content-center">
-                                <div class="col-lg-8">
+   		                            <div class="col-lg-8">
                                     <!-- Portfolio Modal - Title-->
                                     <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Submarine</h2>
                                     <!-- Icon Divider-->

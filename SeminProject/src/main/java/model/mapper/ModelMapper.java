@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import model.professor.Professor;
 import model.student.Student;
@@ -105,6 +106,10 @@ public interface ModelMapper {
 		})
 	List<Map<String, Object>> ListSubject(Map<String, Object> param);
 
+	@Select("SELECT m.mname AS major FROM professor p JOIN major m ON p.mcode = m.mcode where p.profno = #{id}")
+	Map<String, Object> selectProfessor(@Param("id") int id);
+
+
 	@Select("SELECT * from graduation where studno= #{id}")
 	Graduation selectGrad(Integer id);
 
@@ -179,8 +184,6 @@ public interface ModelMapper {
 
 	@Select("SELECT * FROM student WHERE studno = #{id}")
 	Student pickStudent(int id);
-
-
 	
 	@Select("SELECT p.studno as studno, p.day as day, t.teacherYN as teacher,t.service as service, u.name as name"
 			+ " FROM pratice p JOIN teacher t ON p.studno = t.studno JOIN user u ON p.studno = u.id")
@@ -211,4 +214,26 @@ public interface ModelMapper {
 			+ " WHERE s.subcode = 50"
 			+ " GROUP BY s.subcode,s.subname")
 	List<Map<String, Object>> myclassSubjectHome(@Param("code")int code);
+	
+	@Select("SELECT * FROM subject WHERE subcode=#{sub}")
+	Subject selectSubject(String sub);
+
+	@Select("SELECT studno FROM attendance WHERE subcode=#{subcode}")
+	List<Student> select_sub_stdno(Integer subcode);
+
+	@Select("SELECT * FROM attendance WHERE subcode=#{subcode}")
+	List<Attendance> fixatt(Integer subcode);
+
+	@Select("SELECT * FROM attendance WHERE studno=#{studno} AND subcode=#{subcode}")
+	Attendance selectAtt(@Param("studno")int studno,  @Param("subcode")int subcode);
+
+	@Update("Update attendance SET WEEK1=#{WEEK1}, WEEK2=#{WEEK2}, "
+			+ "WEEK3=#{WEEK3}, WEEK4=#{WEEK4}, WEEK5=#{WEEK5}, WEEK6=#{WEEK6}, "
+			+ "WEEK7=#{WEEK7},WEEK8=#{WEEK8}, WEEK9=#{WEEK9}, WEEK10=#{WEEK10}, WEEK11=#{WEEK11}, WEEK12=#{WEEK12}, "
+			+ "WEEK13=#{WEEK13}, WEEK14=#{WEEK14}, WEEK15=#{WEEK15} "
+			+ "WHERE studno=#{studno} AND subcode=#{subcode}")
+	int updateAttendance(Attendance attendance);
+	
+	@Update("Update attendance SET grade=#{grade} WHERE studno=#{studno} AND subcode=#{subcode}")
+	int updateGrade(Attendance attendance);
 }
