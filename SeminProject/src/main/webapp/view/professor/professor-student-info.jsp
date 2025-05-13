@@ -30,7 +30,9 @@
        			<th>학번</th>
        			<td>${student.studno}</td>
        			<th>전공</th>
+
        			<td>${m.major}</td>
+
        		</tr>
        		<tr>
        			<th>생년월일</th>

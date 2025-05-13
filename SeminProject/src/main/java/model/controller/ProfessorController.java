@@ -232,9 +232,6 @@ public class ProfessorController extends MskimRequestMapping {
 		
 		return "professor-InGrade-fix";
 	}
-	
-	
-	
-	
+
 }
 

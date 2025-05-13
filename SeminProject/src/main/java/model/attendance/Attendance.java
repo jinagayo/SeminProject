@@ -17,7 +17,6 @@ public class Attendance {
 	public void setStudno(int studno) {
 		this.studno = studno;
 	}
-
 	public String getGrade() {
 		return grade;
 	}
@@ -119,7 +118,7 @@ public class Attendance {
 		// TODO Auto-generated method stub
 		return super.toString();
 	}
-	
+
 	
 	
 }

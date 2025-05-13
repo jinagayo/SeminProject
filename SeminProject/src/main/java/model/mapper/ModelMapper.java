@@ -3,14 +3,18 @@ package model.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
-
-import model.attendance.Attendance;
-import model.graduation.Graduation;
+import model.professor.Professor;
 import model.student.Student;
 import model.subject.Subject;
+import model.attendance.Attendance;
+import model.graduation.Graduation;
+import model.personality.Personality;
+import model.pratice.Practice;
+import model.service.Service;
 import model.teacher.Teacher;
 import model.user.User;
 public interface ModelMapper {
@@ -20,7 +24,6 @@ public interface ModelMapper {
 	@Select("SELECT s.tograde,s.entry,s.grade, m.mname AS major FROM student s JOIN major m ON s.mcode = m.mcode where s.studno = #{id}")
 	Map<String, Object> selectStudent(@Param("id") int id);
 
-	
 	@Select("SELECT m.mname AS major FROM professor p JOIN major m ON p.mcode = m.mcode where p.profno = #{id}")
 	Map<String, Object> selectProfessor(@Param("id") int id);
 
@@ -102,5 +105,132 @@ public interface ModelMapper {
 	int updateGrade(Attendance attendance);
 
 
+	
+	@Insert("insert into user (id,name,birth,phone,address,email,position)"
+			+ " values (#{id},#{name},#{birth},#{phone},#{address},#{email},#{position})")
+	int InsertUser(User user);
+	
+	@Insert("insert into student (studno,entry,profno,mcode)"
+			+" values (#{studno},#{entry},#{profno},#{mcode})")
+	int InsertStudent(Student std);
+
+	@Insert("insert into professor (profno,sub,mcode)"
+			+" values (#{profno},#{sub},#{mcode})")
+	int InsertProfessor(Professor pro);
+	
+	@Insert("insert into subject (subcode,subname,time,starttime,day,location,profno,teachsub)"
+			+ " values (#{subcode},#{subname},#{time},#{starttime},#{day},#{location},#{profno},#{teachsub})")
+	int InsertSubject(Subject sub);
+	
+	@Select({
+		  "<script>",
+		  "SELECT s.studno AS studno, m.mname AS major, u.name AS name",
+		  "FROM student s",
+		  "JOIN user u ON s.studno = u.id",
+		  "JOIN major m ON m.mcode = s.mcode",
+		  "<where>",
+		  "  <if test='select == \"name\" and keyword != null'>",
+		  "    u.name LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "  <if test='select == \"studno\" and keyword != null'>",
+		  "    s.studno LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "  <if test='select == \"major\" and keyword != null'>",
+		  "    m.mname LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "</where>",
+		  "</script>"
+		})
+	List<Map<String, Object>> ListStudent(Map<String, Object> params);
+	
+	@Select({
+		  "<script>",
+		  "SELECT p.profno AS profno, m.mname AS major, u.name AS name",
+		  "FROM professor p",
+		  "JOIN user u ON p.profno = u.id",
+		  "JOIN major m ON m.mcode = p.mcode",
+		  "<where>",
+		  "  <if test='select == \"name\" and keyword != null'>",
+		  "    u.name LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "  <if test='select == \"profno\" and keyword != null'>",
+		  "    p.profno LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "  <if test='select == \"major\" and keyword != null'>",
+		  "    m.mname LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "</where>",
+		  "</script>"
+		})
+	List<Map<String, Object>> ListProfessor(Map<String, Object> params);
+
+	@Select({
+		  "<script>",
+		  "SELECT s.subname AS subname, s.time AS time, s.starttime AS starttime, s.teachsub AS teachsub, u.name AS name",
+		  "FROM subject s",
+		  "JOIN user u ON s.profno = u.id",
+		  "<where>",
+		  "  <if test='select == \"subname\" and keyword != null'>",
+		  "    s.subname LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "  <if test='select == \"name\" and keyword != null'>",
+		  "    u.name LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "</where>",
+		  "</script>"
+		})
+	List<Map<String, Object>> ListSubject(Map<String, Object> param);
+
+
+	@Insert("insert into pratice (studno,day,activename,content,emotion,file1) "
+			+ "values (#{studno},#{day},#{activename},#{content},#{emotion},#{file1})")
+	boolean prasubmit(Practice practice);
+
+	@Select("select * from pratice where studno= #{id}")
+	Practice selectparct(Integer id);
+
+	@Insert("insert into service (studno,day,servicename,groupname,time,content,emotion) "
+			+ "values (#{studno},#{day},#{servicename},#{groupname},#{time},#{content},#{emotion})")
+	boolean servsubmit(Service service);
+
+	@Insert("insert into personality (studno,self1,self2,self3,profno) values (#{studno},#{self1},#{self2},#{self3},#{profno})")
+	boolean persubmit(Personality person);
+
+	@Select("select * from personality where studno=#{id}")
+	Personality selectper(Integer id);
+
+	@Select("select * from student where studno=#{id}")
+	Student selectStu(Integer id);
+
+	
+	@Select("SELECT p.studno as studno, p.day as day, t.teacherYN as teacher,t.service as service, u.name as name"
+			+ " FROM pratice p JOIN teacher t ON p.studno = t.studno JOIN user u ON p.studno = u.id")
+	List<Map<String, Object>> ListPratice();
+	
+	@Select("SELECT p.studno as studno ,p.day as day ,p.activename as active ,t.service as service ,u.name as name"
+			+ " FROM pratice p JOIN teacher t ON p.studno = t.studno JOIN user u ON p.studno = u.id")
+	List<Map<String, Object>> ServiceInfo();
+	
+	@Select("SELECT p.studno as studno ,p.day as day ,p.activename as active ,t.service as service ,u.name as name"
+			+ " FROM pratice p JOIN teacher t ON p.studno = t.studno JOIN user u ON p.studno = u.id where p.studno = #{id}")
+	Map<String, Object> ServiceInfoOne(@Param("id")int id);
+	
+	
+	/* myclass */
+	@Select("SELECT s.subname as subname,s.subcode as subcode, 15-SUM(a.week1+a.week2+a.week3+a.week4+a.week5+a.week6+a.week7+a.week8+a.week9+a.week10+a.week11+a.week12+a.week13+a.week14+a.week15) AS week"
+			+ " FROM subject s"
+			+ " JOIN attendance a"
+			+ " ON s.subcode = a.subcode"
+			+ " WHERE a.studno = #{id}"
+			+ " GROUP BY s.subcode,s.subname")
+	List<Map<String, Object>> myclassInfo(@Param("id")int id);
+	
+	@Select("SELECT s.subname,s.subcode,a.week1,a.week2,a.week3,a.week4,a.week5,a.week6,a.week7,a.week8,a.week9,a.week10,a.week11,a.week12,a.week13,a.week14,a.week15"
+			+ " FROM subject s"
+			+ " JOIN attendance a"
+			+ " ON s.subcode = a.subcode"
+			+ " WHERE s.subcode = 50"
+			+ " GROUP BY s.subcode,s.subname")
+	List<Map<String, Object>> myclassSubjectHome(@Param("code")int code);
 
 }
