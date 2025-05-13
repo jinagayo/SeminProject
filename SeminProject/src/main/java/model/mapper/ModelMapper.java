@@ -140,8 +140,8 @@ public interface ModelMapper {
 	})
 	List<Subject> selectSub(List<Integer> subcodes);
 
-	@Insert("insert into pratice (studno,day,activename,content,emotion) "
-			+ "values (#{studno},#{day},#{activename},#{content},#{emotion})")
+	@Insert("insert into pratice (studno,day,activename,content,emotion,file1) "
+			+ "values (#{studno},#{day},#{activename},#{content},#{emotion},#{file1})")
 	boolean prasubmit(Practice practice);
 
 	@Select("select * from pratice where studno= #{id}")

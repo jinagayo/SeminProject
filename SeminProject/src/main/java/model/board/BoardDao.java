@@ -104,4 +104,41 @@ public class BoardDao {
 		return null;
 	}
 
+	public Board selectOne(int num) {
+		SqlSession session = MybatisConnection.getConnection();
+		try {
+			  return session.getMapper(cls).selectone(num);
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			MybatisConnection.close(session);
+		}
+		return null;
+	}
+
+	public boolean update(Board b) {
+		SqlSession session = MybatisConnection.getConnection();
+		try {
+			return session.getMapper(cls).update(b) > 0;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			MybatisConnection.close(session);
+		}
+		return false;
+	}
+
+
+	public boolean delete(Board board) {
+		SqlSession session = MybatisConnection.getConnection();
+		try {
+			return session.getMapper(cls).delete(board);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			MybatisConnection.close(session);
+		}
+		return false;
+	}
+
 }

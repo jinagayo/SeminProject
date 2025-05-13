@@ -155,6 +155,12 @@ public class BoardController extends MskimRequestMapping{
 	public String info(HttpServletRequest request, HttpServletResponse response ) {
 		int num = Integer.parseInt(request.getParameter("num"));
 		Board board;
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		if(id!=null) {
+			User user_std = userDao.selectOne(id);
+			request.setAttribute("user", user_std);
+			
+		}
 		try {
 			board = BoardDao.getBoard(num);
 			request.setAttribute("b", board);
@@ -164,4 +170,78 @@ public class BoardController extends MskimRequestMapping{
 		} //num의 게시물 데이터 저장
 		return "info";
 	}
+	@RequestMapping("updateForm")
+	@MSLogin("noticecheck")
+	public String updateForm(HttpServletRequest request, HttpServletResponse response ) {
+		int num = Integer.parseInt(request.getParameter("num"));
+		Board b = BoardDao.getBoard(num);
+		request.setAttribute("b", b);
+		
+		return "updateForm";
+	}
+	   @RequestMapping("update")
+	   public String update(HttpServletRequest request,HttpServletResponse response) {
+	      String path = request.getServletContext().getRealPath("/") + "/upload/board";
+	      
+	      File f= new File(path);
+	      String msg = "";
+	      String url = "";
+	         
+	      if(!f.exists()) f.mkdirs();
+	      int size = 10*1024*1024;
+	      MultipartRequest multi = null;
+	      try {
+	         multi = new MultipartRequest(request, path,size,"UTF-8");
+	      }catch(IOException e) {
+	         e.printStackTrace();
+	      }
+	      //1. 파라미터 정보를 Board 객체에 저장 => request 객체 사용 불가
+	      Board board = new Board();
+	      board.setNum(Integer.parseInt(multi.getParameter("num")));
+	      board.setWriter(multi.getParameter("writer"));
+	      board.setTitle(multi.getParameter("title"));
+	      board.setContent(multi.getParameter("content"));
+	      board.setFile1(multi.getParameter("file1"));
+	      
+	      //비밀번호 검증: 비밀번호 오류 시 메세지 출력 후 updateForm 페이지 이동
+	      Board bdo = boardDao.selectOne(board.getNum());
+	      //첨부파일 수정 안됨
+	      if(board.getFile1()==null || board.getFile1().equals("")) {
+	         //이전 첨부 파일을 유지
+	         board.setFile1(multi.getParameter("file2"));
+	      }
+
+	      if(boardDao.update(board)) {   //수정 성공
+	         msg = "게시글 수정 성공";
+	         url = "info?num=" + board.getNum();
+	         return "redirect:info?num="+ board.getNum();
+	      }else { //수정실패
+	         msg = "게시글 수정 실패";
+	         url = "updateForm";
+	      }
+	      
+	      
+	      request.setAttribute("msg", msg);
+	      request.setAttribute("url", url);
+	      return "alert";
+	   }
+	   @RequestMapping("delete")
+	   public String delete(HttpServletRequest request,HttpServletResponse response) {
+			int num = Integer.parseInt(request.getParameter("num"));
+			System.out.println("nanan"+num);
+			Board board= BoardDao.getBoard(num);
+			String msg , url;
+			if(!boardDao.delete(board)) {
+				msg="삭제 실패.";
+				url="deleteForm?num="+num;
+			}else {
+				msg="삭제되었습니다.";
+				url="notice";
+			}
+		System.out.println("delete 함수 실행됨");
+		request.setAttribute("msg", msg);
+		request.setAttribute("url",url);
+			return "alert";
+	   }
+	
 }

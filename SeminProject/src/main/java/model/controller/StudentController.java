@@ -1,15 +1,20 @@
 package model.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.spi.FileSystemProvider;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.oreilly.servlet.MultipartRequest;
 
 import gdu.mskim.MSLogin;
 import gdu.mskim.MskimRequestMapping;
@@ -128,6 +133,8 @@ public class StudentController extends MskimRequestMapping{
 	    request.setAttribute("time", time);
 		return "student-mypage-time";
 	}
+	
+
 	@MSLogin("noticecheck")
 	@RequestMapping("student-teach-practice") 
 	public String TeachPractice(HttpServletRequest request,
@@ -157,13 +164,26 @@ public class StudentController extends MskimRequestMapping{
 	@RequestMapping("praticesubmit")
 	public String praticesubmit(HttpServletRequest request,
 			HttpServletResponse response) {
+		String path=request.getServletContext().getRealPath("/")+"/upload/practice/";
+		File f= new File(path);
+		if(!f.exists()) f.mkdirs(); //폴더 생성.
+		//mkdir() :  한단계 폴더만 생성
+		//mkdirs() : 여러단계 폴더 생성
+		int size=10*1024*1024;	//10M. 업로드 파일의 최대 크기
+		MultipartRequest multi = null; //파일 업로드 클래스
+		try {
+			multi = new MultipartRequest(request,path,size,"UTF-8"); //파일 업롣,
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
 		Integer id = (Integer) request.getSession().getAttribute("login");
 		Practice practice = new Practice();
 		practice.setStudno(id);
-		practice.setActivename(request.getParameter("activename"));
-		practice.setDay(request.getParameter("date"));
-		practice.setContent(request.getParameter("content"));
-		practice.setEmotion(request.getParameter("emotion"));
+		practice.setActivename(multi.getParameter("activename"));
+		practice.setDay(multi.getParameter("date"));
+		practice.setContent(multi.getParameter("content"));
+		practice.setEmotion(multi.getParameter("emotion"));
+		practice.setFile1(multi.getFilesystemName("file1"));
 
 		request.setAttribute("url", "student-teach-practice" );
 		if(pradao.prasubmit(practice)) {
@@ -171,6 +191,8 @@ public class StudentController extends MskimRequestMapping{
 		}else {
 			request.setAttribute("msg", "일지 등록 실패");	
 		}
+		System.out.println("파일 저장 경로: " + path);
+
 		return "alert";
 		
 	}

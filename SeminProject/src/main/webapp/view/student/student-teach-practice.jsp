@@ -14,7 +14,7 @@
               실습 일지 작성
      </div>
      <div class="card-body">
-     	<form action="praticesubmit" method="post" accept-charset="UTF-8"  name="f">
+     	<form action="praticesubmit" method="post" accept-charset="UTF-8"  name="f" enctype="multipart/form-data">
 	    	<table  border="1" >
 	    		<tr>
 	    			<th>날짜</th>
@@ -36,10 +36,15 @@
 	    				 <textarea name="emotion" class="form-control" rows="15" cols="50" style="resize: none;"></textarea>
 	    			</td>
 	    		</tr>
+				</tr>
+					<th>활동 증명서</th>
+					<td>
+					    <input type="file" name="file1" />
+					</td>
+				<tr>
 	    		<tr>
 	    			<td colspan="2">
 					   <button type="submit" class="btn btn-primary text-center">일지 제출</button>
-				</tr>
 	    	</table>
     	</form>
     </div>
@@ -68,12 +73,15 @@ function inputcheck(){
 		f.title.focus();
 		return;
 	}
+	if(f.file1.value==""){
+		alert("증명서를 제출하세요");
+		f.title.focus();
+		return;
+	}
 	f.submit();
 }
 
 </script>
-  
-  
   
 </body>
 </html>

@@ -3,8 +3,10 @@ package model.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import model.board.Board;
 
@@ -39,4 +41,16 @@ public interface BoardMapper {
 
 	@Select("select *  from board where num =#{value}")
 	Board getBoard(int num);
+
+
+	@Update("update board set title=#{title}, content=#{content}, file1=#{file1} "
+	        + "where num=#{num}")
+
+	int update(Board b);
+
+	@Select("select * from board where num = #{value}")
+	Board selectone(int num);
+
+	@Delete("delete from board where num=#{num}")
+	boolean delete(Board board);
 }

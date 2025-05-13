@@ -5,6 +5,7 @@ public class Practice {
 	String activename;
 	String content;
 	String emotion;
+	String file1;
 	String day;
 	public void setDay(String day) {
 		this.day = day;
@@ -24,6 +25,9 @@ public class Practice {
 	public String getEmotion() {
 		return emotion;
 	}
+	public String getFile1() {
+		return file1;
+	}
 	public void setStudno(int studno) {
 		this.studno = studno;
 	}
@@ -35,6 +39,9 @@ public class Practice {
 	}
 	public void setEmotion(String emotion) {
 		this.emotion = emotion;
+	}
+	public void setFile1(String file1) {
+		this.file1 = file1;
 	}
 	@Override
 	public String toString() {
