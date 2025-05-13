@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import model.attendance.Attendance;
 import model.graduation.Graduation;
@@ -86,6 +87,20 @@ public interface ModelMapper {
 
 	@Select("SELECT * FROM attendance WHERE subcode=#{subcode}")
 	List<Attendance> fixatt(Integer subcode);
+
+	@Select("SELECT * FROM attendance WHERE studno=#{studno} AND subcode=#{subcode}")
+	Attendance selectAtt(@Param("studno")int studno,  @Param("subcode")int subcode);
+
+	@Update("Update attendance SET WEEK1=#{WEEK1}, WEEK2=#{WEEK2}, "
+			+ "WEEK3=#{WEEK3}, WEEK4=#{WEEK4}, WEEK5=#{WEEK5}, WEEK6=#{WEEK6}, "
+			+ "WEEK7=#{WEEK7},WEEK8=#{WEEK8}, WEEK9=#{WEEK9}, WEEK10=#{WEEK10}, WEEK11=#{WEEK11}, WEEK12=#{WEEK12}, "
+			+ "WEEK13=#{WEEK13}, WEEK14=#{WEEK14}, WEEK15=#{WEEK15} "
+			+ "WHERE studno=#{studno} AND subcode=#{subcode}")
+	int updateAttendance(Attendance attendance);
+	
+	@Update("Update attendance SET grade=#{grade} WHERE studno=#{studno} AND subcode=#{subcode}")
+	int updateGrade(Attendance attendance);
+
 
 
 }

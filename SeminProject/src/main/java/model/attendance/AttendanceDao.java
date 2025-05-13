@@ -46,4 +46,43 @@ public class AttendanceDao {
 		 }
 		 return null;
 	}
+
+	public Attendance selectAtt(Integer studno, Integer subcode) {
+		SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).selectAtt(studno, subcode);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		 return null;
+	}
+
+	public boolean updateAttendance(Attendance attendance) {
+		SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).updateAttendance(attendance) > 0;
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		 return false;
+
+	}
+
+	public boolean updateGrade(Attendance attendance) {
+		SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).updateGrade(attendance) > 0;
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		 return false;
+	}
+	
 }
+

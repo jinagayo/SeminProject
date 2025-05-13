@@ -140,6 +140,7 @@ public class ProfessorController extends MskimRequestMapping {
 	@RequestMapping("professor-CkAtt")	
 	public String CkAtt(HttpServletRequest request,HttpServletResponse response) {
 		String sub = request.getParameter("subcode");
+		request.setAttribute("subcode",sub);
 		Integer subcode = Integer.parseInt(sub);
 		List<Student> studentlist = attdao.select_sub_stdno(subcode);
 		request.setAttribute("studentlist", studentlist);
@@ -153,7 +154,83 @@ public class ProfessorController extends MskimRequestMapping {
 		List<Attendance> att = attdao.fixatt(subcode);
 		request.setAttribute("att",att);
 		
+		
 		return "professor-CkAtt";
+	}
+	
+	@RequestMapping("professor-CkAtt-fix")	
+	public String CkAttFix(HttpServletRequest request,HttpServletResponse response) {
+		String[] values = request.getParameterValues("att");
+		Integer subcode = Integer.parseInt(values[1].substring(11));
+		Integer[] id = new Integer[values.length];
+		Integer[] att = new Integer[values.length];
+		for(int i=0; i<values.length; i++) {
+			id[i] =  Integer.parseInt(values[i].substring(0, 8));
+			att[i] = Integer.parseInt(values[i].substring(9,10));
+		}
+		for(int i=14; i<id.length; i+=15) {
+			System.out.println(id[i]);
+			System.out.println(subcode);
+			Attendance attendance = attdao.selectAtt(id[i],subcode);
+			attendance.setWEEK1(att[i-14]);
+			attendance.setWEEK2(att[i-13]);
+			attendance.setWEEK3(att[i-12]);
+			attendance.setWEEK4(att[i-11]);
+			attendance.setWEEK5(att[i-10]);
+			attendance.setWEEK6(att[i-9]);
+			attendance.setWEEK7(att[i-8]);
+			attendance.setWEEK8(att[i-7]);
+			attendance.setWEEK9(att[i-6]);
+			attendance.setWEEK10(att[i-5]);
+			attendance.setWEEK11(att[i-4]);
+			attendance.setWEEK12(att[i-3]);
+			attendance.setWEEK13(att[i-2]);
+			attendance.setWEEK14(att[i-1]);
+			attendance.setWEEK15(att[i-0]);
+			
+			boolean a = attdao.updateAttendance(attendance);
+			System.out.println(a);
+			
+		}
+		
+		
+		return "professor-CkAtt-fix";
+	}
+	
+	@RequestMapping("professor-InGrade")	
+	public String InGrade(HttpServletRequest request,HttpServletResponse response) {
+		String sub = request.getParameter("subcode");
+		request.setAttribute("subcode",sub);
+		Integer subcode = Integer.parseInt(sub);
+		List<Student> studentlist = attdao.select_sub_stdno(subcode);
+		request.setAttribute("studentlist", studentlist);
+		List<Integer> stdnos = studentlist.stream()
+                .map(Student::getStudno)
+                .collect(Collectors.toList());
+		
+		List<User> std_list = userdao.selectMany(stdnos);
+		request.setAttribute("std_list", std_list);
+		
+		return "professor-InGrade";
+	}
+	
+	@RequestMapping("professor-InGrade-fix")	
+	public String InGradeFix(HttpServletRequest request,HttpServletResponse response) {
+		String sub = request.getParameter("subcode");
+		Integer subcode = Integer.parseInt(sub);
+		String[] studnoList = request.getParameterValues("studno");
+		String[] gradeList = request.getParameterValues("grade");
+		for(int i=0; i<studnoList.length; i++) {
+			int studno = Integer.parseInt(studnoList[i]);
+			Attendance attendance = attdao.selectAtt(studno,subcode);
+			attendance.setGrade(gradeList[i]);
+			boolean a = attdao.updateGrade(attendance);
+			System.out.println(a);
+		}
+		
+		
+		
+		return "professor-InGrade-fix";
 	}
 	
 	

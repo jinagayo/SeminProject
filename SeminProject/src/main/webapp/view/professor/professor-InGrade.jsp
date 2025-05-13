@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>출결관리</title>
+    <title>성적관리</title>
 <style>
         html, body {
             margin: 0;
@@ -44,30 +44,29 @@
 </head>
 <body>
     <div class="container">
-        <h2>출결관리</h2>
-        <form action="professor-CkAtt-fix" method="post">
+        <h2>성적관리</h2>
+        <form action="professor-InGrade-fix" method="post">
             <table border="1" style="border-collapse: collapse; width: 100%;">
                 <tr> 
-                	<th style="border: 1px solid black; padding: 5px;"></th>
-                    <c:forEach var="i" begin="1" end="15">
-                        <th style="border: 1px solid black; padding: 5px;">WEEK${i}</th>	
-                    </c:forEach>
+                        <th style="border: 1px solid black; padding: 5px;">이름</th>	
+                    	<th style="border: 1px solid black; padding: 5px;">학점</th>	
                 </tr>
                    <c:forEach var="u" items="${std_list}" varStatus="s">
                    <tr>
-                   <c:forEach var="a" items="${att}" varStatus="as">
-                   		<c:if test="${u.id == a.studno}">
-                        <th style="border: 1px solid black; padding: 5px;">${u.name}</th>
-                        	<c:forEach var="i" begin="1" end="15">
-                        		<td style="border: 1px solid black; padding: 5px;">
-										<!-- 체크 안됐을 때 넘길 값 -->
-										<input type="hidden" name="att" value="${u.id}_0_${subcode}">
-										<!-- 체크됐을 때 덮어쓰기 됨 -->
-                        				<input type="checkbox" name="att" value="${u.id}_1_${subcode}" checked}>
-                        		</td>	
-                    		</c:forEach>
-                    	</c:if>
-                    </c:forEach>
+                        <td style="border: 1px solid black; padding: 5px;">${u.name}</td>
+                         <td style="border: 1px solid black; padding: 5px;">
+                         	<input type="hidden" name="subcode" value="${subcode}">
+                         	<input type="hidden" name="studno" value="${u.id}">
+                         	<select name="grade">
+  								<option value="A">A</option>
+  								<option value="A+">A+</option>
+ 								<option value="B">B</option>
+ 								<option value="B+">B+</option>
+  								<option value="C">C</option>
+  								<option value="C+">C+</option>
+  								<option value="F">F</option>
+							</select>
+                         </td>
                     </tr>
                     </c:forEach>
             </table>
