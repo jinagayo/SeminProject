@@ -19,6 +19,8 @@
   </environments>
   <mappers>
     <mapper class="model.mapper.ModelMapper"/>
+    <mapper class="model.mapper.BoardMapper"/>
 </mappers>
+
   <!--  sql 구문을 가진 파일 목록 -->
 </configuration>

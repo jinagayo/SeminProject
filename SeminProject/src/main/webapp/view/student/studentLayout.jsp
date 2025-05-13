@@ -54,14 +54,21 @@
                                     <a class="nav-link" href="student-mypage-time">내 시간표 조회</a>
                                 </nav>
                             </div>
-                            <a class="nav-link" href="notice.jsp">
+                            <a class="nav-link" href="../board/notice">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 알림마당
                             </a>
-                            <a class="nav-link" onclick="location.href='../student/student-myclass'">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                                내강의실
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseClass" aria-expanded="false" aria-controls="collapseLayouts">
+                                <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                                내 강의실
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
+                            <div class="collapse" id="collapseClass" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="student-class-application">수강신청</a>
+                                    <a class="nav-link" href="student-myclass">내 강의 목록</a>
+                                </nav>
+                            </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTeach" aria-expanded="false" aria-controls="collapseLayouts">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 교원자격

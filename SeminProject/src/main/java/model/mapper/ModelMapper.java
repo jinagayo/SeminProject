@@ -12,6 +12,9 @@ import model.student.Student;
 import model.subject.Subject;
 import model.attendance.Attendance;
 import model.graduation.Graduation;
+import model.personality.Personality;
+import model.pratice.Practice;
+import model.service.Service;
 import model.student.Student;
 import model.subject.Subject;
 import model.teacher.Teacher;
@@ -137,6 +140,26 @@ public interface ModelMapper {
 	})
 	List<Subject> selectSub(List<Integer> subcodes);
 
+	@Insert("insert into pratice (studno,day,activename,content,emotion,file1) "
+			+ "values (#{studno},#{day},#{activename},#{content},#{emotion},#{file1})")
+	boolean prasubmit(Practice practice);
+
+	@Select("select * from pratice where studno= #{id}")
+	Practice selectparct(Integer id);
+
+	@Insert("insert into service (studno,day,servicename,groupname,time,content,emotion) "
+			+ "values (#{studno},#{day},#{servicename},#{groupname},#{time},#{content},#{emotion})")
+	boolean servsubmit(Service service);
+
+	@Insert("insert into personality (studno,self1,self2,self3,profno) values (#{studno},#{self1},#{self2},#{self3},#{profno})")
+	boolean persubmit(Personality person);
+
+	@Select("select * from personality where studno=#{id}")
+	Personality selectper(Integer id);
+
+	@Select("select * from student where studno=#{id}")
+	Student selectStu(Integer id);
+
 	@Select("SELECT studno FROM student s JOIN professor p ON s.profno = p.profno where p.profno = #{id} ")
 	List<Student> selectStudentId(int id);
 
@@ -149,7 +172,15 @@ public interface ModelMapper {
 	    "</foreach>",
 	    "</script>"
 	})
-	List<User> selectMany(List<Integer> studno);	
+	List<User> selectMany(List<Integer> studno);
+
+	@Select("SELECT * FROM subject WHERE profno=#{id}")
+	List<Subject> selectPsubject(int id);
+
+	@Select("SELECT * FROM student WHERE studno = #{id}")
+	Student pickStudent(int id);
+
+
 	
 	@Select("SELECT p.studno as studno, p.day as day, t.teacherYN as teacher,t.service as service, u.name as name"
 			+ " FROM pratice p JOIN teacher t ON p.studno = t.studno JOIN user u ON p.studno = u.id")

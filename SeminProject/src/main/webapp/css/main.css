@@ -11,7 +11,86 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
 
-	@import url('https://fonts.googleapis.com/css2?family=Song+Myung&display=swap');
+.notice-container {
+  max-width: 800px !important;
+  margin: 40px auto !important;
+  padding: 30px !important;
+  border-top: 2px solid #000 !important;
+  border-bottom: 2px solid #000 !important;
+  font-family: 'Segoe UI', sans-serif !important;
+  background-color: #fff !important;
+  color: #333 !important;
+}
+
+.notice-title {
+  font-size: 22px !important;
+  font-weight: bold !important;
+  margin-bottom: 15px !important;
+}
+
+.notice-meta {
+  font-size: 14px !important;
+  color: #777 !important;
+  border-bottom: 1px solid #ddd !important;
+  padding-bottom: 10px !important;
+  margin-bottom: 20px !important;
+}
+
+.notice-content p {
+  margin-bottom: 15px !important;
+  line-height: 1.6 !important;
+}
+
+.notice-content ul {
+  list-style-type: circle !important;
+  padding-left: 20px !important;
+  line-height: 1.8 !important;
+}
+
+.notice-file {
+  border-top: 1px solid #ccc !important;
+  padding-top: 15px !important;
+  margin-top: 20px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  font-size: 16px !important;
+}
+
+.notice-file a {
+  text-decoration: none !important;
+  color: #007bff !important;
+}
+
+.preview-btn {
+  background-color: #e7f1ff !important;
+  border: 1px solid #007bff !important;
+  color: #007bff !important;
+  padding: 6px 10px !important;
+  border-radius: 4px !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+}
+
+.notice-footer {
+  text-align: right !important;
+  margin-top: 30px !important;
+}
+
+.btn-back {
+  background-color: #0d6efd !important;
+  color: white !important;
+  padding: 10px 20px !important;
+  border-radius: 50px !important;
+  text-decoration: none !important;
+  font-weight: bold !important;
+  display: inline-block !important;
+  transition: background-color 0.2s ease !important;
+}
+
+.btn-back:hover {
+  background-color: #084cdf !important;
+}
 
 :root {
   --bs-blue: #0d6efd;
@@ -57,10 +136,8 @@
   --bs-black-rgb: 0, 0, 0;
   --bs-body-color-rgb: 33, 37, 41;
   --bs-body-bg-rgb: 255, 255, 255;
-   --bs-font-sans-serif: 'Song Myung', sans-serif;
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
-  --bs-body-font-family: "Song Myung";
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
@@ -94,9 +171,9 @@
   }
 }
 
+
 body {
   margin: 0;
-  font-family: 'Song Myung', sans-serif;
   font-size: var(--bs-body-font-size);
   font-weight: var(--bs-body-font-weight);
   line-height: var(--bs-body-line-height);
@@ -11049,4 +11126,23 @@ html {
 
 .copyright {
   background-color: #1a252f;
+}/* main.css 맨 마지막에 추가하세요 */
+.notice-container {
+  all: revert !important;  /* 외부 CSS 싹 초기화 */
+  max-width: 800px !important;
+  margin: 40px auto !important;
+  padding: 30px !important;
+  border-top: 2px solid #000 !important;
+  border-bottom: 2px solid #000 !important;
+  font-family: 'Segoe UI', sans-serif !important;
+  background-color: #fff !important;
+  color: #333 !important;
+}
+
+/* 나머지도 같은 방식으로 */
+.notice-title {
+  all: revert !important;
+  font-size: 22px !important;
+  font-weight: bold !important;
+  margin-bottom: 15px !important;
 }
