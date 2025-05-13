@@ -22,6 +22,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import gdu.mskim.MskimRequestMapping;
 import gdu.mskim.RequestMapping;
 import model.admin.AdminDao;
+import model.pratice.Practice;
 import model.pratice.PraticeDao;
 import model.professor.Professor;
 import model.professor.ProfessorDao;
@@ -336,13 +337,31 @@ public class AdminController extends MskimRequestMapping {
 	}
 	
 	//교육 실습 일지
-	@RequestMapping("praticeList")
+	@RequestMapping("practiceList")
 	public String adminPraticeList(HttpServletRequest request,HttpServletResponse response) {		
 		List<Map<String, Object>> map = pra_dao.listPratice();
 		request.setAttribute("list", map);
-		return "praticeList";
+		return "practiceList";
 	}
-	
+
+	@RequestMapping("practiceInfo")
+	public String adminPraticeInfo(HttpServletRequest request,HttpServletResponse response) {
+		try {
+        request.setCharacterEncoding("UTF-8");
+     } catch (UnsupportedEncodingException e) {
+        e.printStackTrace();
+     }
+		int id = Integer.parseInt(request.getParameter("studno"));
+		System.out.println(id);
+		User user= user_dao.selectOne(id);
+		Practice pra= pra_dao.InfoPracticeOne(id);
+		request.setAttribute("user", user);
+		request.setAttribute("list", pra);
+		System.out.println("pra 출력:"+pra);
+			
+		
+		return "practiceInfo";
+	}
 	//교육 봉사
 	@RequestMapping("serviceList")
 	public String adminServiceList(HttpServletRequest request,HttpServletResponse response) {		
@@ -361,5 +380,6 @@ public class AdminController extends MskimRequestMapping {
 		request.setAttribute("list", map);
 		return "serviceInfo";
 	}
+		
 	
 }

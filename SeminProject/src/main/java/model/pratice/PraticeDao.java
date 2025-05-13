@@ -45,4 +45,16 @@ public class PraticeDao {
 		 }
 		 return null;
 	}
+
+	public Practice InfoPracticeOne(int id) {
+		SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).InfoPracticeOne(id);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		return null;
+	}
 }

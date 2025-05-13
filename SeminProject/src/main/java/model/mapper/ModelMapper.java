@@ -211,4 +211,7 @@ public interface ModelMapper {
 			+ " WHERE s.subcode = 50"
 			+ " GROUP BY s.subcode,s.subname")
 	List<Map<String, Object>> myclassSubjectHome(@Param("code")int code);
+
+	@Select("SELECT * FROM pratice where studno=#{id}")
+	Practice InfoPracticeOne(int id);
 }
