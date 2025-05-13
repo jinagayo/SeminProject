@@ -17,7 +17,7 @@
               DataTable Example
      </div>
      <div class="card-body">
-     <form action="subjectInsert" name="f" method="post" accept-charset="UTF-8">
+     <form action="subjectInsert" name="f" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
     	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align:left;">
        		<tr>
        			<th>과목코드</th>

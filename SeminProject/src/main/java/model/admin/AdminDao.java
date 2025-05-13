@@ -70,7 +70,7 @@ public class AdminDao {
 		 } finally {
 			 MybatisConnection.close(session);
 		 }
-		 return null;
+		 return null; 
 	 }
 	 
 }

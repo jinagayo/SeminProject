@@ -66,7 +66,7 @@
                             <div class="collapse" id="collapseClass" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="student-class-application">수강신청</a>
-                                    <a class="nav-link" href="student-class-list">내 강의 목록</a>
+                                    <a class="nav-link" href="student-myclass">내 강의 목록</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseTeach" aria-expanded="false" aria-controls="collapseLayouts">
