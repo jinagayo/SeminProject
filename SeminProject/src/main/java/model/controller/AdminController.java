@@ -22,7 +22,7 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import gdu.mskim.MskimRequestMapping;
 import gdu.mskim.RequestMapping;
 import model.admin.AdminDao;
-import model.pratice.PraticeDao;
+import model.pratice.PracticeDao;
 import model.professor.Professor;
 import model.professor.ProfessorDao;
 import model.student.Student;
@@ -40,7 +40,7 @@ public class AdminController extends MskimRequestMapping {
 	private AdminDao admin_dao = new AdminDao();
 	private ProfessorDao pro_dao = new ProfessorDao();
 	private SubjectDao sub_dao = new SubjectDao();
-	private PraticeDao pra_dao = new PraticeDao();
+	private PracticeDao pra_dao = new PracticeDao();
 	
 	//학번 랜덤생성
 	public String StudentId(String entry, String majorcode) {

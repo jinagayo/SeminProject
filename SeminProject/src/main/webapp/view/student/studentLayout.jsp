@@ -77,7 +77,7 @@
                             <div class="collapse" id="collapseTeach" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="student-teach-practice">교육 실습</a>
-                                    <a class="nav-link" href="student-teach-personality">교직 적성 검사</a>
+                                    <a class="nav-link" href="student-teach-practice">교직 적성 검사</a>
                                     <a class="nav-link" href="student-teach-service">교육 봉사</a>
                                     <a class="nav-link" href="student-teach-info">교원 자격 취득 조건 조회</a>
                                 </nav>

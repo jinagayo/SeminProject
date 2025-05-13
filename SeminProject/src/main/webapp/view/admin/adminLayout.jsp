@@ -75,7 +75,7 @@
                                     <a class="nav-link" onclick="location.href='../admin/professorList'">교수 조회</a>
                                 </nav>
                             </div>
-                            <a class="nav-link" href="../admin/notice.jsp">
+                            <a class="nav-link" onclick="location.href='../board/notice'">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 알림마당
                             </a>
