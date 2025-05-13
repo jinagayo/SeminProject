@@ -46,4 +46,29 @@ public class StudentDao {
 		    }
 		    return null;
 	}
+	
+	//myclass dao
+	public List<Map<String, Object>> MyclassInfo(int id) {
+		 SqlSession session = MybatisConnection.getConnection();
+		    try {
+		        return session.getMapper(ModelMapper.class).myclassInfo(id);
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    } finally {
+		        MybatisConnection.close(session);
+		    }
+		    return null;
+	}
+	
+	public List<Map<String, Object>> MyclassSubjectHome(int code) {
+		 SqlSession session = MybatisConnection.getConnection();
+		    try {
+		        return session.getMapper(ModelMapper.class).myclassSubjectHome(code);
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    } finally {
+		        MybatisConnection.close(session);
+		    }
+		    return null;
+	}
 }

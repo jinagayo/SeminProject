@@ -91,5 +91,25 @@ public class StudentController extends MskimRequestMapping{
 		return "student-teach-service";
 	}
 	
+	//내강의실
+	@RequestMapping("student-myclass")
+	public String Myclass(HttpServletRequest request,HttpServletResponse response) {
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		List<Map<String,Object>> map = dao.MyclassInfo(id);
+		System.out.println("stdmpa " + map);
+		request.setAttribute("list", map);
+		return "student-myclass";
+	}
+	//과목홈
+	@RequestMapping("student-subject-home")
+	public String SubjectHome(HttpServletRequest request,HttpServletResponse response) {
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		int code = Integer.parseInt(request.getParameter("code"));
+	
+		List<Map<String,Object>> map = dao.MyclassSubjectHome(code);
+		System.out.println("map" + map);
+		request.setAttribute("list", map);
+		return "student-subject-home";
+	}
 	
 }

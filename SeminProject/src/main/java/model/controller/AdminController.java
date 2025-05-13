@@ -1,5 +1,6 @@
 package model.controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
@@ -15,9 +16,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import gdu.mskim.MskimRequestMapping;
 import gdu.mskim.RequestMapping;
 import model.admin.AdminDao;
+import model.pratice.PraticeDao;
 import model.professor.Professor;
 import model.professor.ProfessorDao;
 import model.student.Student;
@@ -35,6 +40,7 @@ public class AdminController extends MskimRequestMapping {
 	private AdminDao admin_dao = new AdminDao();
 	private ProfessorDao pro_dao = new ProfessorDao();
 	private SubjectDao sub_dao = new SubjectDao();
+	private PraticeDao pra_dao = new PraticeDao();
 	
 	//학번 랜덤생성
 	public String StudentId(String entry, String majorcode) {
@@ -265,6 +271,8 @@ public class AdminController extends MskimRequestMapping {
 			String profno = request.getParameter("profno");
 			String[] teachsub = request.getParameterValues("teachsub");
 			
+			
+			
 			if(subcode == null) {
 				return "subjectInsert";
 			}
@@ -323,8 +331,35 @@ public class AdminController extends MskimRequestMapping {
 		}else {
 			map = sub_dao.listSubject(null);
 		}
-		System.out.println("map" + map);
 		request.setAttribute("list", map);
 		return "subjectList";
 	}
+	
+	//교육 실습 일지
+	@RequestMapping("praticeList")
+	public String adminPraticeList(HttpServletRequest request,HttpServletResponse response) {		
+		List<Map<String, Object>> map = pra_dao.listPratice();
+		request.setAttribute("list", map);
+		return "praticeList";
+	}
+	
+	//교육 봉사
+	@RequestMapping("serviceList")
+	public String adminServiceList(HttpServletRequest request,HttpServletResponse response) {		
+		List<Map<String, Object>> map = pra_dao.InfoService();
+		System.out.println("map1" + map);
+		request.setAttribute("list", map);
+		return "serviceList";
+	}
+	
+	//교육봉사 리스트
+	@RequestMapping("serviceInfo")
+	public String adminServiceInfo(HttpServletRequest request,HttpServletResponse response) {
+		int id = Integer.parseInt(request.getParameter("studno"));
+		Map<String, Object> map = pra_dao.InfoServiceOne(id);
+		System.out.println("map2" + map);
+		request.setAttribute("list", map);
+		return "serviceInfo";
+	}
+	
 }

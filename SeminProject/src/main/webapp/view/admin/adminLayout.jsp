@@ -62,8 +62,8 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" onclick="location.href='../admin/studentInsert'">학생 등록</a>
                                     <a class="nav-link" onclick="location.href='../admin/studentList'">학생 조회</a>
-                                    <a class="nav-link" href="student-teach-personality">교육 실습 일지</a>
-                                    <a class="nav-link" href="student-teach-personality">교육 봉사</a>
+                                    <a class="nav-link" onclick="location.href='../admin/praticeList'">교육 실습 일지</a>
+                                    <a class="nav-link" onclick="location.href='../admin/serviceList'">교육 봉사</a>
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseProfessor" aria-expanded="false" aria-controls="collapseLayouts">

@@ -149,6 +149,35 @@ public interface ModelMapper {
 	    "</foreach>",
 	    "</script>"
 	})
-	List<User> selectMany(List<Integer> studno);
-
+	List<User> selectMany(List<Integer> studno);	
+	
+	@Select("SELECT p.studno as studno, p.day as day, t.teacherYN as teacher,t.service as service, u.name as name"
+			+ " FROM pratice p JOIN teacher t ON p.studno = t.studno JOIN user u ON p.studno = u.id")
+	List<Map<String, Object>> ListPratice();
+	
+	@Select("SELECT p.studno as studno ,p.day as day ,p.activename as active ,t.service as service ,u.name as name"
+			+ " FROM pratice p JOIN teacher t ON p.studno = t.studno JOIN user u ON p.studno = u.id")
+	List<Map<String, Object>> ServiceInfo();
+	
+	@Select("SELECT p.studno as studno ,p.day as day ,p.activename as active ,t.service as service ,u.name as name"
+			+ " FROM pratice p JOIN teacher t ON p.studno = t.studno JOIN user u ON p.studno = u.id where p.studno = #{id}")
+	Map<String, Object> ServiceInfoOne(@Param("id")int id);
+	
+	
+	/* myclass */
+	@Select("SELECT s.subname as subname,s.subcode as subcode, 15-SUM(a.week1+a.week2+a.week3+a.week4+a.week5+a.week6+a.week7+a.week8+a.week9+a.week10+a.week11+a.week12+a.week13+a.week14+a.week15) AS week"
+			+ " FROM subject s"
+			+ " JOIN attendance a"
+			+ " ON s.subcode = a.subcode"
+			+ " WHERE a.studno = #{id}"
+			+ " GROUP BY s.subcode,s.subname")
+	List<Map<String, Object>> myclassInfo(@Param("id")int id);
+	
+	@Select("SELECT s.subname,s.subcode,a.week1,a.week2,a.week3,a.week4,a.week5,a.week6,a.week7,a.week8,a.week9,a.week10,a.week11,a.week12,a.week13,a.week14,a.week15"
+			+ " FROM subject s"
+			+ " JOIN attendance a"
+			+ " ON s.subcode = a.subcode"
+			+ " WHERE s.subcode = 50"
+			+ " GROUP BY s.subcode,s.subname")
+	List<Map<String, Object>> myclassSubjectHome(@Param("code")int code);
 }
