@@ -242,4 +242,13 @@ public interface ModelMapper {
 	@Update("UPDATE personality SET prof1 = #{prof1}, prof2 = #{prof2}, prof3 = #{prof3}, personsubmit = 1 WHERE studno=#{studno}")
 	boolean perChek(Personality p);
 
+	@Select("SELECT password FROM user WHERE id=#{id} and email=#{email} and phone=#{tel}")
+	String pwSearch(@Param("id")String id, @Param("email")String email, @Param("tel")String tel);
+
+	@Select("SELECT id FROM user WHERE name=#{name} AND email=#{email}")
+	String searchId(@Param("name")String name, @Param("email")String email);
+
+	@Update("UPDATE user SET password=#{chgpass} WHERE id=#{id}")
+	boolean updatePass(@Param("id")Integer id, @Param("chgpass")String chgpass);
+
 }

@@ -5,6 +5,7 @@
 <html>
   <head>
   	<link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" />
+   
     <title>학생 정보 조회</title>
   </head>
   <body>

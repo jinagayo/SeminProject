@@ -4,49 +4,47 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <title>성적관리</title>
 <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            font-family: sans-serif;
-            box-sizing: border-box;
-        }
-        .container {
-            max-width: 100%;
-            padding: 20px;
-        }
+      .container {
+    max-width: 100%;
+    padding: 20px;
+}
 
-        table {
-            width: 100%;
-            max-width: 100%;
-            overflow-x: auto;
-            display: block;
-        }
+table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;  /* 핵심: 열 너비 균등 배분 */
+}
 
-        th {
-            padding: 5px;
-            text-align: center;
-            font-size: 14px;
-            white-space: nowrap;
-        }
+th, td {
+    border: 1px solid black;
+    padding: 5px;
+    text-align: center;
+    font-size: 14px;
+    word-wrap: break-word;  /* 긴 텍스트 줄바꿈 */
+    white-space: nowrap;
+}
 
+select {
+    width: 100%;  /* 드롭다운이 셀 안에서 꽉 차게 */
+    max-width: 100%;
+    box-sizing: border-box;
+}
 
-        @media screen and (max-width: 600px) {
-            th {
-                font-size: 12px;
-            }
-        }
+@media screen and (max-width: 600px) {
+    th, td {
+        font-size: 12px;
+    }
+}
     </style>
 </head>
 <body>
     <div class="container">
         <h2>성적관리</h2>
         <form action="professor-InGrade-fix" method="post">
-            <table border="1" style="border-collapse: collapse; width: 100%;">
+            <table border="1" style="border-collapse: collapse; width: 100%;" class="table table-hover" table-layout: fixed>
                 <tr> 
                         <th style="border: 1px solid black; padding: 5px;">이름</th>	
                     	<th style="border: 1px solid black; padding: 5px;">학점</th>	
@@ -70,6 +68,7 @@
                     </tr>
                     </c:forEach>
             </table>
+ 
             <div style="padding: 20px 20px;"><button onclick="fixing()">확인</button></div>
         </form>
     </div>

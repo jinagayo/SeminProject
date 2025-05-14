@@ -32,6 +32,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    	<li><a class="dropdown-item" onclick="location.href='../main/changePw'">password change</a></li>
                         <li><a class="dropdown-item" onclick="location.href='../main/logout'">Logout</a></li>
                     </ul>
                 </li>
@@ -53,7 +54,7 @@
                                     <a class="nav-link" href="professor-mypage-time">내 시간표 조회</a>
                                 </nav>
                             </div>
-                            <a class="nav-link" href="notice.jsp">
+                            <a class="nav-link" href="../board/notice">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 알림마당
                             </a>

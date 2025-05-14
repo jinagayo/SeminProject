@@ -6,47 +6,49 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>출결관리</title>
 <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            font-family: sans-serif;
-            box-sizing: border-box;
-        }
-        .container {
-            max-width: 100%;
-            padding: 20px;
-        }
+    html, body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        font-family: sans-serif;
+        box-sizing: border-box;
+    }
 
-        table {
-            width: 100%;
-            max-width: 100%;
-            overflow-x: auto;
-            display: block;
-        }
+    .container {
+        max-width: 100%;
+        padding: 20px;
+        overflow-x: auto; /* 테이블이 넘치면 스크롤 */
+    }
 
-        th {
-            padding: 5px;
-            text-align: center;
-            font-size: 14px;
-            white-space: nowrap;
-        }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: auto; /* 칸의 크기를 글자에 맞게 자동 조정 */
+    }
 
+    th, td {
+        border: 1px solid black;
+        padding: 5px;
+        text-align: center;
+        font-size: 14px;
+        white-space: normal;    /* 줄바꿈 허용 */
+        overflow: visible;      /* 넘치는 글자 표시 */
+    }
 
-        @media screen and (max-width: 600px) {
-            th {
-                font-size: 12px;
-            }
+    @media screen and (max-width: 600px) {
+        th, td {
+            font-size: 12px;
         }
-    </style>
+    }
+</style>
 </head>
 <body>
     <div class="container">
         <h2>출결관리</h2>
         <form action="professor-CkAtt-fix" method="post">
-            <table border="1" style="border-collapse: collapse; width: 100%;">
+            <table border="1" style="border-collapse: collapse; width: 100%;" >
                 <tr> 
                 	<th style="border: 1px solid black; padding: 5px;"></th>
                     <c:forEach var="i" begin="1" end="15">
