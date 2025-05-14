@@ -22,4 +22,16 @@ public class AttendanceDao {
 		 return null;	
 	}
 
+	public boolean insertsub(int subcode, Integer id) {
+		 SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).insertsub(subcode,id);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		return false;
+	}
+
 }

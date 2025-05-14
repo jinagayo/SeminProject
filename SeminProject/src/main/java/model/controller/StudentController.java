@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.spi.FileSystemProvider;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,8 +22,12 @@ import gdu.mskim.MskimRequestMapping;
 import gdu.mskim.RequestMapping;
 import model.attendance.Attendance;
 import model.attendance.AttendanceDao;
+import model.board.Board;
+import model.board.BoardDao;
 import model.graduation.Graduation;
 import model.graduation.GraduationDao;
+import model.major.Major;
+import model.major.MajorDao;
 import model.personality.Personality;
 import model.personality.PersonalityDao;
 import model.pratice.Practice;
@@ -49,6 +54,8 @@ public class StudentController extends MskimRequestMapping{
 	private PracticeDao pradao = new PracticeDao();
 	private PersonalityDao perdao = new PersonalityDao();
 	private ServiceDao serdao= new ServiceDao(); 
+	private MajorDao majdao=new MajorDao();
+	private BoardDao boadao=new BoardDao();
 
 	public String noticecheck(HttpServletRequest request, HttpServletResponse response ) {
 		Integer id = (Integer) request.getSession().getAttribute("login");
@@ -109,29 +116,45 @@ public class StudentController extends MskimRequestMapping{
 
 		
 	    String[] time = new String[10];
-	    int[] count = {5,5,5,5,5,5,5,5,5,5};
-	    for(int i=0;i<10;i++) {
-			time[i]="<td>"+(i+9)+":00</td>";
-			    	for(int j=2;j<=6;j++) {
-				    	for(Subject sub : sub_info) {
-				    		if(sub.getDay()==j&&sub.getStarttime()==(i+9)) {
-				    			time[i]+="<td rowspan="+sub.getTime()+">"
-				    		+sub.getSubname()+"<hr>"+(i+9)+":00~"+(i+9+sub.getTime())+":00<hr>"+sub.getLocation()+"</td>";
-				    			for(int k=(i+1);k<=(i+sub.getTime()-1);k++) {
-				    				--count[k];
-				    			}
-				    			count[i]--;
-				    		}
-				    	}
-				    if(count[i]>0) {
-				    	time[i]+="<td></td>";
-				    	count[i]--;
-				    }
-			    	
-	    		}
-	    
-			
-		}
+	    boolean[][] printed = new boolean[10][5]; // [시간][요일] -> true면 이미 rowspan으로 채워짐
+
+	    for (int i = 0; i < 10; i++) {
+	        time[i] = "<td>" + (i + 9) + ":00</td>";
+	        int tdCount = 0;
+
+	        for (int j = 2; j <= 6; j++) {
+	            int dayIdx = j - 2; // 월~금 → 0~4
+
+	            // 이전 시간에서 rowspan으로 이미 채워진 경우
+	            if (printed[i][dayIdx]) continue;
+
+	            boolean hasSubject = false;
+	            for (Subject sub : sub_info) {
+	                if (sub.getDay() == j && sub.getStarttime() == (i + 9)) {
+	                    time[i] += "<td rowspan=" + sub.getTime() + ">" +
+	                            sub.getSubname() + "<hr>" +
+	                            (i + 9) + ":00~" + (i + 9 + sub.getTime()) + ":00<hr>" +
+	                            sub.getLocation() + "</td>";
+	                    hasSubject = true;
+
+	                    // rowspan 동안 나머지 시간 칸에 대해 printed 처리
+	                    for (int k = 1; k < sub.getTime(); k++) {
+	                        if (i + k < 10)
+	                            printed[i + k][dayIdx] = true;
+	                    }
+	                    break;
+	                }
+	            }
+
+	            if (!hasSubject) {
+	                time[i] += "<td></td>";
+	            }
+
+	            tdCount++;
+	            if (tdCount == 5) break;
+	        }
+	    }
+
 	    request.setAttribute("time", time);
 		return "student-mypage-time";
 	}
@@ -320,6 +343,7 @@ public class StudentController extends MskimRequestMapping{
 	}
 
 	//내강의실
+	@MSLogin("noticecheck")
 	@RequestMapping("student-myclass")
 	public String Myclass(HttpServletRequest request,HttpServletResponse response) {
 		Integer id = (Integer) request.getSession().getAttribute("login");
@@ -339,5 +363,176 @@ public class StudentController extends MskimRequestMapping{
 		request.setAttribute("list", map);
 		return "student-subject-home";
 	}
+	@MSLogin("noticecheck")
+	@RequestMapping("student-class-application")
+	public String classApplication(HttpServletRequest request,HttpServletResponse response) {
+		 try {
+	         request.setCharacterEncoding("UTF-8");
+	      } catch (UnsupportedEncodingException e) {
+	         e.printStackTrace();
+	      }
+		int pageNum=1;
+		try {
+			pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		}catch(NumberFormatException e) {}
+		
+		String column = request.getParameter("column");
+		String find = request.getParameter("find");
+		
+		if(column==null || column.trim().equals("") ||
+				find==null || find.trim().equals("")) {
+					column=null;
+					find=null;
+				
+			}
+			
+		int limit=10;
+		int classcount=subdao.classCount(pageNum,limit,column,find);
 	
+		List<Map<String,Object>> classList = subdao.selectall(pageNum,limit,column,find); 
+		int maxpage =(int)((double)classcount/limit +0.95);
+		int startpage=((int)(pageNum/10.0+0.9)-1)*10+1;
+		int endpage=startpage+9;
+		if(endpage>maxpage) endpage=maxpage;
+		request.setAttribute("classcount", classcount);
+		request.setAttribute("pageNum", pageNum); //현페
+		request.setAttribute("startpage", startpage);//페이지 시작번호
+		request.setAttribute("endpage", endpage); //페이지의 마지막 번호
+		request.setAttribute("maxpage", maxpage);//페이지 최대번호
+		
+		request.setAttribute("classList", classList);
+		return "student-class-application";
+	}
+	
+
+	@MSLogin("noticecheck")
+	@RequestMapping("applicate")
+	public String applicate(HttpServletRequest request,HttpServletResponse response) {
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		List<Attendance> attendList = attdao.selectAttend(id);
+		List<Integer> subcodes = attendList.stream()
+                .map(Attendance::getSubcode)
+                .collect(Collectors.toList());
+		List<Subject>  sub_info = subdao.selectSub(subcodes);
+		
+		int applicode=Integer.parseInt(request.getParameter("subcode"));
+		
+		Subject subject = subdao.selectSubOne(applicode);
+		for(Subject sub : sub_info) {
+			if(sub.getDay()==subject.getDay()&&
+					!(sub.getStarttime()>=(subject.getStarttime()+sub.getTime())
+					||subject.getStarttime()>=(sub.getStarttime()+sub.getTime())	
+							)) {
+				request.setAttribute("msg", "선택한 시간대에 강의가 이미 존재합니다.");
+				request.setAttribute("url", "student-class-application");
+				return "alert";
+			}
+			}
+		
+
+		if(attdao.insertsub(subject.getSubcode(),id)) {
+			request.setAttribute("msg", "수강신청 완료.");
+			request.setAttribute("url", "student-class-application");
+		}else {
+			request.setAttribute("msg", "수강신청 실패.");
+			request.setAttribute("url", "student-class-application");
+			
+		}
+		return "alert";
+	}
+
+	@MSLogin("noticecheck")
+	@RequestMapping("student-subject-board")
+	public String subjectnotice(HttpServletRequest request,HttpServletResponse response) {
+		 try {
+	         request.setCharacterEncoding("UTF-8");
+	      } catch (UnsupportedEncodingException e) {
+	         e.printStackTrace();
+	      }
+		int pageNum=1;
+		try {
+			pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		}catch(NumberFormatException e) {}
+		String boardid = request.getParameter("boardid");
+		String subcode = request.getParameter("subcode");
+		
+		if(boardid==null||boardid.trim().equals("")) {
+			boardid="1"; //boardid 파라미터가 없는 경우 "1"
+		}
+		int limit=10; //페이지당 출력되는 게시물의 건수
+		int boardcount=boadao.subBoardCount(boardid,subcode,pageNum,limit);
+		List<Board> list= boadao.subbBoardlist(boardid,subcode,pageNum,limit);
+		int maxpage =(int)((double)boardcount/limit +0.95);
+		int startpage=((int)(pageNum/10.0+0.9)-1)*10+1;
+		int endpage=startpage+9; //화면에 출력한 마지막 페이지번호.한 화면에 10개의 페이지번호 출력
+		//endpage는 maxpageq보다 작거나 같아야함.
+		if(endpage>maxpage) endpage=maxpage;
+		String boardName="공지사항";
+		if(boardid.equals("2"))
+			boardName="Q&A";
+		request.setAttribute("boardName", boardName); //개시판 일믐
+		request.setAttribute("boardCount", boardcount); //게시판별 전체 게시ㅜㄹ 건수
+		request.setAttribute("boardid", boardid); //게시판 동류,ㅈ게시판 코드.
+		request.setAttribute("subcode", subcode);
+		
+		request.setAttribute("pageNum", pageNum); //현페
+		request.setAttribute("list", list);//현재페이지에 출력할 겜시물 목록
+		request.setAttribute("startpage", startpage);//페이지 시작번호
+		request.setAttribute("endpage", endpage); //페이지의 마지막 번호
+		request.setAttribute("maxpage", maxpage);//페이지 최대번호
+		
+		//boardnum : 보여주기 위한 번호
+		request.setAttribute("boardName", boardName);
+		request.setAttribute("today", new Date());
+		return "student-subject-board";
+	
+	}
+
+	@MSLogin("noticecheck")
+	@RequestMapping("student-subject-board-writeForm")
+	public String subBoardWriteForm(HttpServletRequest request,HttpServletResponse response) {
+		String boardid=request.getParameter("boardid");
+		String subcode=request.getParameter("subcode");
+		request.setAttribute("boardid", boardid);
+		return "student-subject-board-writeForm";
+	}
+	
+	@MSLogin("noticecheck")
+	@RequestMapping("student-subject-board-write")
+	public String subBoardWrite(HttpServletRequest request,HttpServletResponse response) {
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		User user= dao.selectOne(id);
+		String path=request.getServletContext().getRealPath("/")+"/upload/QNA/";
+		File f= new File(path);
+		if(!f.exists()) f.mkdirs(); 
+		int size=10*1024*1024;	//10M. 업로드 파일의 최대 크기
+		MultipartRequest multi = null; //파일 업로드 클래스
+		try {
+			multi = new MultipartRequest(request,path,size,"UTF-8"); //파일 업롣,
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		String boardid= multi.getParameter("boardid");
+		int subcode= Integer.parseInt(multi.getParameter("subcode"));
+		
+		Board board = new Board();
+		board.setWriter(user.getName());
+		board.setTitle(multi.getParameter("title"));
+		board.setContent(multi.getParameter("content"));
+		board.setFile1(multi.getFilesystemName("file1"));
+		board.setBoardid(boardid);
+		board.setSubcode(subcode);
+
+		
+		if(boadao.writeboard(board)) {
+			request.setAttribute("msg", "등록되었습니다.");
+			request.setAttribute("url", "student-subject-board?subcode="+subcode+"&boardid="+boardid);
+			
+		}else {
+			request.setAttribute("msg", "등록실패.");
+			request.setAttribute("url", "redirect:student-subject-board?subcode="+subcode+"&boardid="+boardid);
+			
+		}
+		return "alert";
+	}
 }

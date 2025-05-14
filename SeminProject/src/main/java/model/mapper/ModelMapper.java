@@ -14,6 +14,7 @@ import model.student.Student;
 import model.subject.Subject;
 import model.attendance.Attendance;
 import model.graduation.Graduation;
+import model.major.Major;
 import model.personality.Personality;
 import model.pratice.Practice;
 import model.service.Service;
@@ -234,5 +235,41 @@ public interface ModelMapper {
 
 	@Delete("delete from service where studno=#{id}")
 	boolean deleteservice(int id);
+
+	@Select({"<script>", 
+		"SELECT s.subcode, s.subname subname ,s.time,s.starttime,s.day,s.location,s.profno,s.teachsub,u.name profname "
+		+ "from subject s join user u ON u.id=s.profno where 1=1 "
+				+sqlcol,
+			    "LIMIT #{start}, #{limit}"
+		,"</script>"})
+	List<Map<String, Object>> selectall(Map<String, Object> map);
+
+	String sqlcol = 
+		    "<if test='column != null and find != null'>" +
+		    " AND " +
+		    "<choose>" +
+		    "  <when test='column == \"profname\"'>" +
+		    "    u.name LIKE CONCAT('%', #{find}, '%')" +
+		    "  </when>" +
+		    "  <when test='column == \"subname\"'>" +
+		    "    s.subname LIKE CONCAT('%', #{find}, '%')" +
+		    "  </when>" +
+		    "</choose>" +
+		    "</if>";
+
+	@Select({"<script>",
+				 "select count(*) from subject s join user u ON u.id=s.profno where 1=1 "
+				+ sqlcol
+			, "</script>"})
+	int classCount(Map<String, Object> map);
+
+	@Select("select * from subject where subcode = #{applicode}")
+	Subject selectSubOne(int applicode);
+
+	@Insert("Insert into attendance (studno,subcode) values (#{studno},#{subcode})")
+	boolean insertsub(@Param("subcode")int subcode, @Param("studno")Integer id);
+
+
+	
 
 }

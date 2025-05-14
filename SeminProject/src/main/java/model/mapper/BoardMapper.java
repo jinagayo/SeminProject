@@ -19,14 +19,16 @@ public interface BoardMapper {
 			+ "<if test='col2 != null and col3==null'>)</if>"
 			+ "<if test='col3 != null'> or $[col3} like '%${find}%') </if></if>";
 	@Select({"<script>",
-				 "select count(*) from board where boardid = 1 and subcode is null ORDER BY regdate DESC "
-				+ sqlcol
+				 "select count(*) from board where boardid = 1 and subcode is null "
+							+ sqlcol
+				 + "ORDER BY regdate DESC "
 				, "</script>"})
 	int maincount(Map<String, Object> map);
 	
 	
 	@Select({"<script>",
-		" select * from board where boardid=1 and subcode is null ORDER BY regdate DESC"+sqlcol
+		" select * from board where boardid=1 and subcode is null "+sqlcol
+		+ " ORDER BY regdate DESC"
 		+" limit #{start},#{limit} "
 		,"</script>"})
 	List<Board> mainlist(Map<String, Object> map);
@@ -53,4 +55,16 @@ public interface BoardMapper {
 
 	@Delete("delete from board where num=#{num}")
 	boolean delete(Board board);
+
+	@Select("select count(*) from board where boardid = #{boardid} and subcode = #{subcode} ORDER BY regdate DESC ")
+	int subBoardCount(Map<String, Object> map);
+
+	@Select(" select * from board where boardid = #{boardid} and subcode = #{subcode} "
+		+ " ORDER BY regdate DESC"
+		+" limit #{start},#{limit} ")
+	List<Board> subbBoardlist(Map<String, Object> map);
+
+
+	@Insert("Insert into board (boardid,title,writer,content,regdate,subcode,file1) values ( #{boardid},#{title},#{writer},#{content},now(),#{subcode},#{file1})")
+	boolean writeboard(Board board);
 }
