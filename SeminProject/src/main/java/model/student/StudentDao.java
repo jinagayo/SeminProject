@@ -35,19 +35,7 @@ public class StudentDao {
 		    return null;
 		}
 
-
-	public Student selectStu(Integer id) {
-		 SqlSession session  = MybatisConnection.getConnection();
-		 try {
-			 return session.getMapper(cls).selectStu(id);
-		 } catch (Exception e) {
-			 e.printStackTrace();
-		 } finally {
-			 MybatisConnection.close(session);
-		 }
-		 return null;
-	}
-
+	 
 	public List<Student> selectStudentId(int id) {
 		 SqlSession session = MybatisConnection.getConnection();
 		    try {
@@ -72,7 +60,20 @@ public class StudentDao {
 		}
 		return null;
 	}
-	
+
+
+	public Student selectStu(Integer id) {
+		 SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).selectStu(id);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		 return null;
+	}
+
 	//myclass dao
 	public List<Map<String, Object>> MyclassInfo(int id) {
 		 SqlSession session = MybatisConnection.getConnection();
@@ -97,4 +98,5 @@ public class StudentDao {
 		    }
 		    return null;
 	}
+
 }

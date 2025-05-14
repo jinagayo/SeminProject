@@ -21,7 +21,9 @@
 	    	<tr> 
 	    	<td style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; border-left: none; border-right: none; padding: 8px;">${s.subname} (${s.subcode})  </td>
 	    	<td style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; border-left: none; border-right: none; padding: 8px;"> Q&A </td>
-	    	<td style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; border-left: none; border-right: none; padding: 8px;"><button onclick="location.href='professor-classHome'">강의홈 바로가기</button></td>
+
+	    	<td style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; border-left: none; border-right: none; padding: 8px;"><button onclick="location.href='professor-classHome?subcode=${s.subcode}'">강의홈 바로가기</button></td>
+
 	        </tr>
 	  </c:forEach>
       </table>

@@ -12,7 +12,9 @@ public class Sitemesh extends ConfigurableSiteMeshFilter{
       builder.addDecoratorPath("/student/*", "/view/student/studentLayout.jsp")
       		.addDecoratorPath("/admin/*", "/view/admin/adminLayout.jsp")
       		.addDecoratorPath("/professor/*", "/view/professor/professorLayout.jsp")
-      		.addDecoratorPath("/board/*", "/view/board/boardlayout.jsp");
-   }
+      		.addDecoratorPath("/board/*", "/view/board/boardlayout.jsp")
+      		.addExcludedPath("/professor/professor-Ckpersonality.jsp");
+   
+}
 }
 
