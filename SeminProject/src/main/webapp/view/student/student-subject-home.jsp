@@ -9,25 +9,34 @@
   </head>
   <body>
   <br>
+  <h2>과목명</h2>
   <div class="card mb-4">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
-              내 강의실
+              공지사항
      </div>
      <div style="display: flex;align-items: center;justify-content: space-between;flex-direction: column;">
-		<c:forEach var="row" items="${list}">
-		        <div style="display: flex; align-items: center; justify-content: space-between; border: 1px solid #ccc;margin-left: 50px; padding: 10px; margin-bottom: 10px;width:1600px">
-		            <div style="flex: 2;">${row.subname} (${row.subcode})</div>
-		            <div style="flex: 3; display: flex; justify-content: space-around;">
-		                <div><strong>${row.week}</strong><br>출결</div>
-		                <div><strong>0</strong><br>공지</div>
-		            </div>
-		            <div style="flex: 1; text-align: right;">
-		                <button onclick="location.href='student-subject-home?code=${row.subcode}'">과목홈 바로가기</button>
-		            </div>
-		        </div>
-		    </c:forEach>
-    </div>
-    </div>
+		
+       					<form action="student-subject-board" method="get">
+			                <input type="hidden" name="subcode" value="${param.code}">
+			                <input type="hidden" name="boardid" value="1">
+			                <button type="submit" class="btn btn-primary text-right">전체보기</button>
+			        	</form>
+     </div>
+   </div>
+  <div class="card mb-4">
+     <div class="card-header">
+         <i class="fas fa-table me-1"></i>
+              Q&A
+     </div>
+     <div style="display: flex;align-items: center;justify-content: space-between;flex-direction: column;">
+       					<form action="student-subject-board" method="get">
+			                <input type="hidden" name="subcode" value="${param.code}">
+			                <input type="hidden" name="boardid" value="2">
+			                <button type="submit" class="btn btn-primary text-right">전체보기</button>
+			        	</form>
+		
+     </div>
+   </div>
   </body>
 </html>

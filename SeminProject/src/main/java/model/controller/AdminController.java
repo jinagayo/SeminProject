@@ -20,13 +20,18 @@ import javax.servlet.http.HttpServletResponse;
 import gdu.mskim.MskimRequestMapping;
 import gdu.mskim.RequestMapping;
 import model.admin.AdminDao;
-import model.pratice.PraticeDao;
+import model.pratice.Practice;
+import model.pratice.PracticeDao;
 import model.professor.Professor;
 import model.professor.ProfessorDao;
+import model.service.Service;
+import model.service.ServiceDao;
 import model.student.Student;
 import model.student.StudentDao;
 import model.subject.Subject;
 import model.subject.SubjectDao;
+import model.teacher.Teacher;
+import model.teacher.TeacherDao;
 import model.user.User;
 import model.user.UserDao;
 
@@ -38,8 +43,9 @@ public class AdminController extends MskimRequestMapping {
 	private AdminDao admin_dao = new AdminDao();
 	private ProfessorDao pro_dao = new ProfessorDao();
 	private SubjectDao sub_dao = new SubjectDao();
-	private PraticeDao pra_dao = new PraticeDao();
-	
+	private PracticeDao pra_dao = new PracticeDao();
+	private TeacherDao tea_dao = new TeacherDao();
+	private ServiceDao ser_dao = new ServiceDao();
 	//학번 랜덤생성
 	public String StudentId(String entry, String majorcode) {
 	    int random = (int)(Math.random() * 900) + 100;
@@ -334,18 +340,62 @@ public class AdminController extends MskimRequestMapping {
 	}
 	
 	//교육 실습 일지
-	@RequestMapping("praticeList")
+	@RequestMapping("practiceList")
 	public String adminPraticeList(HttpServletRequest request,HttpServletResponse response) {		
 		List<Map<String, Object>> map = pra_dao.listPratice();
 		request.setAttribute("list", map);
-		return "praticeList";
+		return "practiceList";
 	}
-	
+
+	@RequestMapping("practiceInfo")
+	public String adminPraticeInfo(HttpServletRequest request,HttpServletResponse response) {
+		try {
+        request.setCharacterEncoding("UTF-8");
+     } catch (UnsupportedEncodingException e) {
+        e.printStackTrace();
+     }
+		int id = Integer.parseInt(request.getParameter("studno"));
+		System.out.println(id);
+		User user= user_dao.selectOne(id);
+		Practice pra= pra_dao.InfoPracticeOne(id);
+		request.setAttribute("user", user);
+		request.setAttribute("list", pra);
+		System.out.println("pra 출력:"+pra);
+			
+		
+		return "practiceInfo";
+	}
+	@RequestMapping("practiceaccept")
+	public String practiceaccept(HttpServletRequest request,HttpServletResponse response) {
+		int id = Integer.parseInt(request.getParameter("studno"));
+		String accept = request.getParameter("accept");
+		
+		if(accept.equals("1")) {
+			if(tea_dao.teacherUpdate(id,accept)){
+				request.setAttribute("msg", "등록 되었습니다.");
+				request.setAttribute("url", "practiceList");
+			}else {
+				request.setAttribute("msg", "등록 실패.");
+				request.setAttribute("url", "practiceInfo?studno="+id);
+				
+			}
+		}else {
+			if(pra_dao.praciceDelete(id)||tea_dao.teacherUpdate(id,accept)) {
+				request.setAttribute("msg", "등록 되었습니다.");
+				request.setAttribute("url", "practiceList");
+			}else {
+				request.setAttribute("msg", "등록 실패.");
+				request.setAttribute("url", "practiceInfo?studno="+id);
+				
+			}
+		}
+		
+		return "alert";
+	}
 	//교육 봉사
 	@RequestMapping("serviceList")
 	public String adminServiceList(HttpServletRequest request,HttpServletResponse response) {		
-		List<Map<String, Object>> map = pra_dao.InfoService();
-		System.out.println("map1" + map);
+		List<Map<String, Object>> map = ser_dao.ServiceList();
 		request.setAttribute("list", map);
 		return "serviceList";
 	}
@@ -354,10 +404,43 @@ public class AdminController extends MskimRequestMapping {
 	@RequestMapping("serviceInfo")
 	public String adminServiceInfo(HttpServletRequest request,HttpServletResponse response) {
 		int id = Integer.parseInt(request.getParameter("studno"));
-		Map<String, Object> map = pra_dao.InfoServiceOne(id);
-		System.out.println("map2" + map);
-		request.setAttribute("list", map);
+		Service service = ser_dao.serviceInfo(id);
+		User user = user_dao.selectOne(id);
+		request.setAttribute("service", service);
+		request.setAttribute("user", user);
 		return "serviceInfo";
 	}
+	@RequestMapping("serviceaccept")
+	public String serviceaccept(HttpServletRequest request,HttpServletResponse response) {
+		int id = Integer.parseInt(request.getParameter("studno"));
+		int time = Integer.parseInt(request.getParameter("time"));
+		String accept = request.getParameter("accept");
+		System.out.println("accept:"+accept);
+		
+		if(accept.equals("1")) {
+			boolean delete =ser_dao.deleteservice(id);
+			if(tea_dao.serviceUpdate(id,time)||delete){
+				request.setAttribute("msg", "등록 되었습니다.");
+				request.setAttribute("url", "serviceList");
+			}else {
+				request.setAttribute("msg", "등록 실패.");
+				request.setAttribute("url", "ServiceInfo?studno="+id);
+				
+			}
+		}else {
+			if(ser_dao.deleteservice(id)) {
+				request.setAttribute("msg", "등록 되었습니다.");
+				request.setAttribute("url", "serviceList");
+			}else {
+				request.setAttribute("msg", "등록 실패.");
+				request.setAttribute("url", "ServiceInfo?studno="+id);
+				
+			}
+		}
+		
+	
+		return "alert";
+	}
+
 	
 }

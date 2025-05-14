@@ -21,18 +21,16 @@
 		       			<th>학번</th>
 		       			<th>이름</th>
 		       			<th>날짜</th>
-		       			<th>실습일지</th>
 		       			<th>승인여부</th>
 		       		</tr>
 		       		<c:forEach var="row" items="${list}">
-		       			<tr>
+		       			<tr onclick="location.href='../admin/practiceInfo?studno=${row.studno}'">
 		       				<td>${row.studno}</td>
 		       				<td>${row.name}</td>
 		       				<td>${row.day}</td>
-		       				<td><a class="nav-link">실습일지</a></td>
 							<td>
 								<c:choose>
-							        <c:when test="${row.teacher eq true}">
+							        <c:when test="${row.pra eq true}">
 						    			Y
 						            </c:when>
 						            <c:otherwise>

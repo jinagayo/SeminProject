@@ -3,15 +3,18 @@ package model.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+
 import model.professor.Professor;
 import model.student.Student;
 import model.subject.Subject;
 import model.attendance.Attendance;
 import model.graduation.Graduation;
+import model.major.Major;
 import model.personality.Personality;
 import model.pratice.Practice;
 import model.service.Service;
@@ -189,8 +192,8 @@ public interface ModelMapper {
 	@Select("select * from pratice where studno= #{id}")
 	Practice selectparct(Integer id);
 
-	@Insert("insert into service (studno,day,servicename,groupname,time,content,emotion) "
-			+ "values (#{studno},#{day},#{servicename},#{groupname},#{time},#{content},#{emotion})")
+	@Insert("insert into service (studno,day,servicename,groupname,time,content,emotion,file1) "
+			+ "values (#{studno},#{day},#{servicename},#{groupname},#{time},#{content},#{emotion},#{file1})")
 	boolean servsubmit(Service service);
 
 	@Insert("insert into personality (studno,self1,self2,self3,profno) values (#{studno},#{self1},#{self2},#{self3},#{profno})")
@@ -203,7 +206,7 @@ public interface ModelMapper {
 	Student selectStu(Integer id);
 
 	
-	@Select("SELECT p.studno as studno, p.day as day, t.teacherYN as teacher,t.service as service, u.name as name"
+	@Select("SELECT p.studno as studno, p.day as day, t.pracice as pra,t.service as service, u.name as name"
 			+ " FROM pratice p JOIN teacher t ON p.studno = t.studno JOIN user u ON p.studno = u.id")
 	List<Map<String, Object>> ListPratice();
 	
@@ -233,6 +236,7 @@ public interface ModelMapper {
 			+ " GROUP BY s.subcode,s.subname")
 	List<Map<String, Object>> myclassSubjectHome(@Param("code")int code);
 
+
 	@Select("SELECT * from personality")
 	List<Personality> selectPersonalities();
 
@@ -250,5 +254,62 @@ public interface ModelMapper {
 
 	@Update("UPDATE user SET password=#{chgpass} WHERE id=#{id}")
 	boolean updatePass(@Param("id")Integer id, @Param("chgpass")String chgpass);
+
+	@Select("SELECT * FROM pratice where studno=#{id}")
+	Practice InfoPracticeOne(int id);
+
+	@Update("update teacher set pracice=#{accept} where studno=#{id}")
+	boolean teacherUpdate(@Param("id")int id, @Param("accept")String accept);
+
+	@Delete("delete from pratice where studno=#{id}")
+	boolean praciceDelete(int id);
+
+	@Select("select u.name as name, s.time as time ,s.studno as studno,s.day as day from service s join user u on s.studno=u.id")
+	List<Map<String, Object>> ServiceList();
+
+	@Select("select *  from service where studno=#{id}")
+	Service serviceInfo(int id);
+
+	@Update("UPDATE teacher SET service = service + #{time} WHERE studno = #{id}")
+	boolean serviceUpdate(@Param("id")int id, @Param("time")int time);
+
+	@Delete("delete from service where studno=#{id}")
+	boolean deleteservice(int id);
+
+	@Select({"<script>", 
+		"SELECT s.subcode, s.subname subname ,s.time,s.starttime,s.day,s.location,s.profno,s.teachsub,u.name profname "
+		+ "from subject s join user u ON u.id=s.profno where 1=1 "
+				+sqlcol,
+			    "LIMIT #{start}, #{limit}"
+		,"</script>"})
+	List<Map<String, Object>> selectall(Map<String, Object> map);
+
+	String sqlcol = 
+		    "<if test='column != null and find != null'>" +
+		    " AND " +
+		    "<choose>" +
+		    "  <when test='column == \"profname\"'>" +
+		    "    u.name LIKE CONCAT('%', #{find}, '%')" +
+		    "  </when>" +
+		    "  <when test='column == \"subname\"'>" +
+		    "    s.subname LIKE CONCAT('%', #{find}, '%')" +
+		    "  </when>" +
+		    "</choose>" +
+		    "</if>";
+
+	@Select({"<script>",
+				 "select count(*) from subject s join user u ON u.id=s.profno where 1=1 "
+				+ sqlcol
+			, "</script>"})
+	int classCount(Map<String, Object> map);
+
+	@Select("select * from subject where subcode = #{applicode}")
+	Subject selectSubOne(int applicode);
+
+	@Insert("Insert into attendance (studno,subcode) values (#{studno},#{subcode})")
+	boolean insertsub(@Param("subcode")int subcode, @Param("studno")Integer id);
+
+
+	
 
 }

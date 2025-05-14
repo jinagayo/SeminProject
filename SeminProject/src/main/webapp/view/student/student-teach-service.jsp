@@ -13,7 +13,7 @@
               봉사 일지 제출
      </div>
      <div class="card-body">
-     	<form action="servicesubmit" method="post" accept-charset="UTF-8"  name="f" onsubmit="return inputcheck();">
+     	<form action="servicesubmit"  method="post" accept-charset="UTF-8"  name="f" enctype="multipart/form-data"  onsubmit="return inputcheck();">
 	    	<table  border="1" >
 	    		<tr>
 	    			<th>날짜</th>
@@ -43,9 +43,15 @@
 	    				 <textarea name="emotion" class="form-control" rows="15" cols="50" style="resize: none;"></textarea>
 	    			</td>
 	    		</tr>
+				<tr>
+					<th>활동 증명서</th>
+					<td>
+					    <input type="file" name="file1" />
+					</td>
+				</tr>
 	    		<tr>
 	    			<td colspan="2">
-					   <button type="submit" class="btn btn-primary text-center">일지 제출</button>
+					   <button type="submit" class="btn btn-secondary text-center">일지 제출</button>
 				</tr>
 	    	</table>
     	</form>
@@ -58,12 +64,12 @@ function inputcheck(){
 	if(f.date.value==""){
 		alert("날짜를 입력하세요");
 		f.name.focus();
-		return;
+		return false;
 	}
 	if(f.time.value==""){
 		alert("봉사 시간을 입력하세요");
 		f.name.focus();
-		return;
+		return false;
 	}
 	if(isNaN(f.time.value)){
 		alert("봉사 시간은 숫자로 입력하세요");
@@ -73,22 +79,22 @@ function inputcheck(){
 	if(f.groupname.value==""){
 		alert("단체명을 입력하세요");
 		f.pass.focus();
-		return;
+		return false;
 	}
 	if(f.servicename.value==""){
 		alert("활동명을 입력하세요");
 		f.pass.focus();
-		return;
+		return false;
 	}
 	if(f.content.value==""){
 		alert("내용을 입력하세요");
 		f.title.focus();
-		return;
+		return false;
 	}
 	if(f.emotion.value==""){
 		alert("내용을 입력하세요");
 		f.title.focus();
-		return;
+		return false;
 	}
 	f.submit();
 }

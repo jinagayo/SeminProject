@@ -141,4 +141,55 @@ public class BoardDao {
 		return false;
 	}
 
+	public int subBoardCount(String boardid, String subcode, int pageNum, int limit) {
+		SqlSession session = MybatisConnection.getConnection();
+		try {
+			map.put("start",(pageNum-1)*limit);
+			map.put("limit",limit);
+			map.put("subcode", subcode);
+			map.put("boardid", boardid);
+			return session.getMapper(cls).subBoardCount(map);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			MybatisConnection.close(session);
+		}
+		return 0;
+	}
+
+	public List<Board> subbBoardlist(String boardid, String subcode, int pageNum, int limit) {
+		SqlSession session = MybatisConnection.getConnection();
+		try {
+			map.clear();
+			map.put("start", (pageNum-1)*limit);
+			/*
+			 * pageNum	start
+			 *   1		  0
+			 *   2		 10
+			 */
+			
+			map.put("limit", limit);
+			map.put("boardid", boardid);
+			map.put("subcode", subcode);		
+			return session.getMapper(cls).subbBoardlist(map);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			MybatisConnection.close(session);
+		}
+		return null;
+	}
+
+	public boolean writeboard(Board board) {
+		SqlSession session = MybatisConnection.getConnection();
+		try {
+			return session.getMapper(cls).writeboard(board);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			MybatisConnection.close(session);
+		}
+		return false;
+	}
+
 }

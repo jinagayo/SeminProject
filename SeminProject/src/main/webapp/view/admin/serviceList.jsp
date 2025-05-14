@@ -22,24 +22,13 @@
 		       			<th>이름</th>
 		       			<th>날짜</th>
 		       			<th>봉사시간</th>
-		       			<th>승인여부</th>
 		       		</tr>
 		       		<c:forEach var="row" items="${list}">
 		       			<tr onclick="location.href='../admin/serviceInfo?studno=${row.studno}'">
 		       				<td>${row.studno}</td>
 		       				<td>${row.name}</td>
 		       				<td>${row.day}</td>
-		       				<td>${row.service}</td>
-							<td>
-								<c:choose>
-							        <c:when test="${row.teacher eq true}">
-						    			Y
-						            </c:when>
-						            <c:otherwise>
-						                 N
-						      		</c:otherwise>
-								</c:choose>
-							</td>
+		       				<td>${row.time}</td>
 		       			</tr>
 		       		</c:forEach>
 	    	</table>

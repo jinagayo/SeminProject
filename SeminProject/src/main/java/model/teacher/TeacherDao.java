@@ -21,4 +21,28 @@ public class TeacherDao {
 		 return null;	
 	}
 
+	public boolean teacherUpdate(int id, String accept) {
+		 SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).teacherUpdate(id,accept);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		return false;
+	}
+
+	public boolean serviceUpdate(int id, int time) {
+		 SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).serviceUpdate(id,time);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		return false;
+	}
+
 }

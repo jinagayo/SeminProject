@@ -25,9 +25,6 @@ public class Practice {
 	public String getEmotion() {
 		return emotion;
 	}
-	public String getFile1() {
-		return file1;
-	}
 	public void setStudno(int studno) {
 		this.studno = studno;
 	}
@@ -43,10 +40,13 @@ public class Practice {
 	public void setFile1(String file1) {
 		this.file1 = file1;
 	}
+	public String getFile1() {
+		return file1;
+	}
 	@Override
 	public String toString() {
 		return "Practice [studno=" + studno + ", activename=" + activename + ", content=" + content + ", emotion="
-				+ emotion + "]";
+				+ emotion + ", file1=" + file1 + ", day=" + day + "]";
 	}
 	
 	
