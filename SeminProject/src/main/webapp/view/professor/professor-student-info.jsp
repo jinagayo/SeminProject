@@ -53,9 +53,43 @@
        		<tr>
        			<th>주소</th>
        			<td>${user_s.address}</td>
+
+       			<td  colspan="2"><a href="#" onclick="handleClick()">인성 및 적성 검사</a></td>
        		</tr>
     	</table>
     </div>
  </div>
+ 
+ <script type="text/javascript">
+ 	function handleClick(){
+ 		const plist = [
+ 		    <c:forEach var="p" items="${plist}" varStatus="s">
+ 		      "${p.studno}"<c:if test="${!s.last}">,</c:if>
+ 		    </c:forEach>
+ 		  ];
+
+ 		  const currentStudno = "${student.studno}";
+ 		  
+ 		
+ 		let condition = false;
+
+ 	    for (let i = 0; i < plist.length; i++) {
+ 	      if (plist[i] === currentStudno) {
+ 	        condition = true;
+ 	        break;
+ 	      }
+ 	    }
+
+ 	    if (condition) {
+ 	    	window.open(
+ 	    			  "professor-Ckpersonality?studno="+${student.studno},  // 이동할 URL
+ 	    			  "popupWindow",              // 팝업창 이름
+ 	    			  "width=600,height=400,left=100,top=100" // 창 크기와 위치
+ 	    			);
+ 	    } else {
+ 	      alert("자가검사가 완료되지 않았습니다.");
+ 	    }
+ 	  }
+ </script>
   </body>
-</html>>
+</html>

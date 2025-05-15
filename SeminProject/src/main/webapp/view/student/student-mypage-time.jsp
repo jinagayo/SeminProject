@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
   <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -12,8 +11,6 @@
 <title>내 시간표 조회</title>
 </head>
 <body>
-
-
   <br>
   <h2 class="breadcrumb-item active  mx-5">  내 시간표</h2>
   <div class="card mb-4  mx-5">
@@ -34,3 +31,6 @@
       </table>
    </div>
  </div>
+</body>
+</html>
+

@@ -8,6 +8,13 @@ public class Service {
 	int time;
 	String content;
 	String emotion;
+	String file1;
+	public void setFile1(String file1) {
+		this.file1 = file1;
+	}
+	public String getFile1() {
+		return file1;
+	}
 	public int getStudno() {
 		return studno;
 	}
@@ -53,7 +60,8 @@ public class Service {
 	@Override
 	public String toString() {
 		return "Service [studno=" + studno + ", day=" + day + ", servicename=" + servicename + ", groupname="
-				+ groupname + ", time=" + time + ", content=" + content + ", emotion=" + emotion + "]";
+				+ groupname + ", time=" + time + ", content=" + content + ", emotion=" + emotion + ", file1=" + file1
+				+ "]";
 	}
 	
 	

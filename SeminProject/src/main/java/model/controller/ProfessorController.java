@@ -14,6 +14,8 @@ import model.attendance.Attendance;
 import model.attendance.AttendanceDao;
 import model.graduation.Graduation;
 import model.graduation.GraduationDao;
+import model.personality.Personality;
+import model.personality.PersonalityDao;
 import model.professor.ProfessorDao;
 import model.student.Student;
 import model.student.StudentDao;
@@ -32,6 +34,7 @@ public class ProfessorController extends MskimRequestMapping {
 	private UserDao userdao = new UserDao();
 	private GraduationDao graddao = new GraduationDao();
 	private AttendanceDao attdao = new AttendanceDao();
+	private PersonalityDao pdao = new PersonalityDao();
 	
 	@RequestMapping("professor-mypage-info")
 	public String MypageInfo(HttpServletRequest request,HttpServletResponse response) {
@@ -41,7 +44,6 @@ public class ProfessorController extends MskimRequestMapping {
 		
 		request.setAttribute("user_prof", user_prof); //user 테이블 정보
 		request.setAttribute("prof", professor); //professor 테이블 정보
-		System.out.println(professor);
 		return "professor-mypage-info";
 	}
 	
@@ -117,6 +119,8 @@ public class ProfessorController extends MskimRequestMapping {
 		request.setAttribute("gradu", graduation);
 		Map<String, Object> major = stddao.selectStudent(id);
 		request.setAttribute("m",major);
+		List<Personality> plist = pdao.selectPersonalities();
+		request.setAttribute("plist", plist);
 		return "professor-student-info";
 	}
 	
@@ -228,6 +232,36 @@ public class ProfessorController extends MskimRequestMapping {
 			System.out.println(a);
 		}
 		return "professor-InGrade-fix";
+	}
+	@RequestMapping("professor-Ckpersonality")	
+	public String Ckpersonality(HttpServletRequest request,HttpServletResponse response) {
+		String id = request.getParameter("studno");
+		Integer studno = Integer.parseInt(id);
+		request.setAttribute("studno",studno);
+		return "professor-Ckpersonality";
+	}
+	
+	@RequestMapping("persubmit")
+	public String persubmit(HttpServletRequest request,
+			HttpServletResponse response) {
+		String id = request.getParameter("studno");
+		Integer studno = Integer.parseInt(id);
+		Personality p = pdao.selectPersonality(studno);
+
+		p.setProf1(Integer.parseInt(request.getParameter("num1")));
+		p.setProf2(Integer.parseInt(request.getParameter("num2")));
+		p.setProf3(Integer.parseInt(request.getParameter("num3")));
+		
+		request.setAttribute("url","professor-Ckpersonality?studno="+studno);
+
+		if(pdao.perChek(p)) {
+			request.setAttribute("msg", "등록되었습니다");
+		}else {
+			request.setAttribute("msg", "등록 실패");	
+		}
+		
+		return "alert"; 
+			
 	}
 }
 

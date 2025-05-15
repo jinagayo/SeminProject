@@ -1,4 +1,4 @@
-package model.practice;
+package model.pratice;
 
 import java.util.List;
 import java.util.Map;
@@ -81,6 +81,30 @@ public class PracticeDao {
 			 MybatisConnection.close(session);
 		 }
 		 return null;
+	}
+
+	public Practice InfoPracticeOne(int id) {
+		SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).InfoPracticeOne(id);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		return null;
+	}
+
+	public boolean praciceDelete(int id) {
+		SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).praciceDelete(id);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		return false;
 	}
 
 }

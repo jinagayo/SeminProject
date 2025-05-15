@@ -12,26 +12,26 @@ import model.board.Board;
 
 public interface BoardMapper {
 
-   String sqlcol="<if test='column != null'>"
-         + "<if test='col1 != null'> and (${col1} like '%${find}%'</if>"
-         + "<if test='col2 == null'> ) </if>"
-         + "<if test='col2 != null'> or (${col2} like '%${find}%'</if>"
-         + "<if test='col2 != null and col3==null'>)</if>"
-         + "<if test='col3 != null'> or $[col3} like '%${find}%') </if></if>";
-   @Select({"<script>",
-             "select count(*) from board where boardid = 1 and subcode is null "
-                     + sqlcol
-             + "ORDER BY regdate DESC "
-            , "</script>"})
-   int maincount(Map<String, Object> map);
-   
-   
-   @Select({"<script>",
-      " select * from board where boardid=1 and subcode is null "+sqlcol
-      + " ORDER BY regdate DESC"
-      +" limit #{start},#{limit} "
-      ,"</script>"})
-   List<Board> mainlist(Map<String, Object> map);
+	String sqlcol="<if test='column != null'>"
+			+ "<if test='col1 != null'> and (${col1} like '%${find}%'</if>"
+			+ "<if test='col2 == null'> ) </if>"
+			+ "<if test='col2 != null'> or (${col2} like '%${find}%'</if>"
+			+ "<if test='col2 != null and col3==null'>)</if>"
+			+ "<if test='col3 != null'> or $[col3} like '%${find}%') </if></if>";
+	@Select({"<script>",
+				 "select count(*) from board where boardid = 1 and subcode is null "
+							+ sqlcol
+				 + "ORDER BY regdate DESC "
+				, "</script>"})
+	int maincount(Map<String, Object> map);
+	
+	
+	@Select({"<script>",
+		" select * from board where boardid=1 and subcode is null "+sqlcol
+		+ " ORDER BY regdate DESC"
+		+" limit #{start},#{limit} "
+		,"</script>"})
+	List<Board> mainlist(Map<String, Object> map);
 
    @Select("select ifnull(max(num),0) from board")
    int maxnum();
@@ -53,6 +53,18 @@ public interface BoardMapper {
    @Select("select * from board where num = #{value}")
    Board selectone(int num);
 
-   @Delete("delete from board where num=#{num}")
-   boolean delete(Board board);
+	@Delete("delete from board where num=#{num}")
+	boolean delete(Board board);
+
+	@Select("select count(*) from board where boardid = #{boardid} and subcode = #{subcode} ORDER BY regdate DESC ")
+	int subBoardCount(Map<String, Object> map);
+
+	@Select(" select * from board where boardid = #{boardid} and subcode = #{subcode} "
+		+ " ORDER BY regdate DESC"
+		+" limit #{start},#{limit} ")
+	List<Board> subbBoardlist(Map<String, Object> map);
+
+
+	@Insert("Insert into board (boardid,title,writer,content,regdate,subcode,file1) values ( #{boardid},#{title},#{writer},#{content},now(),#{subcode},#{file1})")
+	boolean writeboard(Board board);
 }

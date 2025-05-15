@@ -3,21 +3,23 @@ package model.mapper;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+
 
 import model.professor.Professor;
 import model.student.Student;
 import model.subject.Subject;
 import model.attendance.Attendance;
 import model.graduation.Graduation;
+import model.major.Major;
 import model.personality.Personality;
 import model.practice.Practice;
 import model.service.Service;
-import model.student.Student;
-import model.subject.Subject;
+
 import model.teacher.Teacher;
 import model.user.User;
 public interface ModelMapper {
@@ -27,9 +29,87 @@ public interface ModelMapper {
 	@Select("SELECT s.tograde,s.entry,s.grade, m.mname AS major FROM student s JOIN major m ON s.mcode = m.mcode where s.studno = #{id}")
 	Map<String, Object> selectStudent(@Param("id") int id);
 
-	
-	@Select("SELECT p.mcode AS major FROM professor p JOIN major m ON p.mcode = m.mcode WHERE p.profno = #{id}")
+	@Select("SELECT m.mname AS major FROM professor p JOIN major m ON p.mcode = m.mcode where p.profno = #{id}")
 	Map<String, Object> selectProfessor(@Param("id") int id);
+
+	@Select("SELECT * from graduation where studno= #{id}")
+	Graduation selectGrad(Integer id);
+
+	@Select("SELECT * from teacher where studno= #{id}")
+	Teacher selectTeach(Integer id);
+
+	@Select("SELECT subcode from attendance where studno= #{id}")
+	List<Attendance> selectAttend(Integer id);
+	
+	@Select("SELECT subcode FROM subject sub JOIN professor p ON p.profno = sub.profno where p.profno = #{id}")
+	List<Subject> selectLcode(Integer id);
+	
+	@Select(
+			{
+			    "<script>",
+			    "SELECT * FROM subject",
+			    "WHERE subcode IN",
+			    "<foreach item='code' collection='list' open='(' separator=',' close=')'>",
+			    "#{code}",
+			    "</foreach>",
+			    "</script>"
+			})
+	List<Subject> selectLecture(List<Integer> subcodes);
+	
+	@Select({
+	    "<script>",
+	    "SELECT * FROM subject",
+	    "WHERE subcode IN",
+	    "<foreach item='code' collection='list' open='(' separator=',' close=')'>",
+	    "#{code}",
+	    "</foreach>",
+	    "</script>"
+	})
+	List<Subject> selectSub(List<Integer> subcodes);
+
+	@Select("SELECT studno FROM student s JOIN professor p ON s.profno = p.profno where p.profno = #{id} ")
+	List<Student> selectStudentId(int id);
+
+	@Select({
+	    "<script>",
+	    "SELECT * FROM user",
+	    "WHERE id IN",
+	    "<foreach item='id' collection='list' open='(' separator=',' close=')'>",
+	    "#{id}",
+	    "</foreach>",
+	    "</script>"
+	})
+	List<User> selectMany(List<Integer> studno);
+
+	@Select("SELECT * FROM subject WHERE profno=#{id}")
+	List<Subject> selectPsubject(int id);
+
+	@Select("SELECT * FROM student WHERE studno = #{id}")
+	Student pickStudent(int id);
+
+	@Select("SELECT * FROM subject WHERE subcode=#{sub}")
+	Subject selectSubject(String sub);
+
+	@Select("SELECT studno FROM attendance WHERE subcode=#{subcode}")
+	List<Student> select_sub_stdno(Integer subcode);
+
+	@Select("SELECT * FROM attendance WHERE subcode=#{subcode}")
+	List<Attendance> fixatt(Integer subcode);
+
+	@Select("SELECT * FROM attendance WHERE studno=#{studno} AND subcode=#{subcode}")
+	Attendance selectAtt(@Param("studno")int studno,  @Param("subcode")int subcode);
+
+	@Update("Update attendance SET WEEK1=#{WEEK1}, WEEK2=#{WEEK2}, "
+			+ "WEEK3=#{WEEK3}, WEEK4=#{WEEK4}, WEEK5=#{WEEK5}, WEEK6=#{WEEK6}, "
+			+ "WEEK7=#{WEEK7},WEEK8=#{WEEK8}, WEEK9=#{WEEK9}, WEEK10=#{WEEK10}, WEEK11=#{WEEK11}, WEEK12=#{WEEK12}, "
+			+ "WEEK13=#{WEEK13}, WEEK14=#{WEEK14}, WEEK15=#{WEEK15} "
+			+ "WHERE studno=#{studno} AND subcode=#{subcode}")
+	int updateAttendance(Attendance attendance);
+	
+	@Update("Update attendance SET grade=#{grade} WHERE studno=#{studno} AND subcode=#{subcode}")
+	int updateGrade(Attendance attendance);
+
+
 	
 	@Insert("insert into user (id,name,birth,phone,address,email,position)"
 			+ " values (#{id},#{name},#{birth},#{phone},#{address},#{email},#{position})")
@@ -177,10 +257,6 @@ public interface ModelMapper {
 	@Select("SELECT m.mname AS major FROM professor p JOIN major m ON p.mcode = m.mcode where p.profno = #{id}")
 	Map<String, Object> selectMajor(@Param("id") int id);
 
-
-	@Select("SELECT * from graduation where studno= #{id}")
-	Graduation selectGrad(Integer id);
-
 	@Select("SELECT * from teacher where studno= #{id}")
 	Teacher selectTeach(Integer id);
 
@@ -220,8 +296,8 @@ public interface ModelMapper {
 	@Select("select * from pratice where studno= #{id}")
 	Practice selectparct(Integer id);
 
-	@Insert("insert into service (studno,day,servicename,groupname,time,content,emotion) "
-			+ "values (#{studno},#{day},#{servicename},#{groupname},#{time},#{content},#{emotion})")
+	@Insert("insert into service (studno,day,servicename,groupname,time,content,emotion,file1) "
+			+ "values (#{studno},#{day},#{servicename},#{groupname},#{time},#{content},#{emotion},#{file1})")
 	boolean servsubmit(Service service);
 
 	@Insert("insert into personality (studno,self1,self2,self3,profno) values (#{studno},#{self1},#{self2},#{self3},#{profno})")
@@ -232,6 +308,7 @@ public interface ModelMapper {
 
 	@Select("select * from student where studno=#{id}")
 	Student selectStu(Integer id);
+
 
 	@Select("SELECT studno FROM student s JOIN professor p ON s.profno = p.profno where p.profno = #{id} ")
 	List<Student> selectStudentId(int id);
@@ -253,7 +330,7 @@ public interface ModelMapper {
 	@Select("SELECT * FROM student WHERE studno = #{id}")
 	Student pickStudent(int id);
 	
-	@Select("SELECT p.studno as studno, p.day as day, t.teacherYN as teacher,t.service as service, u.name as name"
+	@Select("SELECT p.studno as studno, p.day as day, t.pracice as pra,t.service as service, u.name as name"
 			+ " FROM pratice p JOIN teacher t ON p.studno = t.studno JOIN user u ON p.studno = u.id")
 	List<Map<String, Object>> ListPratice();
 	
@@ -282,26 +359,76 @@ public interface ModelMapper {
 			+ " WHERE s.subcode = 50"
 			+ " GROUP BY s.subcode,s.subname")
 	List<Map<String, Object>> myclassSubjectHome(@Param("code")int code);
+
 	
 	@Select("SELECT * FROM subject WHERE subcode=#{sub}")
 	Subject selectSubject(String sub);
+	
+	@Select("SELECT * FROM pratice where studno=#{id}")
+	Practice InfoPracticeOne(int id);
 
-	@Select("SELECT studno FROM attendance WHERE subcode=#{subcode}")
-	List<Student> select_sub_stdno(Integer subcode);
 
-	@Select("SELECT * FROM attendance WHERE subcode=#{subcode}")
-	List<Attendance> fixatt(Integer subcode);
+	@Update("update teacher set pracice=#{accept} where studno=#{id}")
+	boolean teacherUpdate(@Param("id")int id, @Param("accept")String accept);
 
-	@Select("SELECT * FROM attendance WHERE studno=#{studno} AND subcode=#{subcode}")
-	Attendance selectAtt(@Param("studno")int studno,  @Param("subcode")int subcode);
+	@Delete("delete from pratice where studno=#{id}")
+	boolean praciceDelete(int id);
 
-	@Update("Update attendance SET WEEK1=#{WEEK1}, WEEK2=#{WEEK2}, "
-			+ "WEEK3=#{WEEK3}, WEEK4=#{WEEK4}, WEEK5=#{WEEK5}, WEEK6=#{WEEK6}, "
-			+ "WEEK7=#{WEEK7},WEEK8=#{WEEK8}, WEEK9=#{WEEK9}, WEEK10=#{WEEK10}, WEEK11=#{WEEK11}, WEEK12=#{WEEK12}, "
-			+ "WEEK13=#{WEEK13}, WEEK14=#{WEEK14}, WEEK15=#{WEEK15} "
-			+ "WHERE studno=#{studno} AND subcode=#{subcode}")
-	int updateAttendance(Attendance attendance);
+	@Select("select u.name as name, s.time as time ,s.studno as studno,s.day as day from service s join user u on s.studno=u.id")
+	List<Map<String, Object>> ServiceList();
+
+	@Select("select *  from service where studno=#{id}")
+	Service serviceInfo(int id);
+
+	@Update("UPDATE teacher SET service = service + #{time} WHERE studno = #{id}")
+	boolean serviceUpdate(@Param("id")int id, @Param("time")int time);
+
+	@Delete("delete from service where studno=#{id}")
+	boolean deleteservice(int id);
+
+	@Select({"<script>", 
+		"SELECT s.subcode, s.subname subname ,s.time,s.starttime,s.day,s.location,s.profno,s.teachsub,u.name profname "
+		+ "from subject s join user u ON u.id=s.profno where 1=1 "
+				+sqlcol,
+			    "LIMIT #{start}, #{limit}"
+		,"</script>"})
+	List<Map<String, Object>> selectall(Map<String, Object> map);
+
+	String sqlcol = 
+		    "<if test='column != null and find != null'>" +
+		    " AND " +
+		    "<choose>" +
+		    "  <when test='column == \"profname\"'>" +
+		    "    u.name LIKE CONCAT('%', #{find}, '%')" +
+		    "  </when>" +
+		    "  <when test='column == \"subname\"'>" +
+		    "    s.subname LIKE CONCAT('%', #{find}, '%')" +
+		    "  </when>" +
+		    "</choose>" +
+		    "</if>";
+
+	@Select({"<script>",
+				 "select count(*) from subject s join user u ON u.id=s.profno where 1=1 "
+				+ sqlcol
+			, "</script>"})
+	int classCount(Map<String, Object> map);
+
+	@Select("select * from subject where subcode = #{applicode}")
+	Subject selectSubOne(int applicode);
+
+	@Insert("Insert into attendance (studno,subcode) values (#{studno},#{subcode})")
+	boolean insertsub(@Param("subcode")int subcode, @Param("studno")Integer id);
 	
 	@Update("Update attendance SET grade=#{grade} WHERE studno=#{studno} AND subcode=#{subcode}")
 	int updateGrade(Attendance attendance);
+
+
+	@Select("SELECT * from personality")
+	List<Personality> selectPersonalities();
+
+	@Select("SELECT * FROM personality WHERE studno = #{studno}")
+	Personality selectPersonality(Integer studno);
+	
+	@Update("UPDATE personality SET prof1 = #{prof1}, prof2 = #{prof2}, prof3 = #{prof3}, personsubmit = 1 WHERE studno=#{studno}")
+	boolean perChek(Personality p);
 }
