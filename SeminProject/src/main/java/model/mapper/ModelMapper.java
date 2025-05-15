@@ -12,6 +12,7 @@ import model.professor.Professor;
 import model.student.Student;
 import model.subject.Subject;
 import model.attendance.Attendance;
+import model.comment.Comment;
 import model.graduation.Graduation;
 import model.major.Major;
 import model.personality.Personality;
@@ -299,5 +300,15 @@ public interface ModelMapper {
 	
 	@Update("UPDATE personality SET prof1 = #{prof1}, prof2 = #{prof2}, prof3 = #{prof3}, personsubmit = 1 WHERE studno=#{studno}")
 	boolean perChek(Personality p);
+
+	@Select("select ifnull(max(Seq),0) from comment where num2=${value}")
+	int maxseq(int num2);
+
+	@Insert("insert into comment (num2,seq,writer,content,regdate)"
+			+ " values (#{num2},#{seq},#{writer},#{content},now())")
+	int insert(Comment comm);
+
+	@Select ("select * from comment where num2=${value}")
+	List<Comment> list(String num);
 
 }

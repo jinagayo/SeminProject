@@ -39,7 +39,7 @@
 			<td>${b.num}</td>
 			<td style="text-align:left">
 			
-			<a href="student-subject-board-info?num=${b.num}">
+			<a href="professor-subject-board-info?num=${b.num}">
 			${b.title}</a></td>
 			<td><fmt:formatDate value="${b.regdate}" pattern="yyyy-MM-dd" var="rdate" />
 			<fmt:formatDate value="${today}" pattern="yyyy-MM-dd HH:mm:ss" var="tdate" />
@@ -72,11 +72,11 @@
 		</c:if>
 		</td>
 	</tr>
-		<c:if test="${boardid=='2'}">
+		<c:if test="${boardid=='1'}">
 			<tr>
 				<td colspan="5" style="text-align:right">
-				<form action="student-subject-board-writeForm" method="get" accept-charset="UTF-8"  name="f" >
-					<button type="submit" class="btn-primary text-center">글쓰기</button>
+				<form action="professor-subject-board-writeForm" method="get" accept-charset="UTF-8"  name="f" >
+					<button type="submit" class="btn btn-primary text-center">글쓰기</button>
 					<input type="hidden" name="subcode" value="${param.subcode}"/>
 					<input type="hidden" name="boardid" value="${boardid}"/>
 				</form>

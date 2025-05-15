@@ -25,6 +25,8 @@ import model.attendance.Attendance;
 import model.attendance.AttendanceDao;
 import model.board.Board;
 import model.board.BoardDao;
+import model.comment.Comment;
+import model.comment.CommentDao;
 import model.graduation.Graduation;
 import model.graduation.GraduationDao;
 import model.major.Major;
@@ -57,6 +59,7 @@ public class StudentController extends MskimRequestMapping{
 	private ServiceDao serdao= new ServiceDao(); 
 	private MajorDao majdao=new MajorDao();
 	private BoardDao boadao=new BoardDao();
+	private CommentDao commdao=new CommentDao();
 
 	public String noticecheck(HttpServletRequest request, HttpServletResponse response ) {
 		Integer id = (Integer) request.getSession().getAttribute("login");
@@ -471,6 +474,8 @@ public class StudentController extends MskimRequestMapping{
 		String boardName="공지사항";
 		if(boardid.equals("2"))
 			boardName="Q&A";
+		Subject subject = subdao.selectSubject(subcode);
+		request.setAttribute("s", subject);
 		request.setAttribute("boardName", boardName); //개시판 일믐
 		request.setAttribute("boardCount", boardcount); //게시판별 전체 게시ㅜㄹ 건수
 		request.setAttribute("boardid", boardid); //게시판 동류,ㅈ게시판 코드.
@@ -494,7 +499,9 @@ public class StudentController extends MskimRequestMapping{
 	public String subBoardWriteForm(HttpServletRequest request,HttpServletResponse response) {
 		String boardid=request.getParameter("boardid");
 		String subcode=request.getParameter("subcode");
+		Subject subject =subdao.selectSubject(subcode);
 		request.setAttribute("boardid", boardid);
+		request.setAttribute("s", subject);
 		return "student-subject-board-writeForm";
 	}
 	
@@ -535,5 +542,43 @@ public class StudentController extends MskimRequestMapping{
 			
 		}
 		return "alert";
+	}
+	@MSLogin("noticecheck")
+	@RequestMapping("student-subject-board-info")
+	public String subBoardInfo(HttpServletRequest request,HttpServletResponse response) {
+		Integer id =(Integer)request.getSession().getAttribute("login");
+		String num = request.getParameter("num");
+		Board board = boadao.selectOne(Integer.parseInt(num));
+		Subject subject = subdao.selectSubject(Integer.toString(board.getSubcode()));
+		User user = dao.selectOne(id);
+		request.setAttribute("b", board);
+		request.setAttribute("s", subject);
+		request.setAttribute("u", user);
+		List<Comment> commentlist= commdao.list(num) ;
+		request.setAttribute("commlist", commentlist) ;
+		return "student-subject-board-info";
+	}
+	@MSLogin("noticecheck")
+	@RequestMapping("comment")
+	public String comment(HttpServletRequest request,HttpServletResponse response) {
+	      try {
+	          request.setCharacterEncoding("UTF-8");
+	       } catch (UnsupportedEncodingException e) {
+	          e.printStackTrace();
+	       }
+			Integer id =(Integer)request.getSession().getAttribute("login");
+		   Comment comm = new Comment() ;
+		   User user =dao.selectOne(id);
+		   comm.setNum2(Integer.parseInt(request.getParameter("num")));
+		   comm.setContent(request.getParameter("content")) ;
+		   comm.setWriter(user.getName());
+		   int seq =commdao.maxseq(comm.getNum2()) ;
+		   comm.setSeq(++seq) ;
+		   if(commdao.insert(comm)) {
+			   return "redirect:student-subject-board-info?num="+comm.getNum2()+"&readcnt=f" ;
+		   }
+		   request.setAttribute("msg", "답글 등록시 오류 발생") ;
+		   request.setAttribute("url", "info?num="+comm.getNum2()+"&readcnt=f") ;
+		   return "alert";
 	}
 }
