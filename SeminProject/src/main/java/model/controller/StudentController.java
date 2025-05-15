@@ -69,13 +69,13 @@ public class StudentController extends MskimRequestMapping{
 			System.out.println("메세지 입력");
 			request.setAttribute("url", "/main/main");
 			System.out.println("url 입력");
-			return "/alert";
+			return "alert";
 		}else {
 			User user_std = dao.selectOne(id);
 			if(user_std.getPosition()!=1) {
 				request.setAttribute("msg", "접근 불가");
 				request.setAttribute("url", "/main/main");
-				return "/alert";
+				return "alert";
 			}
 			return null;
 		}

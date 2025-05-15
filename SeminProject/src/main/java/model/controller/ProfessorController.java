@@ -1,4 +1,8 @@
 package model.controller;
+import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -8,10 +12,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oreilly.servlet.MultipartRequest;
+
+import gdu.mskim.MSLogin;
 import gdu.mskim.MskimRequestMapping;
 import gdu.mskim.RequestMapping;
 import model.attendance.Attendance;
 import model.attendance.AttendanceDao;
+import model.board.Board;
+import model.board.BoardDao;
 import model.graduation.Graduation;
 import model.graduation.GraduationDao;
 import model.personality.Personality;
@@ -35,7 +44,27 @@ public class ProfessorController extends MskimRequestMapping {
 	private GraduationDao graddao = new GraduationDao();
 	private AttendanceDao attdao = new AttendanceDao();
 	private PersonalityDao pdao = new PersonalityDao();
+	private BoardDao boadao = new BoardDao();
 	
+	public String noticecheck(HttpServletRequest request, HttpServletResponse response ) {
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		System.out.println(id);
+		if(id==null) {
+			request.setAttribute("msg", "로그인 후 접근가능합니다.");
+			request.setAttribute("url", "/main/login");
+			return "openeralert";
+		}else {
+			User user_std = dao.selectOne(id);
+			if(user_std.getPosition()!=2) {
+				request.setAttribute("msg", "접근권한이 없습니다.");
+				request.setAttribute("url", "/main/main");
+				return "openeralert";
+			}
+			return null;
+		}
+	}
+
+	@MSLogin("noticecheck")
 	@RequestMapping("professor-mypage-info")
 	public String MypageInfo(HttpServletRequest request,HttpServletResponse response) {
 		Integer id = (Integer) request.getSession().getAttribute("login");
@@ -47,6 +76,7 @@ public class ProfessorController extends MskimRequestMapping {
 		return "professor-mypage-info";
 	}
 	
+	@MSLogin("noticecheck")
 	@RequestMapping("professor-mypage-time") 
 	public String MypageTime(HttpServletRequest request,
 			HttpServletResponse response) {
@@ -90,6 +120,7 @@ public class ProfessorController extends MskimRequestMapping {
 		return "professor-mypage-time";
 	}
 	
+	@MSLogin("noticecheck")
 	@RequestMapping("professor-student-manage") 
 	public String StudentManage(HttpServletRequest request,
 			HttpServletResponse response) {
@@ -107,6 +138,7 @@ public class ProfessorController extends MskimRequestMapping {
 		return "professor-student-manage";
 	}
 	
+	@MSLogin("noticecheck")
 	@RequestMapping("professor-student-info")
 	public String MypageInfo2(HttpServletRequest request,HttpServletResponse response) {
 		String studno = request.getParameter("studno");
@@ -124,6 +156,7 @@ public class ProfessorController extends MskimRequestMapping {
 		return "professor-student-info";
 	}
 	
+	@MSLogin("noticecheck")
 	@RequestMapping("professor-myclass")
 	public String MyClass(HttpServletRequest request,HttpServletResponse response) {
 		Integer id = (Integer) request.getSession().getAttribute("login");
@@ -132,15 +165,17 @@ public class ProfessorController extends MskimRequestMapping {
 		return "professor-myclass";
 	}
 	
+	@MSLogin("noticecheck")
 	@RequestMapping("professor-classHome")	
 	public String ClassHome(HttpServletRequest request,HttpServletResponse response) {
 		String sub = request.getParameter("subcode");
+		request.setAttribute("subcode",sub);
 		Subject subject =  subdao.selectSubject(sub);
 		request.setAttribute("subject",subject);
 		return "professor-classHome";
 	}
 	
-
+	@MSLogin("noticecheck")
 	@RequestMapping("professor-CkAtt")	
 	public String CkAtt(HttpServletRequest request,HttpServletResponse response) {
 		String sub = request.getParameter("subcode");
@@ -162,6 +197,7 @@ public class ProfessorController extends MskimRequestMapping {
 		return "professor-CkAtt";
 	}
 	
+	@MSLogin("noticecheck")
 	@RequestMapping("professor-CkAtt-fix")	
 	public String CkAttFix(HttpServletRequest request,HttpServletResponse response) {
 		String[] values = request.getParameterValues("att");
@@ -201,6 +237,7 @@ public class ProfessorController extends MskimRequestMapping {
 		return "professor-CkAtt-fix";
 	}
 	
+	@MSLogin("noticecheck")
 	@RequestMapping("professor-InGrade")	
 	public String InGrade(HttpServletRequest request,HttpServletResponse response) {
 		String sub = request.getParameter("subcode");
@@ -218,6 +255,7 @@ public class ProfessorController extends MskimRequestMapping {
 		return "professor-InGrade";
 	}
 	
+	@MSLogin("noticecheck")
 	@RequestMapping("professor-InGrade-fix")	
 	public String InGradeFix(HttpServletRequest request,HttpServletResponse response) {
 		String sub = request.getParameter("subcode");
@@ -234,6 +272,7 @@ public class ProfessorController extends MskimRequestMapping {
 		return "professor-InGrade-fix";
 	}
 	
+	@MSLogin("noticecheck")
 	@RequestMapping("professor-Ckpersonality")	
 	public String Ckpersonality(HttpServletRequest request,HttpServletResponse response) {
 		String id = request.getParameter("studno");
@@ -242,6 +281,7 @@ public class ProfessorController extends MskimRequestMapping {
 		return "professor-Ckpersonality";
 	}
 	
+	@MSLogin("noticecheck")
 	@RequestMapping("persubmit")
 	public String persubmit(HttpServletRequest request,
 			HttpServletResponse response) {
@@ -264,6 +304,105 @@ public class ProfessorController extends MskimRequestMapping {
 		return "alert"; 
 			
 	}
+	
 
-}
+	@MSLogin("noticecheck")
+	@RequestMapping("professor-subject-board")
+	public String subjectnotice(HttpServletRequest request,HttpServletResponse response) {
+		 try {
+	         request.setCharacterEncoding("UTF-8");
+	      } catch (UnsupportedEncodingException e) {
+	         e.printStackTrace();
+	      }
+		int pageNum=1;
+		try {
+			pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		}catch(NumberFormatException e) {}
+		String boardid = request.getParameter("boardid");
+		String subcode = request.getParameter("subcode");
+		
+		if(boardid==null||boardid.trim().equals("")) {
+			boardid="1"; //boardid 파라미터가 없는 경우 "1"
+		}
+		int limit=10; //페이지당 출력되는 게시물의 건수
+		int boardcount=boadao.subBoardCount(boardid,subcode,pageNum,limit);
+		List<Board> list= boadao.subbBoardlist(boardid,subcode,pageNum,limit);
+		int maxpage =(int)((double)boardcount/limit +0.95);
+		int startpage=((int)(pageNum/10.0+0.9)-1)*10+1;
+		int endpage=startpage+9; //화면에 출력한 마지막 페이지번호.한 화면에 10개의 페이지번호 출력
+		//endpage는 maxpageq보다 작거나 같아야함.
+		if(endpage>maxpage) endpage=maxpage;
+		String boardName="공지사항";
+		if(boardid.equals("2"))
+			boardName="Q&A";
+		request.setAttribute("boardName", boardName); //개시판 일믐
+		request.setAttribute("boardCount", boardcount); //게시판별 전체 게시물 건수
+		request.setAttribute("boardid", boardid); //게시판 종류. 게시판 코드.
+		request.setAttribute("subcode", subcode);
+		
+		request.setAttribute("pageNum", pageNum); //현페
+		request.setAttribute("list", list);//현재페이지에 출력할 게시물 목록
+		request.setAttribute("startpage", startpage);//페이지 시작번호
+		request.setAttribute("endpage", endpage); //페이지의 마지막 번호
+		request.setAttribute("maxpage", maxpage);//페이지 최대번호
+		
+		//boardnum : 보여주기 위한 번호
+		request.setAttribute("boardName", boardName);
+		request.setAttribute("today", new Date());
+		return "professor-subject-board";
+	
+	}
+	
+
+	
+	@MSLogin("noticecheck")
+	@RequestMapping("professor-subject-board-writeForm")
+	public String subBoardWriteForm(HttpServletRequest request,HttpServletResponse response) {
+		String boardid=request.getParameter("boardid");
+		String subcode=request.getParameter("subcode");
+		request.setAttribute("boardid", boardid);
+		return "professor-subject-board-writeForm";
+	}
+	
+	@MSLogin("noticecheck")
+	@RequestMapping("professor-subject-board-write")
+	public String subBoardWrite(HttpServletRequest request,HttpServletResponse response) {
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		User user= dao.selectOne(id);
+		String path=request.getServletContext().getRealPath("/")+"/upload/QNA/";
+		File f= new File(path);
+		if(!f.exists()) f.mkdirs(); 
+		int size=10*1024*1024;	//10M. 업로드 파일의 최대 크기
+		MultipartRequest multi = null; //파일 업로드 클래스
+		try {
+			multi = new MultipartRequest(request,path,size,"UTF-8"); //파일 업롣,
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		String boardid= multi.getParameter("boardid");
+		int subcode= Integer.parseInt(multi.getParameter("subcode"));
+		
+		Board board = new Board();
+		board.setWriter(user.getName());
+		board.setTitle(multi.getParameter("title"));
+		board.setContent(multi.getParameter("content"));
+		board.setFile1(multi.getFilesystemName("file1"));
+		board.setBoardid(boardid);
+		board.setSubcode(subcode);
+
+		
+		if(boadao.writeboard(board)) {
+			request.setAttribute("msg", "등록되었습니다.");
+			request.setAttribute("url", "student-subject-board?subcode="+subcode+"&boardid="+boardid);
+			
+		}else {
+			request.setAttribute("msg", "등록실패.");
+			request.setAttribute("url", "redirect:student-subject-board?subcode="+subcode+"&boardid="+boardid);
+			
+		}
+		return "alert";
+	}
+	
+	
+	}
 

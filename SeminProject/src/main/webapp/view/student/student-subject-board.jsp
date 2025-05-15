@@ -36,10 +36,9 @@
 	<c:forEach var="b" items="${list}" varStatus="status">
 		<tr>
 			<td>${b.num}</td>
-			<td style="text-align:left">
-			
-			<a href="info?num=${b.num}">
-			${b.title}</a></td>
+			<td style="text-align:left">	
+			<a href="info?num=${b.num}">${b.title}</a>
+			</td>
 			<td><fmt:formatDate value="${b.regdate}" pattern="yyyy-MM-dd" var="rdate" />
 			<fmt:formatDate value="${today}" pattern="yyyy-MM-dd HH:mm:ss" var="tdate" />
 			<c:if test="${rdate==tdate}">

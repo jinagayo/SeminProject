@@ -15,8 +15,9 @@ public class Sitemesh extends ConfigurableSiteMeshFilter{
       		.addDecoratorPath("/board/*", "/view/board/boardlayout.jsp")
       		.addExcludedPath("/professor/professor-Ckpersonality")
             .addExcludedPath("/professor/professor-CkAtt")
-            .addExcludedPath("/professor/professor-InGrade");
-   
+            .addExcludedPath("/professor/professor-InGrade")
+            .addExcludedPath("/professor/professor-subject-board")
+            .addExcludedPath("/professor/professor-subject-QA-board");
 }
 }
 

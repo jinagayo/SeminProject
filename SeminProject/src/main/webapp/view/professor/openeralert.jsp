@@ -3,5 +3,5 @@
   
 <script>
    alert("${msg}");
-   location.href="${url}"
+   location.href = "${pageContext.request.contextPath}${url}";
 </script>
