@@ -46,6 +46,7 @@ public class AdminController extends MskimRequestMapping {
 	private PracticeDao pra_dao = new PracticeDao();
 	private TeacherDao tea_dao = new TeacherDao();
 	private ServiceDao ser_dao = new ServiceDao();
+	
 	//학번 랜덤생성
 	public String StudentId(String entry, String majorcode) {
 	    int random = (int)(Math.random() * 900) + 100;

@@ -12,41 +12,41 @@
   <div class="card mb-4">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
-              DataTable Example
+              교수 등록
      </div>
      <div class="card-body">
      <form action="professorInsert" name="f" method="post" accept-charset="UTF-8">
     	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align:left;">
        		<tr>
        			<th>이름</th>
-       			<td><input type="text" name="name"></td>
+       			<td><input type="text" name="name" style="width:100%;"></td>
        		</tr>
        		<tr>
        			<th>생년월일</th>
-       			<td><input type="text" name="birth"></td>
+       			<td><input type="text" name="birth" style="width:100%;"></td>
        		</tr>
        		<tr>	
        			<th>전화번호</th>
-       			<td><input type="text" name="phone"></td>
+       			<td><input type="text" name="phone" style="width:100%;"></td>
        		</tr>
        		<tr>
        			<th>주소</th>
-       			<td><input type="text" name="address"></td>
+       			<td><input type="text" name="address" style="width:100%;"></td>
        		</tr>
        		<tr>
        			<th>이메일</th>
-       			<td><input type="email" name="email"></td>
+       			<td><input type="email" name="email" style="width:100%;"></td>
        		</tr>
        		<tr>
        			<th>학과코드</th>
-       			<td><input type="text" name="majorcode"></td>
+       			<td><input type="text" name="majorcode" style="width:100%;"></td>
        		</tr>
        		<tr>
        			<th>담당과목</th>
-       			<td><input type="text" name="subcode"></td>
+       			<td><input type="text" name="subcode" style="width:100%;"></td>
        		</tr>
     	</table>
-    	<button type="submit" onclick="chk()">등록</button>
+    	<button type="submit" onclick="chk()" class="btn btn-secondary">등록</button>
     	</form>
     	
     </div>

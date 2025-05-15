@@ -12,17 +12,17 @@
   <div class="card mb-4">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
-              DataTable Example
+              전체 강의 조회
      </div>
      <form action="subjectList" name="f" method="post" accept-charset="UTF-8">
 	     <div class="card-body">
-	     	<select id="select" name="select">
+	     	<select id="select" name="select" style="position:absolute;align-items:center;left:30%">
 	     		<option value="subname">강의 명</option>
 	     		<option value="name">강사 이름</option>
 	     	</select>
-	     	<input type="text" name="searchList" placeholder="(검색어입력)">
-	     	<button type="submit" id="searchbtn">검색</button>
-	    	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align: center;">
+	     	<input type="text" name="searchList" placeholder="(검색어입력)"  style="position:absolute;left:38%;width:400px;">
+	     	<button type="submit" id="searchbtn" class="btn btn-primary" style="position:absolute;left:64%;height:35px">검색</button>
+	    	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align: center;margin-top:50px">
 					<tr>
 		       			<th>강의명</th>
 		       			<th>강의시간</th>

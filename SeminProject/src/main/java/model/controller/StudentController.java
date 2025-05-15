@@ -175,7 +175,7 @@ public class StudentController extends MskimRequestMapping{
 			
 			return "alert";
 		}else{
-			if(teacher.isPracice()) {
+			if(teacher.isPractice()) {
 				request.setAttribute("msg", "실습 일지가 통과 되었습니다");
 				request.setAttribute("url", "student-teach-info" );
 				

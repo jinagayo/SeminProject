@@ -82,7 +82,6 @@ public class PracticeDao {
 		 }
 		 return null;
 	}
-
 	public Practice InfoPracticeOne(int id) {
 		SqlSession session  = MybatisConnection.getConnection();
 		 try {

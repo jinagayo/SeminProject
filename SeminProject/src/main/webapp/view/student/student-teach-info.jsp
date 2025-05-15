@@ -26,10 +26,10 @@
     			<th>교육 실습 일지</th>
     			<td></td>
     			<td></td>
-       			<c:if test="${teacher.pracice == true}">
+       			<c:if test="${teacher.practice == true}">
        				<td>Y</td>
 				</c:if>
-       			<c:if test="${teacher.pracice == false}">
+       			<c:if test="${teacher.practice == false}">
        				<td>N</td>
 				</c:if>  
     		</tr>
