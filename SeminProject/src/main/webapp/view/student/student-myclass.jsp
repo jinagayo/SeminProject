@@ -23,7 +23,9 @@
 		                <div><strong>0</strong><br>공지</div>
 		            </div>
 		            <div style="flex: 1; text-align: right;">
-		                <button onclick="location.href='student-subject-home?code=${row.subcode}'">과목홈 바로가기</button>
+		                <button onclick="location.href='student-subject-board?subcode=${row.subcode}&boardid=1'" class="btn btn-secondary">공지사항</button>
+		                <button onclick="location.href='student-subject-board?subcode=${row.subcode}&boardid=2'" class="btn btn-secondary"> Q&A  </button>
+		                <button onclick="location.href='student-subject-task?subcode=${row.subcode}'" class="btn btn-secondary">  과제제출 </button>
 		            </div>
 		        </div>
 		    </c:forEach>

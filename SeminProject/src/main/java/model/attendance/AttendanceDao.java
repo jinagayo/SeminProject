@@ -25,18 +25,6 @@ public class AttendanceDao {
 	}
 
 
-	public List<Student> select_sub_stdno(Integer subcode) {
-		 SqlSession session  = MybatisConnection.getConnection();
-		 try {
-			 return session.getMapper(cls).select_sub_stdno(subcode);
-		 } catch (Exception e) {
-			 e.printStackTrace();
-		 } finally {
-			 MybatisConnection.close(session);
-		 }
-		 return null;	
-	}
-
 	public boolean insertsub(int subcode, Integer id) {
 		 SqlSession session  = MybatisConnection.getConnection();
 		 try {
@@ -50,6 +38,18 @@ public class AttendanceDao {
 	}
 
 
+	public List<Student> select_sub_stdno(Integer subcode) {
+		 SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).select_sub_stdno(subcode);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		 return null;	
+
+}
 
 
 	public List<Attendance> fixatt(Integer subcode) {

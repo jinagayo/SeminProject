@@ -7,8 +7,14 @@
 <title>Insert title here</title>
 </head>
 <body>
+	<h2 class="">${s.subname}</h2>  <div class="card mb-4">
+     <div class="card-header">
+         <i class="fas fa-table me-1"></i>
+           Q&A
+     </div>
+	
 <form action="student-subject-board-write" method="post" enctype="multipart/form-data" name="f">
-	<h2 class="text-center">Q&A</h2>
+
 	<input type="hidden" name="subcode" value="${param.subcode}">
 	<input type="hidden" name="boardid" value="${param.boardid}">
 	<table class="table">
@@ -21,6 +27,8 @@
 			<a href="javascript:inputcheck()" class="btn btn-primary text-center">게시물등록</a></td></tr>
 	</table>
 </form>
+</div>
+</div>
 <script type="text/javascript">
 function inputcheck(){
 	f=document.f;

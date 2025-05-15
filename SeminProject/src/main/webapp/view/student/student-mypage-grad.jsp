@@ -48,16 +48,16 @@
        		<tr>
        			<th>실습 여부</th>
        			<td>Y</td>
-       			<c:if test="${teach.pracice == true}">
+       			<c:if test="${teach.practice == true}">
        				<td>Y</td>
 				</c:if>
-       			<c:if test="${teach.pracice == false}">
+       			<c:if test="${teach.practice == false}">
        				<td>N</td>
 				</c:if>
-       			<c:if test="${teach.pracice == true}">
+       			<c:if test="${teach.practice == true}">
        				<td>Y</td>
 				</c:if>
-       			<c:if test="${teach.pracice == false}">
+       			<c:if test="${teach.practice == false}">
        				<td>N</td>
 				</c:if>  
        		</tr>

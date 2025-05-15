@@ -13,18 +13,18 @@
   <div class="card mb-4">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
-              DataTable Example
+              학생 조회
      </div>
      <form action="studentList" name="f" method="post" accept-charset="UTF-8">
 	     <div class="card-body">
-	     	<select id="select" name="select" class="select">
+	     	<select id="select" name="select" style="position:absolute;align-items:center;left:30%">
 	     		<option value="studno" selected>학번</option>
 	     		<option value="major">전공</option>
 	     		<option value="name">이름</option>
 	     	</select>
-	     	<input type="text" name="searchList" class="searchList" placeholder="(검색어입력)">
-	     	<button type="submit" id="searchbtn" class="searchbtn" style>검색</button>
-	    	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align: center;">
+	     	<input type="text" name="searchList" class="searchList" placeholder="(검색어입력)" style="position:absolute;left:38%;width:400px;">
+	     	<button type="submit" id="searchbtn" class="searchbtn btn btn-primary" style="position:absolute;left:64%;height:35px">검색</button>
+	    	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align: center;margin-top:50px">
 		       		<tr>
 		       			<th>학번</th>
 		       			<th>전공</th>

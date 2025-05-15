@@ -9,29 +9,32 @@ public class Teacher {
 	public int getStudno() {
 		return studno;
 	}
-	public boolean isPractice() {
-		return practice;
-	}
-	public boolean isPersonsubmit() {
-		return personsubmit;
-	}
-	public int getService() {
-		return service;
-	}
-	public boolean isTeacherYN() {
-		return teacherYN;
-	}
 	public void setStudno(int studno) {
 		this.studno = studno;
+	}
+	public boolean isPractice() {
+		return practice;
 	}
 	public void setPractice(boolean practice) {
 		this.practice = practice;
 	}
+	public boolean isPersonsubmit() {
+		return personsubmit;
+	}
+
+	public int getService() {
+		return service;
+	}
+
 	public void setPersonsubmit(boolean personsubmit) {
 		this.personsubmit = personsubmit;
 	}
+
 	public void setService(int service) {
 		this.service = service;
+	}
+	public boolean isTeacherYN() {
+		return teacherYN;
 	}
 	public void setTeacherYN(boolean teacherYN) {
 		this.teacherYN = teacherYN;
@@ -41,6 +44,8 @@ public class Teacher {
 		return "Teacher [studno=" + studno + ", practice=" + practice + ", personsubmit=" + personsubmit + ", service="
 				+ service + ", teacherYN=" + teacherYN + "]";
 	}
+
+	
 	
 	
 }

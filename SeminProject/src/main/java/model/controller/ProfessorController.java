@@ -1,4 +1,5 @@
 package model.controller;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -21,6 +22,10 @@ import model.attendance.Attendance;
 import model.attendance.AttendanceDao;
 import model.board.Board;
 import model.board.BoardDao;
+
+import model.comment.Comment;
+import model.comment.CommentDao;
+
 import model.graduation.Graduation;
 import model.graduation.GraduationDao;
 import model.personality.Personality;
@@ -45,6 +50,7 @@ public class ProfessorController extends MskimRequestMapping {
 	private AttendanceDao attdao = new AttendanceDao();
 	private PersonalityDao pdao = new PersonalityDao();
 	private BoardDao boadao = new BoardDao();
+	private CommentDao commdao = new CommentDao();
 	
 	public String noticecheck(HttpServletRequest request, HttpServletResponse response ) {
 		Integer id = (Integer) request.getSession().getAttribute("login");
@@ -403,6 +409,92 @@ public class ProfessorController extends MskimRequestMapping {
 		return "alert";
 	}
 	
-	
+	@RequestMapping("professor-subject-board")
+	public String subBoard(HttpServletRequest request,
+			HttpServletResponse response) {
+		 try {
+	         request.setCharacterEncoding("UTF-8");
+	      } catch (UnsupportedEncodingException e) {
+	         e.printStackTrace();
+	      }
+		int pageNum=1;
+		try {
+			pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		}catch(NumberFormatException e) {}
+		String boardid = request.getParameter("boardid");
+		String subcode = request.getParameter("subcode");
+		
+		if(boardid==null||boardid.trim().equals("")) {
+			boardid="1"; //boardid 파라미터가 없는 경우 "1"
+		}
+		int limit=10; //페이지당 출력되는 게시물의 건수
+		int boardcount=boadao.subBoardCount(boardid,subcode,pageNum,limit);
+		List<Board> list= boadao.subbBoardlist(boardid,subcode,pageNum,limit);
+		int maxpage =(int)((double)boardcount/limit +0.95);
+		int startpage=((int)(pageNum/10.0+0.9)-1)*10+1;
+		int endpage=startpage+9; //화면에 출력한 마지막 페이지번호.한 화면에 10개의 페이지번호 출력
+		//endpage는 maxpageq보다 작거나 같아야함.
+		if(endpage>maxpage) endpage=maxpage;
+		String boardName="공지사항";
+		if(boardid.equals("2"))
+			boardName="Q&A";
+		Subject subject = subdao.selectSubject(subcode);
+		request.setAttribute("s", subject);
+		request.setAttribute("boardName", boardName); //개시판 일믐
+		request.setAttribute("boardCount", boardcount); //게시판별 전체 게시ㅜㄹ 건수
+		request.setAttribute("boardid", boardid); //게시판 동류,ㅈ게시판 코드.
+		request.setAttribute("subcode", subcode);
+		
+		request.setAttribute("pageNum", pageNum); //현페
+		request.setAttribute("list", list);//현재페이지에 출력할 겜시물 목록
+		request.setAttribute("startpage", startpage);//페이지 시작번호
+		request.setAttribute("endpage", endpage); //페이지의 마지막 번호
+		request.setAttribute("maxpage", maxpage);//페이지 최대번호
+		
+		//boardnum : 보여주기 위한 번호
+		request.setAttribute("boardName", boardName);
+		request.setAttribute("today", new Date());
+		
+		return "professor-subject-board";
 	}
+
+	@RequestMapping("professor-subject-board-info")
+	public String subBoardInfo(HttpServletRequest request,
+			HttpServletResponse response) {
+		Integer id =(Integer)request.getSession().getAttribute("login");
+		String num = request.getParameter("num");
+		Board board = boadao.selectOne(Integer.parseInt(num));
+		Subject subject = subdao.selectSubject(Integer.toString(board.getSubcode()));
+		User user = dao.selectOne(id);
+		request.setAttribute("b", board);
+		request.setAttribute("s", subject);
+		request.setAttribute("u", user);
+		List<Comment> commentlist= commdao.list(num) ;
+		request.setAttribute("commlist", commentlist) ;
+		return "professor-subject-board-info";
+	}
+	@RequestMapping("comment")
+	public String comment(HttpServletRequest request,HttpServletResponse response) {
+	      try {
+	          request.setCharacterEncoding("UTF-8");
+	       } catch (UnsupportedEncodingException e) {
+	          e.printStackTrace();
+	       }
+			Integer id =(Integer)request.getSession().getAttribute("login");
+		   Comment comm = new Comment() ;
+		   User user =dao.selectOne(id);
+		   comm.setNum2(Integer.parseInt(request.getParameter("num")));
+		   comm.setContent(request.getParameter("content")) ;
+		   comm.setWriter(user.getName());
+		   int seq =commdao.maxseq(comm.getNum2()) ;
+		   comm.setSeq(++seq) ;
+		   if(commdao.insert(comm)) {
+			   return "redirect:professor-subject-board-info?num="+comm.getNum2()+"&readcnt=f" ;
+		   }
+		   request.setAttribute("msg", "답글 등록시 오류 발생") ;
+		   request.setAttribute("url", "info?num="+comm.getNum2()+"&readcnt=f") ;
+		   return "alert";
+	}
+}
+
 

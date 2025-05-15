@@ -128,8 +128,6 @@ public class SubjectDao {
 	}
 
 
-	
-
 
 	 public List<Map<String, Object>> listSubject(Map<String, Object> param) {
 		 SqlSession session = MybatisConnection.getConnection();
