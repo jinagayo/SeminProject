@@ -15,6 +15,7 @@ import model.student.Student;
 import model.subject.Subject;
 import model.attendance.Attendance;
 import model.graduation.Graduation;
+import model.history.History;
 import model.major.Major;
 import model.personality.Personality;
 import model.practice.Practice;
@@ -257,37 +258,7 @@ public interface ModelMapper {
 	@Select("SELECT m.mname AS major FROM professor p JOIN major m ON p.mcode = m.mcode where p.profno = #{id}")
 	Map<String, Object> selectMajor(@Param("id") int id);
 
-	@Select("SELECT * from teacher where studno= #{id}")
-	Teacher selectTeach(Integer id);
-
-	@Select("SELECT subcode from attendance where studno= #{id}")
-	List<Attendance> selectAttend(Integer id);
 	
-	@Select("SELECT subcode FROM subject sub JOIN professor p ON p.profno = sub.profno where p.profno = #{id}")
-	List<Subject> selectLcode(Integer id);
-	
-	@Select(
-			{
-			    "<script>",
-			    "SELECT * FROM subject",
-			    "WHERE subcode IN",
-			    "<foreach item='code' collection='list' open='(' separator=',' close=')'>",
-			    "#{code}",
-			    "</foreach>",
-			    "</script>"
-			})
-	List<Subject> selectLecture(List<Integer> subcodes);
-	
-	@Select({
-	    "<script>",
-	    "SELECT * FROM subject",
-	    "WHERE subcode IN",
-	    "<foreach item='code' collection='list' open='(' separator=',' close=')'>",
-	    "#{code}",
-	    "</foreach>",
-	    "</script>"
-	})
-	List<Subject> selectSub(List<Integer> subcodes);
 
 	@Insert("insert into pratice (studno,day,activename,content,emotion,file1) "
 			+ "values (#{studno},#{day},#{activename},#{content},#{emotion},#{file1})")
@@ -310,25 +281,6 @@ public interface ModelMapper {
 	Student selectStu(Integer id);
 
 
-	@Select("SELECT studno FROM student s JOIN professor p ON s.profno = p.profno where p.profno = #{id} ")
-	List<Student> selectStudentId(int id);
-
-	@Select({
-	    "<script>",
-	    "SELECT * FROM user",
-	    "WHERE id IN",
-	    "<foreach item='id' collection='list' open='(' separator=',' close=')'>",
-	    "#{id}",
-	    "</foreach>",
-	    "</script>"
-	})
-	List<User> selectMany(List<Integer> studno);
-
-	@Select("SELECT * FROM subject WHERE profno=#{id}")
-	List<Subject> selectPsubject(int id);
-
-	@Select("SELECT * FROM student WHERE studno = #{id}")
-	Student pickStudent(int id);
 	
 	@Select("SELECT p.studno as studno, p.day as day, t.pracice as pra,t.service as service, u.name as name"
 			+ " FROM pratice p JOIN teacher t ON p.studno = t.studno JOIN user u ON p.studno = u.id")
@@ -360,9 +312,6 @@ public interface ModelMapper {
 			+ " GROUP BY s.subcode,s.subname")
 	List<Map<String, Object>> myclassSubjectHome(@Param("code")int code);
 
-	
-	@Select("SELECT * FROM subject WHERE subcode=#{sub}")
-	Subject selectSubject(String sub);
 	
 	@Select("SELECT * FROM pratice where studno=#{id}")
 	Practice InfoPracticeOne(int id);
@@ -419,10 +368,6 @@ public interface ModelMapper {
 	@Insert("Insert into attendance (studno,subcode) values (#{studno},#{subcode})")
 	boolean insertsub(@Param("subcode")int subcode, @Param("studno")Integer id);
 	
-	@Update("Update attendance SET grade=#{grade} WHERE studno=#{studno} AND subcode=#{subcode}")
-	int updateGrade(Attendance attendance);
-
-
 	@Select("SELECT * from personality")
 	List<Personality> selectPersonalities();
 
@@ -431,4 +376,22 @@ public interface ModelMapper {
 	
 	@Update("UPDATE personality SET prof1 = #{prof1}, prof2 = #{prof2}, prof3 = #{prof3}, personsubmit = 1 WHERE studno=#{studno}")
 	boolean perChek(Personality p);
+	
+	
+	//history
+	@Select({
+	    "<script>",
+	    "SELECT year, subject",
+	    "FROM history",
+	    "<where>",
+	    "  studno = #{studno}",
+	    "  <if test='year != null'>",
+	    "    AND year = #{year}",
+	    "  </if>",
+	    "</where>",
+	    "</script>"
+	})
+	List<Map<String, Object>> selectHistory(Map<String, Object> param);
+	
+	
 }

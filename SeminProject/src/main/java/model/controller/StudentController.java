@@ -2,9 +2,11 @@ package model.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.Inet4Address;
 import java.nio.file.spi.FileSystemProvider;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -14,6 +16,7 @@ import javax.servlet.annotation.WebInitParam;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.oreilly.servlet.MultipartRequest;
 
@@ -26,6 +29,8 @@ import model.board.Board;
 import model.board.BoardDao;
 import model.graduation.Graduation;
 import model.graduation.GraduationDao;
+import model.history.History;
+import model.history.HistoryDao;
 import model.major.Major;
 import model.major.MajorDao;
 
@@ -58,7 +63,8 @@ public class StudentController extends MskimRequestMapping{
 	private ServiceDao serdao= new ServiceDao(); 
 	private MajorDao majdao=new MajorDao();
 	private BoardDao boadao=new BoardDao();
-
+	private HistoryDao his_dao = new HistoryDao();
+	
 	public String noticecheck(HttpServletRequest request, HttpServletResponse response ) {
 		Integer id = (Integer) request.getSession().getAttribute("login");
 		System.out.println(id);
@@ -537,5 +543,47 @@ public class StudentController extends MskimRequestMapping{
 			
 		}
 		return "alert";
+	}
+	
+	
+	//history
+	@MSLogin("noticecheck")
+	@RequestMapping("student-history")
+	public String StudentHistor(HttpServletRequest request, HttpServletResponse response) {
+	    try {
+	        request.setCharacterEncoding("UTF-8");
+	    } catch (UnsupportedEncodingException e) {
+	        e.printStackTrace();
+	    }
+
+	    HttpSession session = request.getSession();
+	    Map<String, Object> param = new HashMap<>();
+
+	    String id = request.getParameter("studno");
+	    int studno;
+
+	    if (id != null && !id.isEmpty()) {
+	        studno = Integer.parseInt(id);
+	        session.setAttribute("studno", studno);
+	    } else {
+	        studno = (Integer) session.getAttribute("studno");
+	    }
+	    
+	    param.put("studno", studno);
+
+	    String year = request.getParameter("year-select");
+	    String semester = request.getParameter("semester-select");
+	    if (year != null && semester != null && !year.isEmpty() && !semester.isEmpty()) {
+	        String fullYear = year + "-" + semester;
+	        param.put("year", fullYear); 
+	    }
+
+	    List<Map<String, Object>> map = his_dao.selectHistory(param);
+	    System.out.println("조회된 row 수: " + map.size());
+	    
+	    request.setAttribute("option", year);
+	    request.setAttribute("semester", semester);
+	    request.setAttribute("list", map);
+	    return "student-history";
 	}
 }

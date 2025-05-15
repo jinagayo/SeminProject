@@ -9,7 +9,7 @@
   </head>
   <body>
   <br>
-  <h2 class="breadcrumb-item active  mx-5">  과목명명</h2>
+  <h2 class="breadcrumb-item active  mx-5">  과목명</h2>
   <div class="card mb-4  mx-5">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>

@@ -24,11 +24,12 @@
 		                <div><strong>0</strong><br>공지</div>
 		            </div>
 		            <div style="flex: 1; text-align: right;">
-		                <button onclick="location.href='student-subject-home?code=${row.subcode}'">과목홈 바로가기</button>
+		                <button onclick="location.href='student-subject-board?boardid=2'">QnA 게시판</button>
+		                <button onclick="location.href='student-subject-board?boardid=1'">공지사항 게시판</button>
 		            </div>
 		        </div>
 		    </c:forEach>
     </div>
     </div>
   </body>
-</html>
+</html> 

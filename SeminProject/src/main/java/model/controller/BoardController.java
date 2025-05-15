@@ -170,8 +170,9 @@ public class BoardController extends MskimRequestMapping{
 		} //num의 게시물 데이터 저장
 		return "info";
 	}
-	@RequestMapping("updateForm")
+	
 	@MSLogin("noticecheck")
+	@RequestMapping("updateForm")
 	public String updateForm(HttpServletRequest request, HttpServletResponse response ) {
 		int num = Integer.parseInt(request.getParameter("num"));
 		Board b = BoardDao.getBoard(num);
@@ -225,6 +226,7 @@ public class BoardController extends MskimRequestMapping{
 	      request.setAttribute("url", url);
 	      return "alert";
 	   }
+	   
 	   @RequestMapping("delete")
 	   public String delete(HttpServletRequest request,HttpServletResponse response) {
 			int num = Integer.parseInt(request.getParameter("num"));

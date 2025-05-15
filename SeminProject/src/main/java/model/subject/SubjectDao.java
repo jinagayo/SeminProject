@@ -133,17 +133,4 @@ public class SubjectDao {
 		 return null;
 	}
 
-
-
-	 public List<Map<String, Object>> listSubject(Map<String, Object> param) {
-		 SqlSession session = MybatisConnection.getConnection();
-		 try {
-			 return session.getMapper(cls).ListSubject(param);
-		 } catch (Exception e) {
-			 e.printStackTrace();
-		 } finally {
-			 MybatisConnection.close(session);
-		 }
-		 return null;	
-	}
 }
