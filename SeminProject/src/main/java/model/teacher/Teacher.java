@@ -2,15 +2,15 @@ package model.teacher;
 
 public class Teacher {
 	private int studno;
-	private boolean pracice;
+	private boolean practice;
 	private  boolean personsubmit;
 	private int service ;
 	private boolean teacherYN;
 	public int getStudno() {
 		return studno;
 	}
-	public boolean isPracice() {
-		return pracice;
+	public boolean isPractice() {
+		return practice;
 	}
 	public boolean isPersonsubmit() {
 		return personsubmit;
@@ -24,8 +24,8 @@ public class Teacher {
 	public void setStudno(int studno) {
 		this.studno = studno;
 	}
-	public void setPracice(boolean pracice) {
-		this.pracice = pracice;
+	public void setPractice(boolean practice) {
+		this.practice = practice;
 	}
 	public void setPersonsubmit(boolean personsubmit) {
 		this.personsubmit = personsubmit;
@@ -38,7 +38,7 @@ public class Teacher {
 	}
 	@Override
 	public String toString() {
-		return "Teacher [studno=" + studno + ", pracice=" + pracice + ", personsubmit=" + personsubmit + ", service="
+		return "Teacher [studno=" + studno + ", practice=" + practice + ", personsubmit=" + personsubmit + ", service="
 				+ service + ", teacherYN=" + teacherYN + "]";
 	}
 	

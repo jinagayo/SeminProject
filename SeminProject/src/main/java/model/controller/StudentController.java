@@ -170,14 +170,14 @@ public class StudentController extends MskimRequestMapping{
 		Integer id = (Integer) request.getSession().getAttribute("login");
 		Practice practice = pradao.selectparct(id);
 		Teacher teacher = teadao.selectTeach(id);
-		System.out.println(practice);
+		
 		if(practice!=null) {
 			request.setAttribute("msg", "실습 일지 심사 중입니다");
 			request.setAttribute("url", "student-teach-info" );
 			
 			return "alert";
 		}else{
-			if(teacher.isPracice()) {
+			if(teacher.isPractice()) {
 				request.setAttribute("msg", "실습 일지가 통과 되었습니다");
 				request.setAttribute("url", "student-teach-info" );
 				
