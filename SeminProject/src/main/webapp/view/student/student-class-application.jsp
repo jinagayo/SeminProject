@@ -10,7 +10,8 @@
 <body>
 
   <br>
-  <div class="card mb-4">
+  <h2 class="breadcrumb-item active  mx-5">  졸업 사정표</h2>
+  <div class="card mb-4  mx-5">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
               졸업 사정표

@@ -9,7 +9,9 @@
 <title>교원 자격 취득 조건 조회</title>
 </head>
 <body>
-  <div class="card mb-4">
+<br>
+<h2 class="breadcrumb-item active  mx-5">  교원 자격 취득 조회</h2>
+  <div class="card mb-4  mx-5">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
               교원 자격 취득 조회

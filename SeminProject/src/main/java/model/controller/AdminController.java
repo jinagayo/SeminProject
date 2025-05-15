@@ -19,10 +19,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
+import gdu.mskim.MSLogin;
 import gdu.mskim.MskimRequestMapping;
 import gdu.mskim.RequestMapping;
 import model.admin.AdminDao;
-import model.pratice.PracticeDao;
+import model.practice.PracticeDao;
 import model.professor.Professor;
 import model.professor.ProfessorDao;
 import model.student.Student;
@@ -42,6 +43,29 @@ public class AdminController extends MskimRequestMapping {
 	private SubjectDao sub_dao = new SubjectDao();
 	private PracticeDao pra_dao = new PracticeDao();
 	
+	
+	//관리자체크
+	public String noticecheck(HttpServletRequest request, HttpServletResponse response ) {
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		String path = request.getContextPath();
+		if(id==null) {
+			System.out.println("아이디가 널이다");
+			request.setAttribute("msg", "접근 불가");
+			System.out.println("메세지 입력");
+			request.setAttribute("url", path+"/main/main");
+			System.out.println("url 입력");
+			return "/alert";
+		}else {
+			User user_std = user_dao.selectOne(id);
+			if(user_std.getPosition()!=3) {
+				request.setAttribute("msg", "접근 불가");
+				request.setAttribute("url", path+"/main/main");
+				return "/alert";
+			}
+			return null;
+		}
+	}
+	
 	//학번 랜덤생성
 	public String StudentId(String entry, String majorcode) {
 	    int random = (int)(Math.random() * 900) + 100;
@@ -54,7 +78,8 @@ public class AdminController extends MskimRequestMapping {
 		return random + "";
 	}
 	
-	
+	//학생 정보
+	@MSLogin("noticecheck")
 	@RequestMapping("studentInfo")
 	public String adminStudentInfo(HttpServletRequest request,HttpServletResponse response) {
 		int id = Integer.parseInt(request.getParameter("studno"));
@@ -68,6 +93,7 @@ public class AdminController extends MskimRequestMapping {
 	}
 	
 	// 학생 등록
+	@MSLogin("noticecheck")
 	@RequestMapping("studentInsert")
 	public String adminStudentInsert(HttpServletRequest request,HttpServletResponse response){
 		try {
@@ -125,6 +151,7 @@ public class AdminController extends MskimRequestMapping {
 	}
 	
 	//학생 리스트
+	@MSLogin("noticecheck")
 	@RequestMapping("studentList")
 	public String adminStudentList(HttpServletRequest request,HttpServletResponse response) {
 		try {
@@ -138,21 +165,56 @@ public class AdminController extends MskimRequestMapping {
 		List<Map<String, Object>> map;
 		Map<String, Object> param = new HashMap<String, Object>();
 		
+		//한 페이지에 보여줄 개수
+		int pagesize = 10;
+		//페이지파라미터가없으면 현재페이지  1
+		String pageNumStr = request.getParameter("pageNum");
+		int pageNum = 1;
+		
+		if (pageNumStr != null && !pageNumStr.trim().equals("")) {
+		    try {
+		        pageNum = Integer.parseInt(pageNumStr);
+		    } catch (NumberFormatException e) {
+		    	e.printStackTrace();
+		    }
+		}
+		
+		
+	    //현재 페이지에서 가지고올 데이터의 시작 행
+		int startRow = (pageNum-1)*pagesize;
+		
 		param.put("select", select);
 		param.put("keyword", keyword);
+		param.put("startRow", startRow);
+		param.put("pagesize", pagesize);
 		
 		if(keyword != null && !keyword.trim().equals("")) { //검색이 존재
 			map = admin_dao.list(param);
 		}else {
-			map = admin_dao.list(null);	//검색어 존재 안할때
+			map = admin_dao.list(param);	//검색어 존재 안할때
 		}
-		request.setAttribute("list", map);
+		
+		int totalpage = admin_dao.studentCount(param);
+		int maxpage = (int)(totalpage + pagesize -1) / pagesize;//3.9
+	    // 현재 페이지가 포함될 시작 페이지 번호
+	    int startpage = ((pageNum - 1) / 10) * 10 + 1;
+	    // 현재 페이지가 포함될 끝 페이지 번호
+	    int endpage = startpage + 9;
+	    if (endpage > maxpage) endpage = maxpage;
+		
+	    request.setAttribute("list", map);
+		request.setAttribute("pageNum", pageNum);//현재페이지
+		request.setAttribute("endpage", endpage);
+		request.setAttribute("totalpage", totalpage);
+		request.setAttribute("startpage", startpage);
+		request.setAttribute("maxpage", maxpage);
 		return "studentList";
 	}
 	
 	
 	
 	//교수 등록
+	@MSLogin("noticecheck")
 	@RequestMapping("professorInsert")
 	public String adminProfessorInsert(HttpServletRequest request,HttpServletResponse response) {
 		try {
@@ -209,6 +271,7 @@ public class AdminController extends MskimRequestMapping {
 	}
 	
 	//교수 리스트
+	@MSLogin("noticecheck")
 	@RequestMapping("professorList")
 	public String adminProfessorList(HttpServletRequest request,HttpServletResponse response) {
 		try {
@@ -219,22 +282,55 @@ public class AdminController extends MskimRequestMapping {
 		String select = request.getParameter("select");
 		String keyword = request.getParameter("searchList");
 		
+		//한 페이지에 보여줄 개수
+		int pagesize = 10;
+		//페이지파라미터가없으면 현재페이지  1
+		String pageNumStr = request.getParameter("pageNum");
+		int pageNum = 1;
+		
+		if (pageNumStr != null && !pageNumStr.trim().equals("")) {
+		    try {
+		        pageNum = Integer.parseInt(pageNumStr);
+		    } catch (NumberFormatException e) {
+		    	e.printStackTrace();
+		    }
+		}
+		
+	    //현재 페이지에서 가지고올 데이터의 시작 행
+		int startRow = (pageNum-1)*pagesize;
 		List<Map<String, Object>> map;
 		Map<String, Object> param = new HashMap<String, Object>();
 		
 		param.put("select", select);
 		param.put("keyword", keyword);
+		param.put("startRow", startRow);
+		param.put("pagesize", pagesize);
 		
 		if(keyword != null && !keyword.trim().equals("")) { //검색이 존재
 			map = admin_dao.listPrno(param);
 		}else {
-			map = admin_dao.listPrno(null);	//검색어 존재 안할때
+			map = admin_dao.listPrno(param);	//검색어 존재 안할때
 		}
-		request.setAttribute("list", map);
+		
+		int totalpage = admin_dao.professorCount(param);
+		int maxpage = (int)(totalpage + pagesize -1) / pagesize;
+	    // 현재 페이지가 포함될 시작 페이지 번호
+	    int startpage = ((pageNum - 1) / 10) * 10 + 1;
+	    // 현재 페이지가 포함될 끝 페이지 번호
+	    int endpage = startpage + 9;
+	    if (endpage > maxpage) endpage = maxpage;
+		
+	    request.setAttribute("list", map);
+		request.setAttribute("pageNum", pageNum);//현재페이지
+		request.setAttribute("endpage", endpage);
+		request.setAttribute("totalpage", totalpage);
+		request.setAttribute("startpage", startpage);
+		request.setAttribute("maxpage", maxpage);
 		return "professorList";
 	}
 	
 	//교수정보
+	@MSLogin("noticecheck")
 	@RequestMapping("professorInfo")
 	public String adminProfessorInfo(HttpServletRequest request,HttpServletResponse response) {
 		int id = Integer.parseInt(request.getParameter("profno"));
@@ -250,6 +346,7 @@ public class AdminController extends MskimRequestMapping {
 	}
 	
 	//강의 개설
+	@MSLogin("noticecheck")
 		@RequestMapping("subjectInsert")
 		public String adminSubjectInsert(HttpServletRequest request,HttpServletResponse response) {
 			try {
@@ -309,6 +406,7 @@ public class AdminController extends MskimRequestMapping {
 	
 		
 	//전체 강의 조회
+	@MSLogin("noticecheck")
 	@RequestMapping("subjectList")
 	public String adminSubjectList(HttpServletRequest request,HttpServletResponse response) {
 		try {
@@ -320,22 +418,56 @@ public class AdminController extends MskimRequestMapping {
 		String select = request.getParameter("select");
 		String keyword = request.getParameter("searchList");
 		
+		//한 페이지에 보여줄 개수
+		int pagesize = 10;
+		//페이지파라미터가없으면 현재페이지  1
+		String pageNumStr = request.getParameter("pageNum");
+		int pageNum = 1;
+		
+		if (pageNumStr != null && !pageNumStr.trim().equals("")) {
+		    try {
+		        pageNum = Integer.parseInt(pageNumStr);
+		    } catch (NumberFormatException e) {
+		    	e.printStackTrace();
+		    }
+		}
+		
+	    //현재 페이지에서 가지고올 데이터의 시작 행
+		int startRow = (pageNum-1)*pagesize;
+		
 		List<Map<String, Object>> map;
 		Map<String, Object> param = new HashMap<String, Object>();
 		
 		param.put("select", select);
 		param.put("keyword", keyword);
+		param.put("startRow", startRow);
+		param.put("pagesize", pagesize);
 		
 		if(keyword != null && !keyword.trim().equals("")) {
 			map = sub_dao.listSubject(param);
 		}else {
-			map = sub_dao.listSubject(null);
+			map = sub_dao.listSubject(param);
 		}
-		request.setAttribute("list", map);
+		int totalpage = admin_dao.subjectCount(param);
+		System.out.println("totalpage " + totalpage);
+		int maxpage = (int)(totalpage + pagesize -1) / pagesize;
+	    // 현재 페이지가 포함될 시작 페이지 번호
+	    int startpage = ((pageNum - 1) / 10) * 10 + 1;
+	    // 현재 페이지가 포함될 끝 페이지 번호
+	    int endpage = startpage + 9;
+	    if (endpage > maxpage) endpage = maxpage;
+		
+	    request.setAttribute("list", map);
+		request.setAttribute("pageNum", pageNum);//현재페이지
+		request.setAttribute("endpage", endpage);
+		request.setAttribute("totalpage", totalpage);
+		request.setAttribute("startpage", startpage);
+		request.setAttribute("maxpage", maxpage);
 		return "subjectList";
 	}
 	
 	//교육 실습 일지
+	@MSLogin("noticecheck")
 	@RequestMapping("praticeList")
 	public String adminPraticeList(HttpServletRequest request,HttpServletResponse response) {		
 		List<Map<String, Object>> map = pra_dao.listPratice();
@@ -344,6 +476,7 @@ public class AdminController extends MskimRequestMapping {
 	}
 	
 	//교육 봉사
+	@MSLogin("noticecheck")
 	@RequestMapping("serviceList")
 	public String adminServiceList(HttpServletRequest request,HttpServletResponse response) {		
 		List<Map<String, Object>> map = pra_dao.InfoService();
@@ -353,6 +486,7 @@ public class AdminController extends MskimRequestMapping {
 	}
 	
 	//교육봉사 리스트
+	@MSLogin("noticecheck")
 	@RequestMapping("serviceInfo")
 	public String adminServiceInfo(HttpServletRequest request,HttpServletResponse response) {
 		int id = Integer.parseInt(request.getParameter("studno"));

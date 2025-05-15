@@ -53,7 +53,7 @@
                                     <a class="nav-link" href="professor-mypage-time">내 시간표 조회</a>
                                 </nav>
                             </div>
-                            <a class="nav-link" href="notice.jsp">
+                            <a class="nav-link" onclick="location.href='../board/notice'">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 알림마당
                             </a>

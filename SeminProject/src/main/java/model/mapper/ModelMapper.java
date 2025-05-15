@@ -14,7 +14,7 @@ import model.subject.Subject;
 import model.attendance.Attendance;
 import model.graduation.Graduation;
 import model.personality.Personality;
-import model.pratice.Practice;
+import model.practice.Practice;
 import model.service.Service;
 import model.student.Student;
 import model.subject.Subject;
@@ -64,10 +64,74 @@ public interface ModelMapper {
 		  "    m.mname LIKE CONCAT('%', #{keyword}, '%')",
 		  "  </if>",
 		  "</where>",
+		  "ORDER BY s.studno",
+		  "LIMIT #{startRow},#{pagesize}",
 		  "</script>"
 		})
 	List<Map<String, Object>> ListStudent(Map<String, Object> params);
+
+	//페이징
+	//==============================================================================================
+	@Select({
+		  "<script>",
+		  "SELECT count(*) FROM student s",
+		  "JOIN user u ON s.studno = u.id",
+		  "JOIN major m ON m.mcode = s.mcode",
+		  "<where>",
+		  "  <if test='select == \"name\" and keyword != null'>",
+		  "    u.name LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "  <if test='select == \"studno\" and keyword != null'>",
+		  "    s.studno LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "  <if test='select == \"major\" and keyword != null'>",
+		  "    m.mname LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "</where>",
+		  "</script>"
+		})
+	int StudentCount(Map<String, Object> param);
 	
+	
+	@Select({
+		  "<script>",
+		  "SELECT count(*)",
+		  "FROM professor p",
+		  "JOIN user u ON p.profno = u.id",
+		  "JOIN major m ON m.mcode = p.mcode",
+		  "<where>",
+		  "  <if test='select eq \"name\" and keyword != null'>",
+		  "    u.name LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "  <if test='select eq \"profno\" and keyword != null'>",
+		  "    p.profno LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "  <if test='select eq \"major\" and keyword != null'>",
+		  "    m.mname LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "</where>",
+		  "</script>"
+		})
+	int ProfessorCount(Map<String, Object> param);
+	
+	@Select({
+		  "<script>",
+		  "SELECT count(*)",
+		  "FROM subject s",
+		  "JOIN user u ON s.profno = u.id",
+		  "<where>",
+		  "  <if test='select == \"subname\" and keyword != null'>",
+		  "    s.subname LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "  <if test='select == \"name\" and keyword != null'>",
+		  "    u.name LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "</where>",
+		  "</script>"
+		})
+	int SubjectCount(Map<String, Object> param);
+	
+	//==============================================================================================
 	@Select({
 		  "<script>",
 		  "SELECT p.profno AS profno, m.mname AS major, u.name AS name",
@@ -75,16 +139,18 @@ public interface ModelMapper {
 		  "JOIN user u ON p.profno = u.id",
 		  "JOIN major m ON m.mcode = p.mcode",
 		  "<where>",
-		  "  <if test='select == \"name\" and keyword != null'>",
+		  "  <if test='select eq \"name\" and keyword != null'>",
 		  "    u.name LIKE CONCAT('%', #{keyword}, '%')",
 		  "  </if>",
-		  "  <if test='select == \"profno\" and keyword != null'>",
+		  "  <if test='select eq \"profno\" and keyword != null'>",
 		  "    p.profno LIKE CONCAT('%', #{keyword}, '%')",
 		  "  </if>",
-		  "  <if test='select == \"major\" and keyword != null'>",
+		  "  <if test='select eq \"major\" and keyword != null'>",
 		  "    m.mname LIKE CONCAT('%', #{keyword}, '%')",
 		  "  </if>",
 		  "</where>",
+		  "ORDER BY p.profno",
+		  "LIMIT #{startRow},#{pagesize}",
 		  "</script>"
 		})
 	List<Map<String, Object>> ListProfessor(Map<String, Object> params);
@@ -102,12 +168,14 @@ public interface ModelMapper {
 		  "    u.name LIKE CONCAT('%', #{keyword}, '%')",
 		  "  </if>",
 		  "</where>",
+		  "ORDER BY s.subname",
+		  "LIMIT #{startRow},#{pagesize}",
 		  "</script>"
 		})
 	List<Map<String, Object>> ListSubject(Map<String, Object> param);
 
 	@Select("SELECT m.mname AS major FROM professor p JOIN major m ON p.mcode = m.mcode where p.profno = #{id}")
-	Map<String, Object> selectProfessor(@Param("id") int id);
+	Map<String, Object> selectMajor(@Param("id") int id);
 
 
 	@Select("SELECT * from graduation where studno= #{id}")

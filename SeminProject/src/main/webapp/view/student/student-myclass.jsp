@@ -9,14 +9,15 @@
   </head>
   <body>
   <br>
-  <div class="card mb-4">
+  <h2 class="breadcrumb-item active  mx-5">  내 강의실</h2>
+  <div class="card mb-4  mx-5">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
               내 강의실
      </div>
      <div style="display: flex;align-items: center;justify-content: space-between;flex-direction: column;">
 		<c:forEach var="row" items="${list}">
-		        <div style="display: flex; align-items: center; justify-content: space-between; border: 1px solid #ccc;margin-left: 50px; padding: 10px; margin-bottom: 10px;width:1600px">
+		        <div style="display: flex; align-items: center; justify-content: space-between; border: 1px solid #ccc;margin-left: 50px; padding: 10px; margin-bottom: 10px;width:1500px">
 		            <div style="flex: 2;">${row.subname} (${row.subcode})</div>
 		            <div style="flex: 3; display: flex; justify-content: space-around;">
 		                <div><strong>${row.week}</strong><br>출결</div>

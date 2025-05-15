@@ -27,8 +27,8 @@ import model.graduation.GraduationDao;
 
 import model.personality.Personality;
 import model.personality.PersonalityDao;
-import model.pratice.Practice;
-import model.pratice.PracticeDao;
+import model.practice.Practice;
+import model.practice.PracticeDao;
 import model.service.Service;
 
 import model.student.Student;
@@ -143,23 +143,26 @@ public class StudentController extends MskimRequestMapping{
 		Integer id = (Integer) request.getSession().getAttribute("login");
 		Practice practice = pradao.selectparct(id);
 		Teacher teacher = teadao.selectTeach(id);
-		System.out.println(practice);
-		if(practice!=null) {
-			request.setAttribute("msg", "실습 일지 심사 중입니다");
-			request.setAttribute("url", "student-teach-info" );
-			
-			return "alert";
-		}else{
-			if(teacher.isPractice()) {
-				request.setAttribute("msg", "실습 일지가 통과 되었습니다");
+		if(teacher != null) {
+			if(practice!=null) {
+				request.setAttribute("msg", "실습 일지 심사 중입니다");
 				request.setAttribute("url", "student-teach-info" );
 				
 				return "alert";
-				
+			}else{
+				if(teacher.isPractice()) {
+					request.setAttribute("msg", "실습 일지가 통과 되었습니다");
+					request.setAttribute("url", "student-teach-info" );
+					return "alert";
+				}
 			}
-			return "student-teach-practice";
 		}
-		
+		else {
+			request.setAttribute("msg", "실습 일지가 존재하지 않습니다.");
+			request.setAttribute("url", "student-teach-info" );
+			return "alert";
+		}
+		return "student-teach-practice";
 	}
 	@MSLogin("noticecheck")
 	@RequestMapping("praticesubmit")
