@@ -50,9 +50,6 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="2" class="w3-center">
-				<a href="student-subject-board?subcode=${b.subcode }&boardid=${b.boardid}">[목록]</a>
-			</td>
 		</tr>
 	</table>
 	<c:if test="${b.boardid==2}">
@@ -69,6 +66,6 @@
 			</c:forEach>
 		</table>
 	</div>
-	</c:if>
+	</c:if>    <button onclick = "history.back()" class="btn btn-secondary" style="width:50px">←</button>
 </body>
 </html>

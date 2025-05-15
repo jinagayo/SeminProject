@@ -25,7 +25,6 @@
 		            <div style="flex: 1; text-align: right;">
 		                <button onclick="location.href='student-subject-board?subcode=${row.subcode}&boardid=1'" class="btn btn-secondary">공지사항</button>
 		                <button onclick="location.href='student-subject-board?subcode=${row.subcode}&boardid=2'" class="btn btn-secondary"> Q&A  </button>
-		                <button onclick="location.href='student-subject-task?subcode=${row.subcode}'" class="btn btn-secondary">  과제제출 </button>
 		            </div>
 		        </div>
 		    </c:forEach>

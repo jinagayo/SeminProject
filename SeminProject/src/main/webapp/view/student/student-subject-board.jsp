@@ -30,14 +30,13 @@
 			<td></td>
 		</tr>
 		<tr>
-			<th width="8%" style="color:black;">번호</th><th width="50%" style="color:black;">제목</th>
+			<th width="50%" style="color:black;">제목</th>
 			<th width="%" style="color:black;">등록일</th>
 			<th width="20%" style="color:black;">작성자</th>
 		</tr>
 	<c:forEach var="b" items="${list}" varStatus="status">
 		<tr>
-			<td>${b.num}</td>
-			<td style="text-align:left">
+			<td>
 			
 			<a href="student-subject-board-info?num=${b.num}">
 			${b.title}</a></td>
@@ -85,7 +84,7 @@
 			</tr>
 		</c:if>
 </table>
-</div>
+</div>    <button onclick = "history.back()" class="btn btn-secondary" style="width:50px">←</button>
 </div>
 <script type="text/javascript">
 	function listsubmit(page){

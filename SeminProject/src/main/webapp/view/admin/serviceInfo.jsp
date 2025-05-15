@@ -5,7 +5,7 @@
 <html>
   <head>
   	<link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" />
-    <title>학생 정보 조회</title>
+    <title>교육 봉사</title>
   </head>
   <body>
   <br>
@@ -13,7 +13,7 @@
   <div class="card mb-4">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
-              교육 봉사
+              교육 봉사 조회
      </div>
      <div class="card-body">
      

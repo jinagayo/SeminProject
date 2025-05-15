@@ -64,5 +64,6 @@
     	
     </div>
  </div>
+ <button onclick = "history.back()" class="btn btn-secondary" style="width:50px">←</button>
   </body>
 </html>>

@@ -4,7 +4,7 @@
 <html>
   <head>
   	<link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" />
-    <title>학생 정보 조회</title>
+    <title>교육 실습 일지</title>
   </head>
   <body>
   <br>
@@ -12,7 +12,7 @@
   <div class="card mb-4">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
-              DataTable Example
+              교육 실습 일지 조회
      </div>
      <form action="studentList" name="f" method="post" accept-charset="UTF-8">
 	     <div class="card-body">
