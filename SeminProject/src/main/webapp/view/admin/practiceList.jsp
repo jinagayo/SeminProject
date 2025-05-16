@@ -4,18 +4,18 @@
 <html>
   <head>
   	<link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" />
-    <title>학생 정보 조회</title>
+    <title>교육 실습 일지</title>
   </head>
   <body>
   <br>
-  <h2 class="breadcrumb-item active">  교육 실습 일지</h2>
-  <div class="card mb-4">
+  <h2 class="breadcrumb-item active  mx-5">  교육 실습 일지</h2>
+  <div class="card mb-4  mx-5">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
-              DataTable Example
+              교육 실습 일지 조회
      </div>
      <form action="studentList" name="f" method="post" accept-charset="UTF-8">
-	     <div class="card-body">
+	     <div class="card-body" style="position:relative;align-items:center;">
 	    	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align: center;">
 		       		<tr>
 		       			<th>학번</th>

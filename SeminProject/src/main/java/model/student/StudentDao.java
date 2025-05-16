@@ -33,9 +33,8 @@ public class StudentDao {
 		        MybatisConnection.close(session);
 		    }
 		    return null;
-		}
+	}
 
-	 
 	public List<Student> selectStudentId(int id) {
 		 SqlSession session = MybatisConnection.getConnection();
 		    try {
@@ -98,5 +97,4 @@ public class StudentDao {
 		    }
 		    return null;
 	}
-
 }

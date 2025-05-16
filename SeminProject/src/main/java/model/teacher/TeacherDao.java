@@ -1,4 +1,3 @@
-
 package model.teacher;
 
 import org.apache.ibatis.session.SqlSession;
@@ -43,6 +42,19 @@ public class TeacherDao {
 			 MybatisConnection.close(session);
 		 }
 		return false;
+	}
+
+	public boolean updateTeach(Teacher teach_info) {
+		 SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).updateTeach(teach_info);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		return false;
+		
 	}
 
 }

@@ -6,15 +6,17 @@
   <head>
   	<link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" />
    	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+
     <title>교수 정보 조회</title>
   </head>
   <body>
   <br>
-  <h2 class="breadcrumb-item active mx-5">  교수 정보 조회</h2>
+  <h2 class="breadcrumb-item active  mx-5">  교수 정보 조회</h2>
   <div class="card mb-4 mx-5">
+>>>>>>> branch 'jina' of https://github.com/jinagayo/SeminProject.git
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
-              DataTable Example
+             교수 정보 조회
      </div>
      <div class="card-body">
     	<table id="datatablesSimple" >

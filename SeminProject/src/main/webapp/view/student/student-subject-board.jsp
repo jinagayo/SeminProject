@@ -12,33 +12,28 @@
 </head>
 <body>
 
-	<h2 class="">${s.subname}</h2>
-  <div class="card mb-4">
+	<h2 class=" mx-5">${s.subname}</h2>
+  <div class="card mb-4  mx-5">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
               ${boardName }
      </div>
      <div style="display: flex;align-items: center;justify-content: space-between;flex-direction: column;">
 	
-<table class="table" style="padding-top:100px;">
+<table style="padding-top:100px;">
 	<c:if test="${boardCount==0}">
 		<tr>
 			<td colspan="5">등록된 게시글이 없습니다.</td>
 		</tr>
 	</c:if>
-		<tr>	
-			<td></td>
-		</tr>
 		<tr>
-			<th width="8%" style="color:black;">번호</th><th width="50%" style="color:black;">제목</th>
-			<th width="%" style="color:black;">등록일</th>
-			<th width="20%" style="color:black;">작성자</th>
+			<th width="50%">제목</th>
+			<th width="%">등록일</th>
+			<th width="20%" >작성자</th>
 		</tr>
 	<c:forEach var="b" items="${list}" varStatus="status">
 		<tr>
-			<td>${b.num}</td>
-
-			<td style="text-align:left">
+			<td>
 			
 			<a href="student-subject-board-info?num=${b.num}">
 			${b.title}</a></td>
@@ -87,7 +82,7 @@
 			</tr>
 		</c:if>
 </table>
-</div>
+</div>    <button onclick = "history.back()" class="btn btn-secondary" style="width:50px">←</button>
 </div>
 <script type="text/javascript">
 	function listsubmit(page){

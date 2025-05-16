@@ -19,7 +19,12 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="background-color: #2c3e50 !important;">
             <!-- 상단바-->
-            <a class="navbar-brand ps-3" onclick="location.href='../main/main'">구디 대학교</a>
+           <img src="${pageContext.request.contextPath}/assets/img/logo1.png" style="width:40px; height:40px; padding-left=5px;" onclick="location.href='../main/main'">
+            <a class="navbar-brand ps-3" onclick="location.href='../main/main'" style="
+    font-family: 'YeongamWolchulsanTTF';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/2410-1@1.0/YeongamWolchulsanTTF.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;">구디 대학교</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -55,7 +60,7 @@
                                     <a class="nav-link" href="professor-mypage-time">내 시간표 조회</a>
                                 </nav>
                             </div>
-                            <a class="nav-link" href="../board/notice">
+                            <a class="nav-link" onclick="location.href='../board/notice'">
                                 <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
                                 알림마당
                             </a>

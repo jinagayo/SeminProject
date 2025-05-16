@@ -21,6 +21,18 @@ public class GraduationDao {
 		 return null;	
 	}
 
+	public boolean updateGrad(Graduation grad_info) {
+		 SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).updateGrad(grad_info);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		return false;
+	}
+
 
 
 }

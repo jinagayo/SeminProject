@@ -11,7 +11,8 @@
 <body>
 
   <br>
-  <div class="card mb-4">
+  <h2 class="breadcrumb-item active  mx-5">  졸업 사정표</h2>
+  <div class="card mb-4  mx-5">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
               수강신청
@@ -19,15 +20,15 @@
      <div class="card-body">
 	     <div class="card-body">
 	     
-			<form action="student-class-application" method="get" name="sf">
+			<form action="student-class-application" method="get" name="sf" style="display: flex; flex-direction: row; align-items: center; margin-left: 15%; margin-bottom:10px;">
 				<input type="hidden" name="pageNum" value="1">
 	     
 		     	<select id="select" name="column" class="select">
 		     		<option value="profname" selected>교수명</option>
 		     		<option value="subname">과목명</option>
 		     	</select>
-		     	<input type="text" name="find" class="searchList" placeholder="(검색어입력)" value="${param.find}">
-		     	<button type="submit" id="searchbtn" class="searchbtn" class="btn btn-secondary text-center">검색</button>
+		     	<input type="text" name="find" class="form-control" placeholder="(검색어입력)" style="width: 70%; margin-left:20px;" value="${param.find}">
+		     	<button type="submit" id="searchbtn" class="btn btn-secondary" class="btn btn-secondary text-center" style=" margin-left:20px;">검색</button>
 		     </form>
     	<table id="datatablesSimple" border="1">
        		<tr>

@@ -4,15 +4,15 @@
 <html>
   <head>
   	<link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" />
-    <title>학생 정보 조회</title>
+    <title>교육 봉사</title>
   </head>
   <body>
   <br>
-  <h2 class="breadcrumb-item active">  교육 봉사</h2>
-  <div class="card mb-4">
+  <h2 class="breadcrumb-item active  mx-5">  교육 봉사</h2>
+  <div class="card mb-4  mx-5">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
-              교육 봉사
+              교육 봉사 조회
      </div>
      <form action="studentList" name="f" method="post" accept-charset="UTF-8">
 	     <div class="card-body">

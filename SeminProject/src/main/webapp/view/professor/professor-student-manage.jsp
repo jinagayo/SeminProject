@@ -10,10 +10,11 @@
 </head>
 <body>
 <br>
-  <div class="card mb-4 mx-5">
+  <h2 class="breadcrumb-item active  mx-5">  학생 관리</h2>
+  <div class="card mb-4  mx-5">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
-              학생관리
+              학생 목록
      </div>
      <div class="card-body">
        <table id="datatablesSimple" border="1">

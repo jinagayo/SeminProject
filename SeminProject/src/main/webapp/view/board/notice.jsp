@@ -40,13 +40,12 @@
 			<td></td>
 		</tr>
 		<tr>
-			<th width="8%">번호</th><th width="80%">제목</th>
+			<th width="80%"style="padding-left: 50px;">제목</th>
 			<th width="%">등록일</th>
 		</tr>
 	<c:forEach var="b" items="${list}">
 		<tr>
-			<td>${b.num}</td>
-			<td style="text-align:left">
+			<td style="text-align:left; padding-left: 50px;">
 			
 			<a href="info?num=${b.num}">
 			${b.title}</a></td>
