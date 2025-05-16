@@ -311,7 +311,6 @@ public class ProfessorController extends MskimRequestMapping {
 			
 	}
 	
-
 	@MSLogin("noticecheck")
 	@RequestMapping("professor-subject-board")
 	public String subjectnotice(HttpServletRequest request,HttpServletResponse response) {
@@ -320,6 +319,7 @@ public class ProfessorController extends MskimRequestMapping {
 	      } catch (UnsupportedEncodingException e) {
 	         e.printStackTrace();
 	      }
+		 
 		int pageNum=1;
 		try {
 			pageNum = Integer.parseInt(request.getParameter("pageNum"));

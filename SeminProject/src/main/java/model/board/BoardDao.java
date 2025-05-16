@@ -12,6 +12,7 @@ import model.mapper.BoardMapper;
 public class BoardDao {
 	private static Class<BoardMapper> cls = BoardMapper.class;
 	private Map<String,Object> map = new HashMap<>();
+	private Map<String,Object> map2 = new HashMap<>();
 
 	public int MainboardCount(int pageNum, int limit, String column, String find) {
 		SqlSession session = MybatisConnection.getConnection();
@@ -234,10 +235,10 @@ public class BoardDao {
 	public int subBoardCount3(Integer boardid, String subcode, int pageNum, int limit) {
 		SqlSession session = MybatisConnection.getConnection();
 		try {
-			map.put("start",(pageNum-1)*limit);
-			map.put("limit",limit);
-			map.put("subcode", subcode);
-			map.put("boardid", 2);
+			map2.put("start",(pageNum-1)*limit);
+			map2.put("limit",limit);
+			map2.put("subcode", subcode);
+			map2.put("boardid", 2);
 			return session.getMapper(cls).subBoardCount3(map);
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -250,17 +251,18 @@ public class BoardDao {
 	public List<Board> subbBoardlist3(Integer boardid, String subcode, int pageNum, int limit) {
 		SqlSession session = MybatisConnection.getConnection();
 		try {
-			map.clear();
-			map.put("start", (pageNum-1)*limit);
+			map2.clear();
+			map2.put("start", (pageNum-1)*limit);
 			/*
 			 * pageNum	start
 			 *   1		  0
 			 *   2		 10
 			 */
 			
-			map.put("limit", limit);
-			map.put("boardid", 2);
-			map.put("subcode", subcode);		
+			map2.put("limit", limit);
+			map2.put("boardid", boardid);
+			map2.put("subcode", subcode);	
+			System.out.println("map2==========="+map2);
 			return session.getMapper(cls).subbBoardlist3(map);
 		}catch(Exception e) {
 			e.printStackTrace();

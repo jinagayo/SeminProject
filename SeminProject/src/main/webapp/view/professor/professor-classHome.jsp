@@ -53,10 +53,8 @@
     "
   >
     <iframe
-      src="professor-subject-board?subcode=${subcode}";
-      style="width: 100%; height: 100%; border: none;"
-      scrolling="auto"
-    ></iframe>
+      src="professor-subject-board?subcode=${subcode}"
+      style="width: 100%; height: 100%; border: none;"></iframe>
   </div>
 
   <!-- 오른쪽 박스 -->
@@ -73,10 +71,8 @@
     "
   >
     <iframe
-      src="professor-subject-board2?subcode=${subcode}";
-      style="width: 100%; height: 100%; border: none;"
-      scrolling="auto"
-    ></iframe>
+      src="professor-subject-board2?subcode=${subcode}"
+      style="width: 100%; height: 100%; border: none;"  scrolling="auto"></iframe>
   </div>
 </div>
 
