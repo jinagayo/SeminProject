@@ -417,7 +417,7 @@ public interface ModelMapper {
 	//history
 	@Select({
 	    "<script>",
-	    "SELECT year, subject",
+	    "SELECT year, subject, grade",
 	    "FROM history",
 	    "<where>",
 	    "  studno = #{studno}",

@@ -92,10 +92,10 @@
 <title>알림마당</title>
 </head>
 <body>
-	<h2 class="">알림마당</h2>
+	<h2 class="text-center"  onclick="location.href='../board/notice'">알림마당</h2>
 	
-	<div class="notice-container">
-  <h2 class="notice-title">${b.title}</h2>
+	<div class="notice-container" >
+  <h2 class="notice-title" >${b.title}</h2>
   
   <div class="notice-meta">
 

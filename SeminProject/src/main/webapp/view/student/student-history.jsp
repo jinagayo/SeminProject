@@ -42,6 +42,7 @@
 	       		<tr>
 	       			<th>학기</th>
 	       			<th>강의명</th>
+	       			<th>성적</th>
 	       		</tr>
 	       		<c:if test="${empty list}">
 				   	<tr><td colspan="2">조회 결과가 없습니다.</td></tr>
@@ -55,6 +56,26 @@
 						    ${fn:substring(test, length-1,length)}학기
 						</td>
 		       			<td>${row.subject}</td>
+		       			<td>
+						  <c:choose>
+						    <c:when test="${row.grade >= 4.0}">
+						      A
+						    </c:when>
+						    <c:when test="${row.grade >= 3.0}">
+						      B
+						    </c:when>
+						    <c:when test="${row.grade >= 2.0}">
+						      C
+						    </c:when>
+						    <c:when test="${row.grade >= 1.0}">
+						      D
+						    </c:when>
+						    <c:otherwise>
+						      F
+						    </c:otherwise>
+						  </c:choose>
+						</td>
+
 		       		</tr>
 		       	</c:forEach>
 	    	</table>

@@ -9,7 +9,7 @@
 <title>알림마당</title>
 </head>
 <body>
-<h2>알림마당</h2>
+<h2 class="text-center"  onclick="location.href='../board/notice'">알림마당</h2>
 <form action="notice" method="post" name="sf">
 	<input type="hidden" name="pageNum" value="1">
 		<select class="w3-select" name="column">
@@ -23,7 +23,7 @@
 		</script>
 		<input class="form-control" type="text"
 			placeholder="Search" name="find" value="${param.find}">
-		<button class="btn btn-primary" type="submit">Search</button>
+		<button class="btn btn-primary" type="submit" style="margin-left:92%; margin-top:5px;">Search</button>
 </form>
 <table class="table">
 	<c:if test="${boardcount==0}">

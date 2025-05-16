@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>알림마당</title>
+
 </head>
 <body>
 <form action="write" method="post" enctype="multipart/form-data" name="f">
