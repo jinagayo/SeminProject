@@ -10,7 +10,7 @@
 </head>
 <body>
 <br>
-  <div class="card mb-4">
+  <div class="card mb-4 mx-5">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
               학생관리
@@ -18,7 +18,7 @@
      <div class="card-body">
        <table id="datatablesSimple" border="1">
          <tr>
-            <th>학번</th><th>이름</th>
+            <th style="background-color: #2c3e50 !important;">학번</th><th style="background-color: #2c3e50 !important;">이름</th>
          </tr>
    
 	  <c:forEach var="s" items="${studentList}" varStatus="vs">

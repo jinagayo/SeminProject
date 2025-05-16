@@ -6,18 +6,18 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
 </head>
 
-<body class="qna-page">  	
-	<h2 class="">${s.subname}</h2>
+<body>  	
+	<p class="fs-6" style="padding: 20px; font-weight:bold;">${s.subname}</p>
 	
-	<div class="card mb-4">
-     <div class="card-header">
-         <i class="fas fa-table me-1"></i>
-			    <c:if test="${b.boardid=='1'}">공지사항</c:if>
-				<c:if test="${b.boardid=='2'}">Q&A</c:if>
+	<div>
+     <div style="text-align:center">
+			    <h1 class="display-3"><c:if test="${b.boardid=='1'}">공지사항</c:if></h1>
+				<h1><c:if test="${b.boardid=='2'}">Q&A</c:if></h1>
      </div>
-
+     <div class="container" style="padding: 40px;">
      <!-- 게시판 전용 테이블 -->
      <table class="table qna-table" style="width:800px%;">
 		<tr>
@@ -25,7 +25,7 @@
 			<td width="80%" style="text-align:left; color:black; padding:10px;"><h5>${b.title}</h5></td>
 		</tr>
 		<tr>
-			<th width="10%" style="color:black;">글쓴이</th>
+			<th width="10%" style="color:black; white-space: nowrap;">글쓴이</th>
 			<td width="80%" style="text-align:left; padding:10px;">${b.writer}</td>
 		</tr>
 		<tr>
@@ -55,6 +55,7 @@
 			</td>
 		</tr>
 	</table>
+	</div>
 	<c:if test="${b.boardid==2}">
 	 <!-- 댓글 등록 폼 -->
    <span id="comment"></span>

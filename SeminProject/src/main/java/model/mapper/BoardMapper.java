@@ -67,4 +67,20 @@ public interface BoardMapper {
 
 	@Insert("Insert into board (boardid,title,writer,content,regdate,subcode,file1) values ( #{boardid},#{title},#{writer},#{content},now(),#{subcode},#{file1})")
 	boolean writeboard(Board board);
+
+	@Select("select count(*) from board where boardid = '1' and subcode = #{subcode} ORDER BY regdate DESC ")
+	int subBoardCount2(Map<String, Object> map);
+
+	@Select(" select * from board where boardid = '1' and subcode = #{subcode} "
+			+ " ORDER BY regdate DESC"
+			+" limit #{start},#{limit} ")
+	List<Board> subbBoardlist2(Map<String, Object> map);
+
+	@Select("select count(*) from board where boardid = '2' and subcode = #{subcode} ORDER BY regdate DESC ")
+	int subBoardCount3(Map<String, Object> map);
+
+	@Select(" select * from board where boardid = '2' and subcode = #{subcode} "
+			+ " ORDER BY regdate DESC"
+			+" limit #{start},#{limit} ")
+	List<Board> subbBoardlist3(Map<String, Object> map);
 }

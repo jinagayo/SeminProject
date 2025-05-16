@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="student-subject-board-write" method="post" enctype="multipart/form-data" name="f">
+<form action="professor-subject-board-write" method="post" enctype="multipart/form-data" name="f">
 	<h2 class="text-center">Q&A</h2>
 	<input type="hidden" name="subcode" value="${param.subcode}">
 	<input type="hidden" name="boardid" value="${param.boardid}">

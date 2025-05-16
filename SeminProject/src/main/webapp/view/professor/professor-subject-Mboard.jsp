@@ -2,25 +2,25 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
  <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
     
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>과목 공지사항</title>
+<title>과목 홈</title>
 </head>
 <body>
 
-  <div class="card mb-4">
-     
+	<h2 class="">${s.subname}</h2>
+  <div class="card mb-4  mx-5">
+     <div class="card-header">
          <i class="fas fa-table me-1"></i>
-             <div style="text-align: center;">
-  				<h1>${boardName}</h1>
-			 </div>
-     
+              ${boardName }
+     </div>
      <div style="display: flex;align-items: center;justify-content: space-between;flex-direction: column;">
 	
-<table class="table" style="padding-top:40px;">
+<table class="table" style="padding-top:100px;">
 	<c:if test="${boardCount==0}">
 		<tr>
 			<td colspan="5">등록된 게시글이 없습니다.</td>
@@ -36,10 +36,13 @@
 		</tr>
 	<c:forEach var="b" items="${list}" varStatus="status">
 		<tr>
-			<td width="8%">${b.num}</td>
-			<td width="50%" style="text-align:center">
-			<a href="professor-subject-board-info?num=${b.num}">${b.title}</a>
-			</td>
+			<td>${b.num}</td>
+
+			<td style="text-align:center">
+			
+			<a href="professor-subject-Mboard-info?num=${b.num}">
+			${b.title}</a></td>
+
 			<td><fmt:formatDate value="${b.regdate}" pattern="yyyy-MM-dd" var="rdate" />
 			<fmt:formatDate value="${today}" pattern="yyyy-MM-dd HH:mm:ss" var="tdate" />
 			<c:if test="${rdate==tdate}">
@@ -48,16 +51,13 @@
 			<c:if test="${rdate!=today}">
 				<fmt:formatDate value="${b.regdate}" pattern="yyyy-MM-dd"/>
 			</c:if></td>
-			<td width="20%" style="text-align:center" >
+			<td>
 				${b.writer }
 			</td>
 		</tr>
 	
 	</c:forEach>
 	<%--페이지 처리하기 --%>
-	<tr><td colspan="5" align="center">  </td></tr>
-	<tr><td colspan="5" align="center">  </td></tr>
-	<tr><td colspan="5" align="center">  </td></tr>
 	<tr>
 		<td colspan="5" align="center">
 		<c:if test="${pageNum <=1 }">[이전]</c:if>
@@ -74,14 +74,18 @@
 		</c:if>
 		</td>
 	</tr>
+		<c:if test="${boardid=='1'}">
 			<tr>
 				<td colspan="5" style="text-align:right">
-					<button type="button" onclick="goFullPage()" class="btn-primary text-center">더보기</button>
+				<form action="professor-subject-board-writeForm" method="get" accept-charset="UTF-8"  name="f" >
+					<button type="submit" class="btn-primary text-center">글쓰기</button>
 					<input type="hidden" name="subcode" value="${param.subcode}"/>
 					<input type="hidden" name="boardid" value="${boardid}"/>
+				</form>
 				
 				</td>
 			</tr>
+		</c:if>
 </table>
 </div>
 </div>
@@ -92,13 +96,5 @@
 		f.submit();
 	}
 </script>
-<script>
-  function goFullPage() {
-    const subcode = '${param.subcode}';
-    const boardid = '${boardid}';
-    window.top.location.href = 'professor-subject-Mboard?subcode=' + subcode + '&boardid=' + boardid;
-  }
-</script>
 </body>
-
 </html>

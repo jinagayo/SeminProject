@@ -192,4 +192,82 @@ public class BoardDao {
 		return false;
 	}
 
+	public int subBoardCount2(Integer boardid, String subcode, int pageNum, int limit) {
+		SqlSession session = MybatisConnection.getConnection();
+		try {
+			map.put("start",(pageNum-1)*limit);
+			map.put("limit",limit);
+			map.put("subcode", subcode);
+			map.put("boardid", 1);
+			return session.getMapper(cls).subBoardCount2(map);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			MybatisConnection.close(session);
+		}
+		return 0;
+	}
+
+	public List<Board> subbBoardlist2(Integer boardid, String subcode, int pageNum, int limit) {
+		SqlSession session = MybatisConnection.getConnection();
+		try {
+			map.clear();
+			map.put("start", (pageNum-1)*limit);
+			/*
+			 * pageNum	start
+			 *   1		  0
+			 *   2		 10
+			 */
+			
+			map.put("limit", limit);
+			map.put("boardid", 1);
+			map.put("subcode", subcode);		
+			return session.getMapper(cls).subbBoardlist2(map);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			MybatisConnection.close(session);
+		}
+		return null;
+	}
+
+	public int subBoardCount3(Integer boardid, String subcode, int pageNum, int limit) {
+		SqlSession session = MybatisConnection.getConnection();
+		try {
+			map.put("start",(pageNum-1)*limit);
+			map.put("limit",limit);
+			map.put("subcode", subcode);
+			map.put("boardid", 2);
+			return session.getMapper(cls).subBoardCount3(map);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			MybatisConnection.close(session);
+		}
+		return 0;
+	}
+
+	public List<Board> subbBoardlist3(Integer boardid, String subcode, int pageNum, int limit) {
+		SqlSession session = MybatisConnection.getConnection();
+		try {
+			map.clear();
+			map.put("start", (pageNum-1)*limit);
+			/*
+			 * pageNum	start
+			 *   1		  0
+			 *   2		 10
+			 */
+			
+			map.put("limit", limit);
+			map.put("boardid", 2);
+			map.put("subcode", subcode);		
+			return session.getMapper(cls).subbBoardlist3(map);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			MybatisConnection.close(session);
+		}
+		return null;
+	}
+
 }

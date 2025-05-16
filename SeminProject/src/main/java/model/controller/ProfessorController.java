@@ -324,23 +324,20 @@ public class ProfessorController extends MskimRequestMapping {
 		try {
 			pageNum = Integer.parseInt(request.getParameter("pageNum"));
 		}catch(NumberFormatException e) {}
-		String boardid = request.getParameter("boardid");
+		Integer boardid = 1;
 		String subcode = request.getParameter("subcode");
 		
-		if(boardid==null||boardid.trim().equals("")) {
-			boardid="1"; //boardid 파라미터가 없는 경우 "1"
-		}
 		int limit=10; //페이지당 출력되는 게시물의 건수
-		int boardcount=boadao.subBoardCount(boardid,subcode,pageNum,limit);
-		List<Board> list= boadao.subbBoardlist(boardid,subcode,pageNum,limit);
+		int boardcount=boadao.subBoardCount2(boardid,subcode,pageNum,limit);
+		List<Board> list= boadao.subbBoardlist2(boardid,subcode,pageNum,limit);
+		System.out.println("board1: " + list);
 		int maxpage =(int)((double)boardcount/limit +0.95);
 		int startpage=((int)(pageNum/10.0+0.9)-1)*10+1;
 		int endpage=startpage+9; //화면에 출력한 마지막 페이지번호.한 화면에 10개의 페이지번호 출력
 		//endpage는 maxpageq보다 작거나 같아야함.
 		if(endpage>maxpage) endpage=maxpage;
 		String boardName="공지사항";
-		if(boardid.equals("2"))
-			boardName="Q&A";
+		
 		request.setAttribute("boardName", boardName); //개시판 일믐
 		request.setAttribute("boardCount", boardcount); //게시판별 전체 게시물 건수
 		request.setAttribute("boardid", boardid); //게시판 종류. 게시판 코드.
@@ -357,6 +354,53 @@ public class ProfessorController extends MskimRequestMapping {
 		request.setAttribute("today", new Date());
 		return "professor-subject-board";
 	
+	}
+	
+	@MSLogin("noticecheck")
+	@RequestMapping("professor-subject-board2")
+	public String subBoard(HttpServletRequest request,
+			HttpServletResponse response) {
+		 try {
+	         request.setCharacterEncoding("UTF-8");
+	      } catch (UnsupportedEncodingException e) {
+	         e.printStackTrace();
+	      }
+		int pageNum=1;
+		try {
+			pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		}catch(NumberFormatException e) {}
+		
+		Integer boardid = 2;
+		String subcode = request.getParameter("subcode");
+		
+		int limit=10; //페이지당 출력되는 게시물의 건수
+		int boardcount=boadao.subBoardCount3(boardid,subcode,pageNum,limit);
+		List<Board> list= boadao.subbBoardlist3(boardid,subcode,pageNum,limit);
+		System.out.println("board2: " + list);
+		int maxpage =(int)((double)boardcount/limit +0.95);
+		int startpage=((int)(pageNum/10.0+0.9)-1)*10+1;
+		int endpage=startpage+9; //화면에 출력한 마지막 페이지번호.한 화면에 10개의 페이지번호 출력
+		//endpage는 maxpageq보다 작거나 같아야함.
+		if(endpage>maxpage) endpage=maxpage;
+		String boardName="Q&A";
+		Subject subject = subdao.selectSubject(subcode);
+		request.setAttribute("s", subject);
+		request.setAttribute("boardName", boardName); //개시판 일믐
+		request.setAttribute("boardCount", boardcount); //게시판별 전체 게시ㅜㄹ 건수
+		request.setAttribute("boardid", boardid); //게시판 동류,ㅈ게시판 코드.
+		request.setAttribute("subcode", subcode);
+		
+		request.setAttribute("pageNum", pageNum); //현페
+		request.setAttribute("list", list);//현재페이지에 출력할 겜시물 목록
+		request.setAttribute("startpage", startpage);//페이지 시작번호
+		request.setAttribute("endpage", endpage); //페이지의 마지막 번호
+		request.setAttribute("maxpage", maxpage);//페이지 최대번호
+		
+		//boardnum : 보여주기 위한 번호
+		request.setAttribute("boardName", boardName);
+		request.setAttribute("today", new Date());
+		
+		return "professor-subject-board2";
 	}
 	
 
@@ -399,18 +443,67 @@ public class ProfessorController extends MskimRequestMapping {
 		
 		if(boadao.writeboard(board)) {
 			request.setAttribute("msg", "등록되었습니다.");
-			request.setAttribute("url", "student-subject-board?subcode="+subcode+"&boardid="+boardid);
+			request.setAttribute("url", "professor-subject-Mboard?subcode="+subcode+"&boardid="+boardid);
 			
 		}else {
 			request.setAttribute("msg", "등록실패.");
-			request.setAttribute("url", "redirect:student-subject-board?subcode="+subcode+"&boardid="+boardid);
+			request.setAttribute("url", "redirect:professor-subject-Mboard?subcode="+subcode+"&boardid="+boardid);
 			
 		}
 		return "alert";
 	}
 	
-	@RequestMapping("professor-subject-board")
-	public String subBoard(HttpServletRequest request,
+	
+	@RequestMapping("professor-subject-Mboard")
+	public String subMBoard(HttpServletRequest request,
+			HttpServletResponse response) {
+		 try {
+	         request.setCharacterEncoding("UTF-8");
+	      } catch (UnsupportedEncodingException e) {
+	         e.printStackTrace();
+	      }
+		int pageNum=1;
+		try {
+			pageNum = Integer.parseInt(request.getParameter("pageNum"));
+		}catch(NumberFormatException e) {}
+		String boardid = request.getParameter("boardid");
+		String subcode = request.getParameter("subcode");
+		
+		if(boardid==null||boardid.trim().equals("")) {
+			boardid="1"; //boardid 파라미터가 없는 경우 "1"
+		}
+		int limit=10; //페이지당 출력되는 게시물의 건수
+		int boardcount=boadao.subBoardCount(boardid,subcode,pageNum,limit);
+		List<Board> list= boadao.subbBoardlist(boardid,subcode,pageNum,limit);
+		int maxpage =(int)((double)boardcount/limit +0.95);
+		int startpage=((int)(pageNum/10.0+0.9)-1)*10+1;
+		int endpage=startpage+9; //화면에 출력한 마지막 페이지번호.한 화면에 10개의 페이지번호 출력
+		//endpage는 maxpageq보다 작거나 같아야함.
+		if(endpage>maxpage) endpage=maxpage;
+		String boardName="공지사항";
+		if(boardid.equals("2"))
+			boardName="Q&A";
+		Subject subject = subdao.selectSubject(subcode);
+		request.setAttribute("s", subject);
+		request.setAttribute("boardName", boardName); //개시판 일믐
+		request.setAttribute("boardCount", boardcount); //게시판별 전체 게시물 건수
+		request.setAttribute("boardid", boardid); //게시판 동류,ㅈ게시판 코드.
+		request.setAttribute("subcode", subcode);
+		
+		request.setAttribute("pageNum", pageNum); //현페
+		request.setAttribute("list", list);//현재페이지에 출력할 겜시물 목록
+		request.setAttribute("startpage", startpage);//페이지 시작번호
+		request.setAttribute("endpage", endpage); //페이지의 마지막 번호
+		request.setAttribute("maxpage", maxpage);//페이지 최대번호
+		
+		//boardnum : 보여주기 위한 번호
+		request.setAttribute("boardName", boardName);
+		request.setAttribute("today", new Date());
+		
+		return "professor-subject-Mboard";
+	}
+	@RequestMapping("professor-subject-board2")
+	public String subBoard2(HttpServletRequest request,
 			HttpServletResponse response) {
 		 try {
 	         request.setCharacterEncoding("UTF-8");
@@ -457,6 +550,7 @@ public class ProfessorController extends MskimRequestMapping {
 		
 		return "professor-subject-board";
 	}
+	
 
 	@RequestMapping("professor-subject-board-info")
 	public String subBoardInfo(HttpServletRequest request,
@@ -473,6 +567,23 @@ public class ProfessorController extends MskimRequestMapping {
 		request.setAttribute("commlist", commentlist) ;
 		return "professor-subject-board-info";
 	}
+	
+	@RequestMapping("professor-subject-Mboard-info")
+	public String subMBoardInfo(HttpServletRequest request,
+			HttpServletResponse response) {
+		Integer id =(Integer)request.getSession().getAttribute("login");
+		String num = request.getParameter("num");
+		Board board = boadao.selectOne(Integer.parseInt(num));
+		Subject subject = subdao.selectSubject(Integer.toString(board.getSubcode()));
+		User user = dao.selectOne(id);
+		request.setAttribute("b", board);
+		request.setAttribute("s", subject);
+		request.setAttribute("u", user);
+		List<Comment> commentlist= commdao.list(num) ;
+		request.setAttribute("commlist", commentlist) ;
+		return "professor-subject-Mboard-info";
+	}
+	
 	@RequestMapping("comment")
 	public String comment(HttpServletRequest request,HttpServletResponse response) {
 	      try {

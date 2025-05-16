@@ -11,7 +11,7 @@
 <body>
 
 <br>
-<div class="card mb-4">
+<div class="card mb-4 mx-5">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
              ${subject.subname}
@@ -22,7 +22,7 @@
   <button onclick="openAttPopup()">출결관리</button>
 </div>
 
-<div style="margin-left: 100px; margin-top: 30px;">
+<div style="margin-left: 100px; margin-top: 30px; margin-bottom: 30px;">
   <button onclick="openGradePopup()">성적관리</button>
 </div>
 
@@ -53,7 +53,7 @@
     "
   >
     <iframe
-      src="professor-subject-board?boardid=${1}&subcode=${subcode}";
+      src="professor-subject-board?subcode=${subcode}";
       style="width: 100%; height: 100%; border: none;"
       scrolling="auto"
     ></iframe>
@@ -73,7 +73,7 @@
     "
   >
     <iframe
-      src="professor-subject-board?boardid=${2}&subcode=${subcode}";
+      src="professor-subject-board2?subcode=${subcode}";
       style="width: 100%; height: 100%; border: none;"
       scrolling="auto"
     ></iframe>
