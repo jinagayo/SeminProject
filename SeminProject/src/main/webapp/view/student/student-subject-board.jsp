@@ -73,7 +73,7 @@
 			<tr>
 				<td colspan="5" style="text-align:right">
 				<form action="student-subject-board-writeForm" method="get" accept-charset="UTF-8"  name="f" >
-					<button type="submit" class="btn-primary text-center">글쓰기</button>
+					<button type="submit" class="btn btn-secondary text-center">글쓰기</button>
 					<input type="hidden" name="subcode" value="${param.subcode}"/>
 					<input type="hidden" name="boardid" value="${boardid}"/>
 				</form>

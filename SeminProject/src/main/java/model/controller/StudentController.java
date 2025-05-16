@@ -98,6 +98,7 @@ public class StudentController extends MskimRequestMapping{
 		request.setAttribute("std", student); //student 테이블 정보
 		return "student-mypage-info";
 	}
+	
 	@MSLogin("noticecheck")
 	@RequestMapping("student-mypage-grad") 
 	public String MypageGrade(HttpServletRequest request,
@@ -110,6 +111,7 @@ public class StudentController extends MskimRequestMapping{
 		request.setAttribute("teach", teach_info);
 		return "student-mypage-grad";
 	}
+	
 	@MSLogin("noticecheck")
 	@RequestMapping("student-mypage-time") 
 	public String MypageTime(HttpServletRequest request,
@@ -187,14 +189,18 @@ public class StudentController extends MskimRequestMapping{
 					return "alert";
 				}
 			}
+			return "student-teach-practice";
 		}
+
 		else {
 			request.setAttribute("msg", "실습 일지가 존재하지 않습니다.");
 			request.setAttribute("url", "student-teach-info" );
 			return "alert";
+
 		}
-		return "student-teach-practice";
+	
 	}
+	
 	@MSLogin("noticecheck")
 	@RequestMapping("praticesubmit")
 	public String praticesubmit(HttpServletRequest request,
@@ -585,6 +591,7 @@ public class StudentController extends MskimRequestMapping{
 	    request.setAttribute("semester", semester);
 	    request.setAttribute("list", map);
 	    return "student-history";
+
 	}
 }
 

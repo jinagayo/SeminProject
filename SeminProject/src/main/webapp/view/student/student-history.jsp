@@ -40,8 +40,11 @@
 	     	
 	    	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align: center;margin-top:50px">
 	       		<tr>
+
 	       			<th style="background-color: #2c3e50 !important;">학기</th>
 	       			<th style="background-color: #2c3e50 !important;">강의명</th>
+	       			<th style="background-color: #2c3e50 !important;">성적</th>
+
 	       		</tr>
 	       		<c:if test="${empty list}">
 				   	<tr><td colspan="2">조회 결과가 없습니다.</td></tr>
@@ -55,6 +58,26 @@
 						    ${fn:substring(test, length-1,length)}학기
 						</td>
 		       			<td>${row.subject}</td>
+		       			<td>
+						  <c:choose>
+						    <c:when test="${row.grade >= 4.0}">
+						      A
+						    </c:when>
+						    <c:when test="${row.grade >= 3.0}">
+						      B
+						    </c:when>
+						    <c:when test="${row.grade >= 2.0}">
+						      C
+						    </c:when>
+						    <c:when test="${row.grade >= 1.0}">
+						      D
+						    </c:when>
+						    <c:otherwise>
+						      F
+						    </c:otherwise>
+						  </c:choose>
+						</td>
+
 		       		</tr>
 		       	</c:forEach>
 	    	</table>
