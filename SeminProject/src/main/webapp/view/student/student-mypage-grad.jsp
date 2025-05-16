@@ -18,13 +18,13 @@
      <div class="card-body">
     	<table id="datatablesSimple" border="1">
        		<tr>
-       			<th></th>
-       			<th>기준값</th>
-       			<th>계산값</th>
-       			<th>결과</th>
+       			<th style="background-color: #2c3e50 !important;"></th>
+       			<th style="background-color: #2c3e50 !important;">기준값</th>
+       			<th style="background-color: #2c3e50 !important;">계산값</th>
+       			<th style="background-color: #2c3e50 !important;">결과</th>
        		</tr>
        		<tr>
-       			<th>졸업학점</th>
+       			<th style="background-color: #2c3e50 !important;">졸업학점</th>
        			<td>130</td>
        			<td>${grad.comcredit}</td>
        			<c:if test="${grad.comcredit >= 130}">
@@ -36,7 +36,7 @@
        		</tr>
        		
        		<tr>
-       			<th>교직이수 학점</th>
+       			<th style="background-color: #2c3e50 !important;">교직이수 학점</th>
        			<td>30</td>
        			<td>${grad.teachcredit}</td>
        			<c:if test="${grad.teachcredit >= 30}">
@@ -47,7 +47,7 @@
 				</c:if>
        		</tr>
        		<tr>
-       			<th>실습 여부</th>
+       			<th style="background-color: #2c3e50 !important;">실습 여부</th>
        			<td>Y</td>
        			<c:if test="${teach.practice == true}">
        				<td>Y</td>
@@ -64,7 +64,7 @@
        		</tr>
        		
        		<tr>
-       			<th>봉사활동</th>
+       			<th style="background-color: #2c3e50 !important;">봉사활동</th>
        			<td>8</td>
        			<td>${teach.service}</td>
        			<c:if test="${teach.service >= 8}">
@@ -76,7 +76,7 @@
        		</tr>
        		
        		<tr>
-       			<th>교원 자격 취득</th>
+       			<th style="background-color: #2c3e50 !important;">교원 자격 취득</th>
        			<td>Y</td>
        			<c:if test="${teach.teacherYN == true}">
        				<td>Y</td>
@@ -92,7 +92,7 @@
 				</c:if>  
        		</tr>
        		<tr>
-       			<th>졸업 사정 결과</th>
+       			<th style="background-color: #2c3e50 !important;">졸업 사정 결과</th>
        			<td></td>
        			<td></td>
        			<c:if test="${grad.graduation == true}">

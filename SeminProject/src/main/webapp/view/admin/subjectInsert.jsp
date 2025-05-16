@@ -20,35 +20,35 @@
      <form action="subjectInsert" name="f" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
     	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align:left;">
        		<tr class="text-center">
-       			<th>과목코드</th>
+       			<th style="background-color: #2c3e50 !important;">과목코드</th>
        			<td><input type="text" name="subcode" style="width:100%;" class="input-group-text"></td>
        		</tr>
        		<tr class="text-center">
-       			<th>과목명</th>
+       			<th style="background-color: #2c3e50 !important;">과목명</th>
        			<td><input type="text" name="subname" style="width:100%;" class="input-group-text"></td>
        		</tr>
        		<tr class="text-center">	
-       			<th>학점</th>
+       			<th style="background-color: #2c3e50 !important;">학점</th>
        			<td><input type="text" name="time" style="width:100%;" class="input-group-text"></td>
        		</tr>
        		<tr class="text-center">
-       			<th>강의 시작 시간</th>
+       			<th style="background-color: #2c3e50 !important;">강의 시작 시간</th>
        			<td><input type="text" name="starttime" style="width:100%;" class="input-group-text"></td>
        		</tr>
        		<tr class="text-center">
-       			<th>요일</th>
+       			<th style="background-color: #2c3e50 !important;">요일</th>
        			<td><input type="text" name="day" style="width:100%;" class="input-group-text"></td>
        		</tr>
        		<tr class="text-center">
-       			<th>강의실</th>
+       			<th style="background-color: #2c3e50 !important;">강의실</th>
        			<td><input type="text" name="location" style="width:100%;" class="input-group-text"></td>
        		</tr>
        		<tr class="text-center">
-       			<th>교수번호</th>
+       			<th style="background-color: #2c3e50 !important;">교수번호</th>
        			<td><input type="text" name="profno" style="width:100%;" class="input-group-text"></td>
        		</tr>
        		<tr class="text-center">
-       			<th>교직이수</th>
+       			<th style="background-color: #2c3e50 !important;">교직이수</th>
        			<td>
 	       			<input type="checkbox" name="teachsub" value="1" id="sub1" class="form-check-input"> O &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	       			<input type="checkbox" name="teachsub" value="2" id="sub2" class="form-check-input"> X 

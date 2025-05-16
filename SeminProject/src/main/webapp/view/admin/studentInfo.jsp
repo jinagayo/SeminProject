@@ -19,42 +19,42 @@
     	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align: center;">
        		<tr>
        			<td></td>
-       			<th>이름</th>
+       			<th style="background-color: #2c3e50 !important;">이름</th>
        			<td>${user_std.name}</td>
-       			<th>계열</th>
+       			<th style="background-color: #2c3e50 !important;">계열</th>
        			<td>자연대학</td>
        		</tr>
        		<tr>
        			<td></td>
-       			<th>학번</th>
+       			<th style="background-color: #2c3e50 !important;">학번</th>
        			<td>${user_std.id}</td>
-       			<th>전공</th>
+       			<th style="background-color: #2c3e50 !important;">전공</th>
        			<td>${std.major}</td>
        		</tr>
        		<tr>
        			<td></td>
-       			<th>생년월일</th>
+       			<th style="background-color: #2c3e50 !important;">생년월일</th>
        			<td>${user_std.birth}</td>
-       			<th>학년</th>
+       			<th style="background-color: #2c3e50 !important;">학년</th>
        			<td>${std.grade}</td>
        		</tr>
        		<tr>
        			<td></td>
-       			<th>전화번호</th>
+       			<th style="background-color: #2c3e50 !important;">전화번호</th>
        			<td>${user_std.phone}</td>
-       			<th>학점</th>
+       			<th style="background-color: #2c3e50 !important;">학점</th>
        			<td>${std.tograde}</td>
        		</tr>
        		<tr>
        			<td></td>
-       			<th>이메일</th>
+       			<th style="background-color: #2c3e50 !important;">이메일</th>
        			<td>${user_std.email}</td>
-       			<th>졸업 요건 충족</th>
+       			<th style="background-color: #2c3e50 !important;">졸업 요건 충족</th>
        			<td>x</td>
        		</tr>
        		<tr>
        			<td></td>
-       			<th>주소</th>
+       			<th style="background-color: #2c3e50 !important;">주소</th>
        			<td>${user_std.address}</td>
        		</tr>
     	</table>

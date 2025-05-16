@@ -81,12 +81,12 @@
    <script type="text/javascript">
    		function openAttPopup() {
    			const url = "professor-CkAtt?subcode="+${subject.subcode};
-     	  	window.open( url, "professor-CkAtt", "width=350,height=400, left=500,top=100, scrollbars=yes");
+     	  	window.open( url, "professor-CkAtt", "width=500,height=400, left=500,top=100, scrollbars=yes");
  		}
    
         function openGradePopup() {
         	const url = "professor-InGrade?subcode="+${subject.subcode};
-            window.open( url, "professor-InGrade", 'width=350,height=400, left=500,top=100, scrollbars=yes');
+            window.open( url, "professor-InGrade", 'width=500,height=400, left=500,top=100, scrollbars=yes');
         }
         
     </script>

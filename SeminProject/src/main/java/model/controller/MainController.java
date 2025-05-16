@@ -302,7 +302,7 @@ public class MainController extends MskimRequestMapping {
 				   if(dao.updatePass(id, chgpass)) { //비밀번호 수정 완료
 					   request.setAttribute("msg", "비밀번호가 변경되었습니다.");
 					   request.setAttribute("url", "logout");
-					   return "openeralert";
+					   return "alert";
 				   } else { //비밀번호 수정 실패
 					   StringBuilder sb = new StringBuilder();
 					   sb.append("alert('비밀번호 수정시 오류가 발생했습니다.');\n");

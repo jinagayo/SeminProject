@@ -14,6 +14,7 @@ import model.professor.Professor;
 import model.student.Student;
 import model.subject.Subject;
 import model.attendance.Attendance;
+import model.comment.Comment;
 import model.graduation.Graduation;
 import model.history.History;
 import model.major.Major;
@@ -373,6 +374,16 @@ public interface ModelMapper {
 		    "  </when>" +
 		    "</choose>" +
 		    "</if>";
+	
+	@Select("select ifnull(max(Seq),0) from comment where num2=${value}")
+	int maxseq(int num2);
+
+	@Insert("insert into comment (num2,seq,writer,content,regdate)"
+			+ " values (#{num2},#{seq},#{writer},#{content},now())")
+	int insert(Comment comm);
+
+	@Select ("select * from comment where num2=${value}")
+	List<Comment> list(String num);
 
 	@Select({"<script>",
 				 "select count(*) from subject s join user u ON u.id=s.profno where 1=1 "

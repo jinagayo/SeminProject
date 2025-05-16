@@ -40,8 +40,8 @@
 	     	
 	    	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align: center;margin-top:50px">
 	       		<tr>
-	       			<th>학기</th>
-	       			<th>강의명</th>
+	       			<th style="background-color: #2c3e50 !important;">학기</th>
+	       			<th style="background-color: #2c3e50 !important;">강의명</th>
 	       		</tr>
 	       		<c:if test="${empty list}">
 				   	<tr><td colspan="2">조회 결과가 없습니다.</td></tr>

@@ -29,9 +29,9 @@
 	     	<button type="submit" id="searchbtn" class="btn btn-primary" style="position:absolute;left:64%;height:35px">검색</button>
 	    	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align: center;margin-top:50px">
 		       		<tr>
-		       			<th>교수번호</th>
-		       			<th>전공</th>
-		       			<th>이름</th>
+		       			<th style="background-color: #2c3e50 !important;">교수번호</th>
+		       			<th style="background-color: #2c3e50 !important;">전공</th>
+		       			<th style="background-color: #2c3e50 !important;">이름</th>
 		       		</tr>
 		       		
 		       		<c:forEach var="row" items="${list}">

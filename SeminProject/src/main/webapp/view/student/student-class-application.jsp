@@ -32,8 +32,9 @@
 		     </form>
     	<table id="datatablesSimple" border="1">
        		<tr>
-       			<th>교직이수</th><th>과목명</th><th>요일</th><th>강의시간</th><th>학점</th
-       			><th>교수명</th><th> </th>
+       			<th style="background-color: #2c3e50 !important;">교직이수</th><th style="background-color: #2c3e50 !important;">과목명</th>
+       			<th style="background-color: #2c3e50 !important;">요일</th><th style="background-color: #2c3e50 !important;">강의시간</th>
+       			<th style="background-color: #2c3e50 !important;">학점</th><th style="background-color: #2c3e50 !important;">교수명</th><th style="background-color: #2c3e50 !important;"> </th>
        		</tr>
        		
        		<c:forEach var="list" items="${classList}" varStatus="status">

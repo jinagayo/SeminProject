@@ -19,39 +19,39 @@
      
     	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align: center;">
        		<tr>
-       			<th>학번</th>
+       			<th style="background-color: #2c3e50 !important;">학번</th>
        			<td>${user.id}</td>
        		</tr>
        		<tr>
-       			<th>이름</th>
+       			<th style="background-color: #2c3e50 !important;">이름</th>
        			<td>${user.name}</td>
        		</tr>
        		<tr>
-       			<th>봉사 일시</th>
+       			<th style="background-color: #2c3e50 !important;">봉사 일시</th>
        			<td>${service.day}</td>
        		</tr>
        		<tr>
-       			<th>봉사명</th>
+       			<th style="background-color: #2c3e50 !important;">봉사명</th>
        			<td>${service.servicename}</td>
        		</tr>
        		<tr>
-       			<th>봉사 단체명</th>
+       			<th style="background-color: #2c3e50 !important;">봉사 단체명</th>
        			<td>${service.groupname}</td>
        		</tr>
        		<tr>
-       			<th>봉사 시간</th>
+       			<th style="background-color: #2c3e50 !important;">봉사 시간</th>
        			<td>${service.time}</td>
        		</tr>
        		<tr>
-       			<th>봉사 내용</th>
+       			<th style="background-color: #2c3e50 !important;">봉사 내용</th>
        			<td>${service.content}</td>
        		</tr>
        		<tr>
-       			<th>소감</th>
+       			<th style="background-color: #2c3e50 !important;">소감</th>
        			<td>${service.emotion}</td>
        		</tr>
        		<tr>
-       			<th>증명서</th>
+       			<th style="background-color: #2c3e50 !important;">증명서</th>
        			<td><a href="../upload/service/${service.file1}">${service.file1}</a></td>
        		</tr>
     	</table>

@@ -21,7 +21,12 @@
      <div class="card-body">
        <table id="datatablesSimple" border="1">
          <tr>
-            <th></th><th>월</th><th>화</th><th>수</th><th>목</th><th>금</th>
+            <th style="background-color: #2c3e50 !important;"></th>
+            <th style="background-color: #2c3e50 !important;">월</th>
+            <th style="background-color: #2c3e50 !important;">화</th>
+            <th style="background-color: #2c3e50 !important;">수</th>
+            <th style="background-color: #2c3e50 !important;">목</th>
+            <th style="background-color: #2c3e50 !important;">금</th>
          </tr>
          <c:forEach var="t" items="${time}">
 		    <tr>
