@@ -8,16 +8,20 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+
+
 import model.professor.Professor;
 import model.student.Student;
 import model.subject.Subject;
 import model.attendance.Attendance;
 import model.comment.Comment;
 import model.graduation.Graduation;
+import model.history.History;
 import model.major.Major;
 import model.personality.Personality;
-import model.pratice.Practice;
+import model.practice.Practice;
 import model.service.Service;
+
 import model.teacher.Teacher;
 import model.user.User;
 public interface ModelMapper {
@@ -142,10 +146,74 @@ public interface ModelMapper {
 		  "    m.mname LIKE CONCAT('%', #{keyword}, '%')",
 		  "  </if>",
 		  "</where>",
+		  "ORDER BY s.studno",
+		  "LIMIT #{startRow},#{pagesize}",
 		  "</script>"
 		})
 	List<Map<String, Object>> ListStudent(Map<String, Object> params);
+
+	//페이징
+	//==============================================================================================
+	@Select({
+		  "<script>",
+		  "SELECT count(*) FROM student s",
+		  "JOIN user u ON s.studno = u.id",
+		  "JOIN major m ON m.mcode = s.mcode",
+		  "<where>",
+		  "  <if test='select == \"name\" and keyword != null'>",
+		  "    u.name LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "  <if test='select == \"studno\" and keyword != null'>",
+		  "    s.studno LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "  <if test='select == \"major\" and keyword != null'>",
+		  "    m.mname LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "</where>",
+		  "</script>"
+		})
+	int StudentCount(Map<String, Object> param);
 	
+	
+	@Select({
+		  "<script>",
+		  "SELECT count(*)",
+		  "FROM professor p",
+		  "JOIN user u ON p.profno = u.id",
+		  "JOIN major m ON m.mcode = p.mcode",
+		  "<where>",
+		  "  <if test='select eq \"name\" and keyword != null'>",
+		  "    u.name LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "  <if test='select eq \"profno\" and keyword != null'>",
+		  "    p.profno LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "  <if test='select eq \"major\" and keyword != null'>",
+		  "    m.mname LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "</where>",
+		  "</script>"
+		})
+	int ProfessorCount(Map<String, Object> param);
+	
+	@Select({
+		  "<script>",
+		  "SELECT count(*)",
+		  "FROM subject s",
+		  "JOIN user u ON s.profno = u.id",
+		  "<where>",
+		  "  <if test='select == \"subname\" and keyword != null'>",
+		  "    s.subname LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "  <if test='select == \"name\" and keyword != null'>",
+		  "    u.name LIKE CONCAT('%', #{keyword}, '%')",
+		  "  </if>",
+		  "</where>",
+		  "</script>"
+		})
+	int SubjectCount(Map<String, Object> param);
+	
+	//==============================================================================================
 	@Select({
 		  "<script>",
 		  "SELECT p.profno AS profno, m.mname AS major, u.name AS name",
@@ -153,16 +221,18 @@ public interface ModelMapper {
 		  "JOIN user u ON p.profno = u.id",
 		  "JOIN major m ON m.mcode = p.mcode",
 		  "<where>",
-		  "  <if test='select == \"name\" and keyword != null'>",
+		  "  <if test='select eq \"name\" and keyword != null'>",
 		  "    u.name LIKE CONCAT('%', #{keyword}, '%')",
 		  "  </if>",
-		  "  <if test='select == \"profno\" and keyword != null'>",
+		  "  <if test='select eq \"profno\" and keyword != null'>",
 		  "    p.profno LIKE CONCAT('%', #{keyword}, '%')",
 		  "  </if>",
-		  "  <if test='select == \"major\" and keyword != null'>",
+		  "  <if test='select eq \"major\" and keyword != null'>",
 		  "    m.mname LIKE CONCAT('%', #{keyword}, '%')",
 		  "  </if>",
 		  "</where>",
+		  "ORDER BY p.profno",
+		  "LIMIT #{startRow},#{pagesize}",
 		  "</script>"
 		})
 	List<Map<String, Object>> ListProfessor(Map<String, Object> params);
@@ -180,10 +250,16 @@ public interface ModelMapper {
 		  "    u.name LIKE CONCAT('%', #{keyword}, '%')",
 		  "  </if>",
 		  "</where>",
+		  "ORDER BY s.subname",
+		  "LIMIT #{startRow},#{pagesize}",
 		  "</script>"
 		})
 	List<Map<String, Object>> ListSubject(Map<String, Object> param);
 
+	@Select("SELECT m.mname AS major FROM professor p JOIN major m ON p.mcode = m.mcode where p.profno = #{id}")
+	Map<String, Object> selectMajor(@Param("id") int id);
+
+	
 
 	@Insert("insert into pratice (studno,day,activename,content,emotion,file1) "
 			+ "values (#{studno},#{day},#{activename},#{content},#{emotion},#{file1})")
@@ -204,6 +280,7 @@ public interface ModelMapper {
 
 	@Select("select * from student where studno=#{id}")
 	Student selectStu(Integer id);
+
 
 	
 	@Select("SELECT p.studno as studno, p.day as day, t.pracice as pra,t.service as service, u.name as name"
@@ -235,8 +312,11 @@ public interface ModelMapper {
 			+ " WHERE s.subcode = 50"
 			+ " GROUP BY s.subcode,s.subname")
 	List<Map<String, Object>> myclassSubjectHome(@Param("code")int code);
+
+	
 	@Select("SELECT * FROM pratice where studno=#{id}")
 	Practice InfoPracticeOne(int id);
+
 
 	@Update("update teacher set pracice=#{accept} where studno=#{id}")
 	boolean teacherUpdate(@Param("id")int id, @Param("accept")String accept);
@@ -288,10 +368,7 @@ public interface ModelMapper {
 
 	@Insert("Insert into attendance (studno,subcode) values (#{studno},#{subcode})")
 	boolean insertsub(@Param("subcode")int subcode, @Param("studno")Integer id);
-
-
 	
-
 	@Select("SELECT * from personality")
 	List<Personality> selectPersonalities();
 
@@ -300,6 +377,7 @@ public interface ModelMapper {
 	
 	@Update("UPDATE personality SET prof1 = #{prof1}, prof2 = #{prof2}, prof3 = #{prof3}, personsubmit = 1 WHERE studno=#{studno}")
 	boolean perChek(Personality p);
+
 
 	@Select("select ifnull(max(Seq),0) from comment where num2=${value}")
 	int maxseq(int num2);
@@ -311,4 +389,27 @@ public interface ModelMapper {
 	@Select ("select * from comment where num2=${value}")
 	List<Comment> list(String num);
 
+
+	
+	//history
+	@Select({
+	    "<script>",
+	    "SELECT year, subject",
+	    "FROM history",
+	    "<where>",
+	    "  studno = #{studno}",
+	    "  <if test='year != null'>",
+	    "    AND year = #{year}",
+	    "  </if>",
+	    "</where>",
+	    "</script>"
+	})
+	List<Map<String, Object>> selectHistory(Map<String, Object> param);
+
+	@Update("update graduation set graduation=true where studno=#{studno}")
+	boolean updateGrad(Graduation grad_info);
+
+	@Update("update teacher set teacherYN=true where studno=#{studno}")
+	boolean updateTeach(Teacher teach_info);
+	
 }

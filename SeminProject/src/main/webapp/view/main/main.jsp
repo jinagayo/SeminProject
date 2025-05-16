@@ -31,7 +31,6 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-
                        <!--  로그인 되었을때 -->
                        <c:if test="${sessionScope.login != null}">
                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../main/logout'">로그아웃</a></li>
@@ -53,8 +52,6 @@
                        <c:if test="${sessionScope.login == null }">
                           <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../main/login'">로그인</a></li>
                        </c:if>
-
-
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="../board/notice">알림마당</a></li>
                     </ul>
                 </div>

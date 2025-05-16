@@ -8,13 +8,17 @@
   </head>
   <body>
   <br>
-  <h2 class="breadcrumb-item active">  교수 조회</h2>
-  <div class="card mb-4">
+  <h2 class="breadcrumb-item active  mx-5">  교수 조회</h2>
+  <div class="card mb-4  mx-5">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
               교수 조회
      </div>
-     <form action="professorList" name="f" method="post" accept-charset="UTF-8">
+     <form action="professorList" name="sf" method="post" accept-charset="UTF-8">
+          <c:if test="${empty pageNum}">
+		  	<c:set var="pageNum" value="1"/>
+		</c:if>
+   		<input type="hidden" name="pageNum" id="pageNum" value="${pageNum}">
 	     <div class="card-body" style="position:relative;align-items:center;">
 	     	<select id="select" name="select" style="position:absolute;align-items:center;left:30%">
 	     		<option value="profno" selected>교수번호</option>
@@ -41,5 +45,44 @@
 	    </div>
     </form>
  </div>
+  		<div class="text-xxl-center text-secondary">
+			<c:if test="${pageNum > 1}">
+		    <a href="javascript:listsubmit(${pageNum-1})" class="text-decoration-none">◀️</a>
+			</c:if>
+			<c:if test="${pageNum <= 1}">
+			    ◀️
+			</c:if>
+			
+			<c:forEach var="a" begin="${startpage}" end="${endpage}">
+			    <c:if test="${a == pageNum}">
+			    	<span class="num text-decoration-none">[${a}]</span>
+			    </c:if>
+			    <c:if test="${a != pageNum}">
+			        <a href="javascript:listsubmit(${a})" class="num text-decoration-none">${a}</a>
+			    </c:if>
+			</c:forEach>
+			
+			<c:if test="${pageNum < maxpage}">
+			    <a href="javascript:listsubmit(${pageNum+1})" class="text-decoration-none">▶️</a>
+			</c:if>
+			<c:if test="${pageNum >= maxpage}">
+			    ▶️
+			</c:if>
+		</div>
+	<script type="text/javascript">
+	    function listsubmit(page) {
+	        document.getElementById("pageNum").value = page;
+	        document.sf.submit();
+	    }
+	    
+	    const emojiMap = ['0️⃣','1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
+	    document.querySelectorAll('.num').forEach(el => {
+	      const n = el.textContent.replace(/\D/g, ''); // 숫자만 추출
+	      const i = parseInt(n, 10);
+	      if (i >= 0 && i <= 10) {
+	        el.textContent = emojiMap[i];
+	      }
+	    });
+	</script>
   </body>
 </html>

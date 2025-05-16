@@ -73,4 +73,42 @@ public class AdminDao {
 		 return null; 
 	 }
 	 
+	 //페이징
+	 //===============================================================================
+	 public int studentCount(Map<String, Object> param) {
+		 SqlSession session = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).StudentCount(param);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		 return 0;
+	 }
+	 
+	 public int professorCount(Map<String,Object> param) {
+		 SqlSession session = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).ProfessorCount(param);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		 return 0;
+	 }
+	 
+	 public int subjectCount(Map<String,Object> param) {
+		 SqlSession session = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).SubjectCount(param);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		 return 0;
+	 }
+	 //===============================================================================
 }

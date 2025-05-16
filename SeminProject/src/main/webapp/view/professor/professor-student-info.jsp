@@ -7,15 +7,16 @@
 <html>
   <head>
   	<link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" />
-    <title>학생 정보 조회</title>
+    <title>학생 관리</title>
   </head>
   <body>
  
   <br>
-  <div class="card mb-4">
+  <h2 class="breadcrumb-item active  mx-5">  학생 관리</h2>
+  <div class="card mb-4  mx-5">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
-              학생정보
+              학생 정보
      </div>
   
      <div class="card-body">
@@ -30,9 +31,7 @@
        			<th>학번</th>
        			<td>${student.studno}</td>
        			<th>전공</th>
-
        			<td>${m.major}</td>
-
        		</tr>
        		<tr>
        			<th>생년월일</th>
@@ -59,8 +58,8 @@
        			<td  colspan="2"><a href="#" onclick="handleClick()">인성 및 적성 검사</a></td>
        		</tr>
     	</table>
-    </div>
- </div>
+    </div><button onclick = "history.back()" class="btn btn-secondary" style="width:50px">←</button>
+ </div>    
  
  <script type="text/javascript">
  	function handleClick(){

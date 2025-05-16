@@ -5,15 +5,15 @@
 <html>
   <head>
   	<link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" />
-    <title>학생 정보 조회</title>
+    <title>교수 정보 조회</title>
   </head>
   <body>
   <br>
-  <h2 class="breadcrumb-item active">  교수 정보 조회</h2>
-  <div class="card mb-4">
+  <h2 class="breadcrumb-item active  mx-5">  교수 정보 조회</h2>
+  <div class="card mb-4  mx-5">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
-              DataTable Example
+             교수 정보 조회
      </div>
      <div class="card-body">
     	<table id="datatablesSimple" border="1">

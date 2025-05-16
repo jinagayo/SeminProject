@@ -8,8 +8,8 @@
   </head>
   <body>
   <br>
-  <h2 class="breadcrumb-item active">  학생 등록</h2>
-  <div class="card mb-4">
+  <h2 class="breadcrumb-item active  mx-5">  학생 등록</h2>
+  <div class="card mb-4  mx-5">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
               학생 등록
@@ -17,81 +17,47 @@
      <div class="card-body">
      <form action="studentInsert" name="f" method="post" onsubmit="return input_check(this)" accept-charset="UTF-8">
     	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align:left;">
-       		<tr>
+       		<tr class="text-center">
        			<th>이름</th>
-       			<td><input type="text" name="name" style="width:100%;"></td>
+       			<td><input type="text" name="name" style="width:100%;" class="input-group-text"></td>
        		</tr>
-       		<tr>
+       		<tr class="text-center">
        			<th>생년월일</th>
-       			<td><input type="text" name="birth" style="width:100%;"></td>
+       			<td><input type="text" name="birth" style="width:100%;" class="input-group-text"></td>
        		</tr>
-       		<tr>	
+       		<tr class="text-center">	
        			<th>전화번호</th>
-       			<td><input type="text" name="phone" style="width:100%;"></td>
+       			<td><input type="text" name="phone" style="width:100%;" class="input-group-text"></td>
        		</tr>
-       		<tr>
+       		<tr class="text-center">
        			<th>주소</th>
-       			<td><input type="text" name="address" style="width:100%;"></td>
+       			<td><input type="text" name="address" style="width:100%;" class="input-group-text"></td>
        		</tr>
-       		<tr>
+       		<tr class="text-center">
        			<th>이메일</th>
-       			<td><input type="email" name="email" style="width:100%;"></td>
+       			<td><input type="email" name="email" style="width:100%;" class="input-group-text"></td>
        		</tr>
-       		<tr>
+       		<tr class="text-center">
        			<th>입학년도</th>
-       			<td><input type="text" name="entry" style="width:100%;"></td>
+       			<td><input type="text" name="entry" style="width:100%;" class="input-group-text"></td>
        		</tr>
-       		<tr>
+       		<tr class="text-center">
        			<th>학과코드</th>
-       			<td><input type="text" name="majorcode" style="width:100%;"></td>
+       			<td><input type="text" name="majorcode" style="width:100%;" class="input-group-text"></td>
+       		</tr>
+       		<tr class="text-center">
+       			<th>지도교수코드</th>
+       			<td><input type="text" name="profcode" style="width:100%;" class="input-group-text"></td>
        		</tr>
        		<tr>
-       			<th>지도교수코드</th>
-       			<td><input type="text" name="profcode" style="width:100%;"	></td>
+       			<td colspan="2">
+       				<button type="submit" class="btn btn-primary text-center">등록</button>
+       			</td>
        		</tr>
     	</table>
-    	<button type="submit" onclick="chk()" class="btn btn-secondary">등록</button>
-    	</form>
     	
+    	</form>
     </div>
  </div>
   </body>
-  <script type="text/javascript">
-  	function chk(){
-		if(document.f.name.value == ""){
-			alert("이름을 입력하세요")
-			document.f.name.focus()
-		}
-		else if(document.f.birth.value == ""){
-			alert("생년월일을 입력하세요")
-			document.f.birth.focus()
-		}
-		else if(document.f.phone.value == ""){
-			alert("전화번호를 입력하세요");
-			document.f.phone.focus();
-		}
-		else if(document.f.address.value == ""){
-			alert("주소를 입력하세요");
-			document.f.address.focus();
-		}
-		else if(document.f.email.value == ""){
-			alert("이메일을 입력하세요");
-			document.f.email.focus();
-		}
-		else if(document.f.entry.value == ""){
-			alert("입학년도를 입력하세요");
-			document.f.entry.focus();
-		}
-		else if(document.f.majorcode.value == ""){
-			alert("학과코드를 입력하세요")
-			document.f.majorcode.focus();
-		}
-		else{
-			alert("지도교수 코드를 입력하세요");
-			document.f.profcode.focus();
-		}
-  	}
-  
-  
-  </script>
 </html>>

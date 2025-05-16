@@ -9,8 +9,8 @@
   </head>
   <body>
   <br>
-  <h2 class="breadcrumb-item active">  교육 봉사</h2>
-  <div class="card mb-4">
+  <h2 class="breadcrumb-item active  mx-5">  교육 봉사</h2>
+  <div class="card mb-4  mx-5">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
               교육 봉사 조회
@@ -55,7 +55,10 @@
        			<td><a href="../upload/service/${service.file1}">${service.file1}</a></td>
        		</tr>
     	</table>
-       	<form action="serviceaccept?studno=${service.studno }" method="post" accept-charset="UTF-8"  name="f" >
+
+    	<button onclick = "history.back()" class="btn btn-secondary" style="width:50px">←</button>
+       
+		<form action="serviceaccept?studno=${service.studno }" method="post" accept-charset="UTF-8"  name="f" >
        		<table>
 	       		<tr>
 	       			<td colspan=2>
@@ -71,7 +74,6 @@
 	       		</tr>
        		</table>
        	</form>
-    	<button onclick = "history.back()" class="btn btn-secondary" style="width:50px">←</button>
     </div>
  </div>
   </body>

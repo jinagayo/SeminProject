@@ -245,7 +245,6 @@ public class ProfessorController extends MskimRequestMapping {
 		}
 		return "professor-InGrade-fix";
 	}
-	
 	@RequestMapping("professor-Ckpersonality")	
 	public String Ckpersonality(HttpServletRequest request,HttpServletResponse response) {
 		String id = request.getParameter("studno");
