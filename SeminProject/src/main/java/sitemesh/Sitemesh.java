@@ -13,8 +13,14 @@ public class Sitemesh extends ConfigurableSiteMeshFilter{
       		.addDecoratorPath("/admin/*", "/view/admin/adminLayout.jsp")
       		.addDecoratorPath("/professor/*", "/view/professor/professorLayout.jsp")
       		.addDecoratorPath("/board/*", "/view/board/boardlayout.jsp")
-      		.addExcludedPath("/professor/professor-Ckpersonality.jsp");
-   
+      		.addExcludedPath("/professor/professor-Ckpersonality")
+            .addExcludedPath("/professor/professor-CkAtt")
+            .addExcludedPath("/professor/professor-InGrade")
+            .addExcludedPath("/professor/professor-subject-board")
+            .addExcludedPath("/professor/professor-subject-QA-board")
+            .addExcludedPath("/professor/professor-subject-board-info")
+            .addExcludedPath("/professor/professor-subject-board2");
+     
 }
 }
 

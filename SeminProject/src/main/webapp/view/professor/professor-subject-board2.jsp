@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>과목 공지사항</title>
+<title>과목 Q&A</title>
 </head>
 <body>
 

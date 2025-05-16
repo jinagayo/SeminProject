@@ -12,11 +12,12 @@
         <meta name="author" content="" />
         <title><sitemesh:write property="title"/></title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
        <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     </head>
     <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="background-color: #2c3e50 !important;">
             <!-- 상단바-->
            <img src="${pageContext.request.contextPath}/assets/img/logo1.png" style="width:40px; height:40px; padding-left=5px;" onclick="location.href='../main/main'">
             <a class="navbar-brand ps-3" onclick="location.href='../main/main'" style="
@@ -37,6 +38,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    	<li><a class="dropdown-item" onclick="location.href='../main/changePw'">password change</a></li>
                         <li><a class="dropdown-item" onclick="location.href='../main/logout'">Logout</a></li>
                     </ul>
                 </li>
@@ -44,7 +46,7 @@
         </nav>
         <div id="layoutSidenav">
             <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion" style="background-color: #2c3e50 !important;">
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseMypage" aria-expanded="false" aria-controls="collapseLayouts">
@@ -73,7 +75,7 @@
                            
                         </div>
                     </div>
-                    <div class="sb-sidenav-footer">
+                    <div class="sb-sidenav-footer" style="background-color: #2c3e50 !important;">
                         <div class="small">Logged in as:</div>
                          ${session.name}
                     </div>

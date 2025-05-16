@@ -7,6 +7,7 @@ import java.nio.file.spi.FileSystemProvider;
 
 import java.util.Date;
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -77,13 +78,13 @@ public class StudentController extends MskimRequestMapping{
 			System.out.println("메세지 입력");
 			request.setAttribute("url", "/main/main");
 			System.out.println("url 입력");
-			return "/alert";
+			return "alert";
 		}else {
 			User user_std = dao.selectOne(id);
 			if(user_std.getPosition()!=1) {
 				request.setAttribute("msg", "접근 불가");
 				request.setAttribute("url", "/main/main");
-				return "/alert";
+				return "alert";
 			}
 			return null;
 		}
@@ -182,9 +183,15 @@ public class StudentController extends MskimRequestMapping{
 		Integer id = (Integer) request.getSession().getAttribute("login");
 		Practice practice = pradao.selectparct(id);
 		Teacher teacher = teadao.selectTeach(id);
-		if(teacher != null) {
-			if(practice!=null) {
-				request.setAttribute("msg", "실습 일지 심사 중입니다");
+		
+		if(practice!=null) {
+			request.setAttribute("msg", "실습 일지 심사 중입니다");
+			request.setAttribute("url", "student-teach-info" );
+			
+			return "alert";
+		}else{
+			if(teacher.isPractice()) {
+				request.setAttribute("msg", "실습 일지가 통과 되었습니다");
 				request.setAttribute("url", "student-teach-info" );
 				
 				return "alert";
@@ -196,13 +203,8 @@ public class StudentController extends MskimRequestMapping{
 				}
 			}
 		}
-		else {
-			request.setAttribute("msg", "실습 일지가 존재하지 않습니다.");
-			request.setAttribute("url", "student-teach-info" );
 			return "alert";
 		}
-		return "student-teach-practice";
-	}
 	@MSLogin("noticecheck")
 	@RequestMapping("praticesubmit")
 	public String praticesubmit(HttpServletRequest request,

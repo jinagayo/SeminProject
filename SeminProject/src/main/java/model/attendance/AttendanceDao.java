@@ -49,6 +49,7 @@ public class AttendanceDao {
 
 }
 
+
 	public List<Attendance> fixatt(Integer subcode) {
 		SqlSession session  = MybatisConnection.getConnection();
 		 try {

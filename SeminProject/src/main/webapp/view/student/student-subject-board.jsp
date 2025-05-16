@@ -37,6 +37,7 @@
 			
 			<a href="student-subject-board-info?num=${b.num}">
 			${b.title}</a></td>
+
 			<td><fmt:formatDate value="${b.regdate}" pattern="yyyy-MM-dd" var="rdate" />
 			<fmt:formatDate value="${today}" pattern="yyyy-MM-dd HH:mm:ss" var="tdate" />
 			<c:if test="${rdate==tdate}">

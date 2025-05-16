@@ -19,7 +19,7 @@
      <div class="card-body">
        <table id="datatablesSimple" border="1">
          <tr>
-            <th>학번</th><th>이름</th>
+            <th style="background-color: #2c3e50 !important;">학번</th><th style="background-color: #2c3e50 !important;">이름</th>
          </tr>
    
 	  <c:forEach var="s" items="${studentList}" varStatus="vs">

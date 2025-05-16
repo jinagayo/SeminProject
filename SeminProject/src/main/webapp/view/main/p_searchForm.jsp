@@ -44,26 +44,32 @@
                                         <h1 class="h4 text-gray-900 mb-2">비밀번호 찾기</h1>
                    
                                     </div>
+                                    <form action="pw" method="post" onsubmit="return input_check(this)">
                                     <div class="user">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
                                                 name = "id" id="id" placeholder="ID">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
+                                            <input type="text" class="form-control form-control-user"
                                                 name = "email" id="email" placeholder="Email">
                                         </div>
+                                         <div class="form-group">
+                                            <input type="text" class="form-control form-control-user"
+                                                name = "tel" id="tel" placeholder="Tel">
+                                        </div>
                                        
-                                        <a class="btn btn-primary btn-user btn-block" id="btn_login" href="javascript:inputcheck()">
+                                        <button class="btn btn-primary btn-user btn-block" id="btn_login" >
                                             Search
-                                        </a>
+                                        </button>
                                     </div>
+                                    </form>
                                      <hr>
                                     <div class="text-center">
                                         <a class="small" onclick="location.href='../main/id_searchForm'">Forgot ID?</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
+                                        <a class="small" href="login">login</a>
                                     </div>
                                 </div>
                             </div>
@@ -86,6 +92,48 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <script type="text/javascript">
+   function input_check(f) {
+	   if(f.id.value.trim() == "") {
+		   alert("아이디를 입력하세요");
+		   f.id.focus();
+		   return false;
+	   }
+	   if(f.email.value.trim() == "") {
+		   alert("이메일을 입력하세요");
+		   f.email.focus();
+		   return false;
+	   }
+	   if(f.tel.value.trim() == "") {
+		   alert("전화번호를 입력하세요");
+		   f.tel.focus();
+		   return false;
+	   }
+	
+	   if(!isValidEmail(f.email.value.trim())) {
+		   alert("이메일형식이 아닙니다");
+		   f.email.focus();
+		   return false;
+	   }
+	  
+   }
+	//정규식을 이용한 이메일,전화번호 형식 검증 
+   function isValidEmail(email) {
+	   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+	   /*
+	     /^   ... $/ => 정규표현식 시작과 끝
+	     [a-zA-Z0-9._%+-]+ => 소문자 대문자 숫자 _ % + - 중 문자가 한개 이상
+	     @  : @문자
+	     [a-zA-Z0-9.-]+ => 소문자 대문자 숫자 . - 중 문자한개 이상
+	     \. : . 문자
+	   [a-zA-Z]{2,} => 소문자 대문자 2자 이상
+	   */
+	   return regex.test(email); // 정규식표현식일치 : true 리턴, 불일치 : false 리턴
+    }
+
+   
+   
+</script>
 
 </body>
 
