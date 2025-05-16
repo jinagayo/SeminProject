@@ -14,7 +14,6 @@ import model.professor.Professor;
 import model.student.Student;
 import model.subject.Subject;
 import model.attendance.Attendance;
-import model.comment.Comment;
 import model.graduation.Graduation;
 import model.history.History;
 import model.major.Major;
@@ -331,6 +330,7 @@ public interface ModelMapper {
 	@Update("UPDATE user SET password=#{chgpass} WHERE id=#{id}")
 	boolean updatePass(@Param("id")Integer id, @Param("chgpass")String chgpass);
 
+	
 	@Select("SELECT * FROM pratice where studno=#{id}")
 	Practice InfoPracticeOne(int id);
 
@@ -386,17 +386,8 @@ public interface ModelMapper {
 	@Insert("Insert into attendance (studno,subcode) values (#{studno},#{subcode})")
 	boolean insertsub(@Param("subcode")int subcode, @Param("studno")Integer id);
 	
-	@Select("select ifnull(max(Seq),0) from comment where num2=${value}")
-	int maxseq(int num2);
 
-	@Insert("insert into comment (num2,seq,writer,content,regdate)"
-			+ " values (#{num2},#{seq},#{writer},#{content},now())")
-	int insert(Comment comm);
-
-	@Select ("select * from comment where num2=${value}")
-	List<Comment> list(String num);
-
-
+	
 	//history
 	@Select({
 	    "<script>",
@@ -404,18 +395,21 @@ public interface ModelMapper {
 	    "FROM history",
 	    "<where>",
 	    "  studno = #{studno}",
-	    "  <if test='year != null'>",
+	    "  <if test='year != null and year != \"\"'>",
 	    "    AND year = #{year}",
 	    "  </if>",
 	    "</where>",
 	    "</script>"
 	})
 	List<Map<String, Object>> selectHistory(Map<String, Object> param);
-
+	
 	@Update("update graduation set graduation=true where studno=#{studno}")
 	boolean updateGrad(Graduation grad_info);
 
 	@Update("update teacher set teacherYN=true where studno=#{studno}")
 	boolean updateTeach(Teacher teach_info);
+
+	
 	
 }
+

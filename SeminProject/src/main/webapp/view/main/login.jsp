@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,7 +13,7 @@
     <meta name="author" content="">
 
     <title>로그인</title>
-
+	
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
@@ -21,10 +22,11 @@
 
     <!-- Custom styles for this template-->
     <link href="../css/sb-admin-2.min.css" rel="stylesheet">
-
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+  </head>
 </head>
 
-<body class="bg-gradient-primary">
+<body style="background-image: url('../assets/img/bgimg.jpg');background-repeat: no-repeat; background-size : cover;">
 
     <form action="login" method="POST" name="f">
     	<div class="container">
@@ -32,16 +34,15 @@
         <!-- Outer Row -->
         <div class="row justify-content-center">
 
-            <div class="col-xl-10 col-lg-12 col-md-9">
+            <div class="col-xl-10 col-lg-12 col-md-9 m-5">
 
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
+                <div class="card o-hidden border-0 shadow-lg" style="margin-top:10rem">
+                    <div class="card-body p-0 m-5">
                         <div class="row">
                             <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
                             <div class="col-lg-6">
-                                <div class="p-5">
-                                    <div class="text-center">
+                                <div  class="mx-auto p-2">
+                                    <div class="text-start">
                                         <h1 class="h4 text-gray-900 mb-4">구디대학교</h1>
                                     </div>
                                     <div class="user">
@@ -70,7 +71,7 @@
                                         <a class="small" onclick="location.href='../main/p_searchForm'">Forgot Password?</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="id_searchForm">Forgot id?</a>
+                                        <a class="small" href="register.html">Create an Account!</a>
                                     </div>
                                 </div>
                             </div>

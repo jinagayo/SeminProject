@@ -15,7 +15,7 @@
   <h2 class="breadcrumb-item active  mx-5">  내 시간표 조회</h2>
   <div class="card mb-4 mx-5">
      <div class="card-header">
->>>>>>> branch 'jina' of https://github.com/jinagayo/SeminProject.git
+
          <i class="fas fa-table me-1"></i>
               내 시간표 조회
      </div>
