@@ -579,7 +579,6 @@ public class StudentController extends MskimRequestMapping{
 	    }
 
 	    List<Map<String, Object>> map = his_dao.selectHistory(param);
-	    System.out.println("조회된 row 수: " + map.size());
 	    
 	    request.setAttribute("option", year);
 	    request.setAttribute("semester", semester);

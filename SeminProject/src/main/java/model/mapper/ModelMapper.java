@@ -385,7 +385,7 @@ public interface ModelMapper {
 	    "FROM history",
 	    "<where>",
 	    "  studno = #{studno}",
-	    "  <if test='year != null'>",
+	    "  <if test='year != null and year != \"\"'>",
 	    "    AND year = #{year}",
 	    "  </if>",
 	    "</where>",
