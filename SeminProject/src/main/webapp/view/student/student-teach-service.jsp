@@ -65,12 +65,12 @@ function inputcheck(){
 	f=document.f;
 	if(f.date.value==""){
 		alert("날짜를 입력하세요");
-		f.name.focus();
+		f.date.focus();
 		return false;
 	}
 	if(f.time.value==""){
 		alert("봉사 시간을 입력하세요");
-		f.name.focus();
+		f.time.focus();
 		return false;
 	}
 	if(isNaN(f.time.value)){
@@ -80,22 +80,27 @@ function inputcheck(){
 	}
 	if(f.groupname.value==""){
 		alert("단체명을 입력하세요");
-		f.pass.focus();
+		f.groupname.focus();
 		return false;
 	}
 	if(f.servicename.value==""){
 		alert("활동명을 입력하세요");
-		f.pass.focus();
+		f.servicename.focus();
 		return false;
 	}
 	if(f.content.value==""){
 		alert("내용을 입력하세요");
-		f.title.focus();
+		f.content.focus();
 		return false;
 	}
 	if(f.emotion.value==""){
 		alert("내용을 입력하세요");
-		f.title.focus();
+		f.emotion.focus();
+		return false;
+	}
+	if(f.file1.value==""){
+		alert("증명서를 입력하세요");
+		f.file1.focus();
 		return false;
 	}
 	f.submit();

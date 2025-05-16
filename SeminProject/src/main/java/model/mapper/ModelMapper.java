@@ -1,3 +1,4 @@
+
 package model.mapper;
 
 import java.util.List;
@@ -374,17 +375,6 @@ public interface ModelMapper {
 		    "</choose>" +
 		    "</if>";
 
-	@Select({"<script>",
-				 "select count(*) from subject s join user u ON u.id=s.profno where 1=1 "
-				+ sqlcol
-			, "</script>"})
-	int classCount(Map<String, Object> map);
-
-	@Select("select * from subject where subcode = #{applicode}")
-	Subject selectSubOne(int applicode);
-
-	@Insert("Insert into attendance (studno,subcode) values (#{studno},#{subcode})")
-	boolean insertsub(@Param("subcode")int subcode, @Param("studno")Integer id);
 	
 	@Select("select ifnull(max(Seq),0) from comment where num2=${value}")
 	int maxseq(int num2);
@@ -397,6 +387,33 @@ public interface ModelMapper {
 	List<Comment> list(String num);
 
 
+	@Update("update graduation set graduation=true where studno=#{studno}")
+	boolean updateGrad(Graduation grad_info);
+
+	@Update("update teacher set teacherYN=true where studno=#{studno}")
+	boolean updateTeach(Teacher teach_info);
+
+	
+	
+	
+	
+	
+	
+	
+
+	@Select({"<script>",
+				 "select count(*) from subject s join user u ON u.id=s.profno where 1=1 "
+				+ sqlcol
+			, "</script>"})
+	int classCount(Map<String, Object> map);
+
+	@Select("select * from subject where subcode = #{applicode}")
+	Subject selectSubOne(int applicode);
+
+	@Insert("Insert into attendance (studno,subcode) values (#{studno},#{subcode})")
+	boolean insertsub(@Param("subcode")int subcode, @Param("studno")Integer id);
+	
+	
 	//history
 	@Select({
 	    "<script>",
@@ -404,18 +421,13 @@ public interface ModelMapper {
 	    "FROM history",
 	    "<where>",
 	    "  studno = #{studno}",
-	    "  <if test='year != null'>",
+	    "  <if test='year != null and year != \"\"'>",
 	    "    AND year = #{year}",
 	    "  </if>",
 	    "</where>",
 	    "</script>"
 	})
 	List<Map<String, Object>> selectHistory(Map<String, Object> param);
-
-	@Update("update graduation set graduation=true where studno=#{studno}")
-	boolean updateGrad(Graduation grad_info);
-
-	@Update("update teacher set teacherYN=true where studno=#{studno}")
-	boolean updateTeach(Teacher teach_info);
+	
 	
 }

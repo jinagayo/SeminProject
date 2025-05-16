@@ -1,3 +1,4 @@
+
 package model.controller;
 import java.io.File;
 import java.io.IOException;
@@ -202,8 +203,8 @@ public class StudentController extends MskimRequestMapping{
 					return "alert";
 				}
 			}
+			return "student-teach-practice";
 		}
-			return "alert";
 		}
 	@MSLogin("noticecheck")
 	@RequestMapping("praticesubmit")
@@ -643,4 +644,5 @@ public class StudentController extends MskimRequestMapping{
 	    request.setAttribute("list", map);
 	    return "student-history";
 	}
+	
 }

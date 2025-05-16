@@ -55,30 +55,30 @@ function inputcheck(){
 	f=document.f;
 	if(f.date.value==""){
 		alert("날짜를 입력하세요");
-		f.name.focus();
+		f.date.focus();
 		return false;
 	}
 	if(f.activename.value==""){
 		alert("활동명을 입력하세요");
-		f.pass.focus();
+		f.activename.focus();
 		return false;
 	}
 	if(f.content.value==""){
 		alert("내용을 입력하세요");
-		f.title.focus();
+		f.content.focus();
 		return false;
 	}
 	if(f.emotion.value==""){
 		alert("내용을 입력하세요");
-		f.title.focus();
+		f.emotion.focus();
 		return false;
 	}
 	if(f.file1.value==""){
 		alert("증명서를 제출하세요");
-		f.title.focus();
+		f.file1.focus();
 		return false;
 	}
-	f.submit();
+	return true;
 }
 
 </script>
