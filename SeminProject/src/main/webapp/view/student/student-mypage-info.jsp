@@ -58,7 +58,7 @@
 	       		<tr>
 	       			<td colspan="4">
 	       				  <input type="hidden" name="studno" value="${user_std.id}">
-						  <input type="submit" value="지난 성적 조회">
+						  <input type="submit" class= "btn btn-secondary" value="지난 성적 조회">
 	       			</td>
 	       		</tr>
 	    	</table>

@@ -12,7 +12,8 @@
 <h2 class="text-center"  onclick="location.href='../board/notice'">알림마당</h2>
 <form action="notice" method="post" name="sf">
 	<input type="hidden" name="pageNum" value="1">
-		<select class="w3-select" name="column">
+		<div style="position:relative;align-items:center;">
+		<select class="form-select form-select-m mb-3" name="column" style="position:absolute;align-items:center;width:150px">
 			<option value="">선택하시오</option>
 			<option value="title">제목</option>
 			<option value="content">내용</option>
@@ -21,11 +22,15 @@
 		<script type="text/javascript">
 			document.sf.column.value='${param.column}'
 		</script>
-		<input class="form-control" type="text"
-			placeholder="Search" name="find" value="${param.find}">
-		<button class="btn btn-primary" type="submit" style="margin-left:92%; margin-top:5px;">Search</button>
+		<div class="container-fluid">
+			<input class="form-control" type="text"
+				placeholder="Search" name="find" value="${param.find}" style="position:absolute;left:15%;width:850px;">
+			<button class="btn btn-primary" type="submit" style="position:absolute;left:93%;height:35px;text-align: center">Search</button>
+		</div>
+	</div>
 </form>
-<table class="table">
+
+<table class="table" style="margin-top: 5%">
 	<c:if test="${boardcount==0}">
 		<tr>
 			<td colspan="5">등록된 게시글이 없습니다.</td>
@@ -37,7 +42,7 @@
 		</tr>
 	</c:if>
 		<tr>	
-			<td></td>
+			<td colspan="2"></td>
 		</tr>
 		<tr>
 			<th width="80%"style="padding-left: 50px;">제목</th>
@@ -63,7 +68,7 @@
 	<tr>
 		<td colspan="5" align="center">
 		<c:if test="${pageNum <=1 }">[이전]</c:if>
-		<c:if test="${pageNum > 1 }"><a href="list?pageNum=${pageNum-1}">[이전]</a></c:if>
+		<c:if test="${pageNum > 1 }"><a href="javascript:listsubmit(${pageNum-1})">[이전]</a></c:if>
 		<c:forEach var="a" begin="${startpage}" end="${endpage}">
 			<c:if test="${a==pageNum}">[${a}]</c:if>
 			<c:if test="${a!=pageNum}">
@@ -72,7 +77,7 @@
 		</c:forEach>
 		<c:if test="${pageNum>=maxpage}">다음</c:if>
 		<c:if test="${pageNum<maxpage}">
-			<a href="javascript:listsubmit(${pageNum+1})">다음</a>
+			<a href="javascript:listsubmit(${pageNum+1})">[다음]</a>
 		</c:if>
 		</td>
 	</tr>

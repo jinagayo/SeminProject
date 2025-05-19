@@ -18,7 +18,7 @@
      </div>
      <form action="student-history" name="f" method="post" accept-charset="UTF-8">
 	     <div class="card-body" style="position:relative;align-items:center;">
-	     	<select id="year-select" name="year-select" style="position:absolute;align-items:center;left:40%; width:150px;height:35px">
+	     	<select id="year-select" name="year-select" style="position:absolute;align-items:center;left:35%; width:150px;height:35px" class="form-select form-select-m mb-3">
 	     		<option value="14" <c:if test="${option == '14'}">selected="selected"</c:if>>2014년</option>
 	     		<option value="15" <c:if test="${option == '15'}">selected="selected"</c:if>>2015년</option>
 	     		<option value="16" <c:if test="${option == '16'}">selected="selected"</c:if>>2016년</option>
@@ -32,12 +32,13 @@
 	     		<option value="24" <c:if test="${option == '24'}">selected="selected"</c:if>>2024년</option>
 	     		<option value="25" <c:if test="${option == '25'}">selected="selected"</c:if>>2025년</option>
 	     	</select>
-	     	<select id="semester-select" name="semester-select" style="position:absolute;align-items:center;left:50%;height:35px">
+	     	<select id="semester-select" name="semester-select" style="position:absolute;align-items:center;left:45%;height:35px;width:100px;" class="form-select form-select-m mb-3">
 	     		<option value="1" <c:if test="${semester == '1'}">selected="selected"</c:if>>1학기</option>
 	     		<option value="2" <c:if test="${semester == '2'}">selected="selected"</c:if>>2학기</option>
 	     	</select>
-	     	<button type="submit" id="searchbtn" class="searchbtn btn btn-primary" style="position:absolute;left:55%;height:35px">검색</button>
-	     	
+	     	<div class="container-fluid">
+	     		<button type="submit" id="searchbtn" class="btn btn-outline-success" style="position:absolute;left:53%;height:35px;width:80px">검색</button>
+	     	</div>
 	    	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align: center;margin-top:50px">
 	       		<tr>
 
@@ -47,7 +48,7 @@
 
 	       		</tr>
 	       		<c:if test="${empty list}">
-				   	<tr><td colspan="2">조회 결과가 없습니다.</td></tr>
+				   	<tr><td colspan="3">조회 결과가 없습니다.</td></tr>
 				</c:if>
 	       		<c:forEach var="row" items="${list}">
 	       		<c:set var="test" value="${row.year}" />

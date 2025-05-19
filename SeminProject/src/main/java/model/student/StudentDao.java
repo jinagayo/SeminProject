@@ -97,4 +97,28 @@ public class StudentDao {
 		    }
 		    return null;
 	}
+
+	public int countProfessorStudents(Integer id) {
+		 SqlSession session = MybatisConnection.getConnection();
+		    try {
+		        return session.getMapper(ModelMapper.class).countProfessorStudents(id);
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    } finally {
+		        MybatisConnection.close(session);
+		    }
+		return 0;
+	}
+
+	public List<Student> selectStudentIdPage(Map<String, Object> param) {
+		 SqlSession session = MybatisConnection.getConnection();
+		    try {
+		        return session.getMapper(ModelMapper.class).studentManagePage(param);
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    } finally {
+		        MybatisConnection.close(session);
+		    }
+		    return null;
+	}
 }

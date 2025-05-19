@@ -16,7 +16,7 @@
      </div>
      <div class="card-body">
      <form action="professorInsert" name="f" method="post" accept-charset="UTF-8">
-    	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align:left;">
+    	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;">
        		<tr class="text-center">
        			<th style="background-color: #2c3e50 !important;">이름</th>
        			<td><input type="text" name="name" style="width:100%;" class="input-group-text"></td>
@@ -47,7 +47,7 @@
        		</tr>
        		<tr>
        			<td colspan="2">
-       				<button type="submit" class="btn btn-primary text-center">등록</button>
+       				<button type="submit" class="btn btn-primary text-center" style=" text-align: center;width:150px">등록</button>
        			</td>
        		</tr>
     	</table>
