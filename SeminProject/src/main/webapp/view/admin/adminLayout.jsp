@@ -88,7 +88,7 @@
                     </div>
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:</div>
-                         ${session.name}
+                         ${session.login}
                     </div>
                 </nav>
             </div>

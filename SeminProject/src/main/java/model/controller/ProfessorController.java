@@ -3,6 +3,7 @@ package model.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -92,11 +93,19 @@ public class ProfessorController extends MskimRequestMapping {
 		
 		List<Subject> lcodeList = subdao.selectLcode(id);
 		request.setAttribute("lcodeList", lcodeList);
-		List<Integer> subcodes = lcodeList.stream()
-                .map(Subject::getSubcode)
-                .collect(Collectors.toList());
 		
-		List<Subject>  sub_info = subdao.selectSub(subcodes);
+		List<Subject>  sub_info = new ArrayList<Subject>();
+		
+		if(lcodeList != null && !lcodeList.isEmpty()) {
+			List<Integer> subcodes = lcodeList.stream()
+	                .map(Subject::getSubcode)
+	                .collect(Collectors.toList());
+			if(!subcodes.isEmpty()) {
+				sub_info = subdao.selectSub(subcodes);
+			}
+		}
+		
+		//List<Subject>  sub_info = subdao.selectSub(subcodes);
 		request.setAttribute("sub", sub_info);
 		
 	    String[] time = new String[10];
@@ -147,9 +156,11 @@ public class ProfessorController extends MskimRequestMapping {
 	    param.put("pagesize", pagesize);
 
 	    // 3. 페이징된 학생 목록 조회
-	    List<Student> studentList = stddao.selectStudentIdPage(param); // ← 아래에서 설명할 메서드
+	    List<Student> studentList = stddao.selectStudentIdPage(param);
 	    request.setAttribute("studentList", studentList);
 
+	    System.out.println("stdList"+studentList);
+	    
 	    // 4. 학생의 studno만 추출
 	    List<Integer> studno = studentList.stream()
 	            .map(Student::getStudno)

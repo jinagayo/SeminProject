@@ -43,6 +43,9 @@
           </tr>
         </thead>
         <tbody>
+            <c:if test="${empty classList}">
+        		<tr><td colspan="7">조회 결과가 없습니다.</td></tr>
+        	</c:if>
           <c:forEach var="list" items="${classList}" varStatus="status">
             <tr>
               <td>

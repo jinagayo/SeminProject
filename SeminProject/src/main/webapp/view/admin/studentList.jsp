@@ -43,7 +43,9 @@
 		       			<th style="background-color: #2c3e50 !important;">전공</th>
 		       			<th style="background-color: #2c3e50 !important;">이름</th>
 		       		</tr>
-		       		
+		       		<c:if test="${empty list}">
+		       			<tr><td colspan = "3">조회 결과가 없습니다.</td></tr>
+		       		</c:if>
 		       		<c:forEach var="row" items="${list}">
 		       			<tr onclick="location.href='../admin/studentInfo?studno=${row.studno}'">	
 		       				<td>${row.studno}</td>

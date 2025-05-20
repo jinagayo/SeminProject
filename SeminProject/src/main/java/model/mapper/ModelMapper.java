@@ -87,7 +87,7 @@ public interface ModelMapper {
 	@Select("SELECT * FROM subject WHERE profno=#{id} LIMIT #{startRow},#{pagesize}")
 	List<Map<String, Object>> selectStudentPage(Map<String, Object> param);
 
-	@Select("select count(*) subject where profno=#{id}")
+	@Select("select count(*) FROM subject where profno=#{id}")
 	int selectPsubjectCount(int id);
 	
 	@Select("SELECT * FROM student WHERE studno = #{id}")
@@ -432,10 +432,13 @@ public interface ModelMapper {
 	//======================================================================
 	
 	
-	@Select("SELECT COUNT(*) FROM student WHERE professor_id = #{id}")
+	@Select("SELECT COUNT(*) FROM student WHERE profno = #{id}")
 	int countProfessorStudents(Integer id);
 	
-	@Select("SELECT * FROM student"
+	@Select("SELECT u.name as name, u.id as studno"
+			+ " FROM attendance a"
+			+ " JOIN user u ON a.studno = u.id"
+			+ " JOIN subject s ON s.subcode = a.subcode"
 			+ " WHERE profno = #{id}"
 			+ " ORDER BY studno"
 			+ " LIMIT #{startRow}, #{pagesize}")
