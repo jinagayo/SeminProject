@@ -40,7 +40,7 @@
 
 			<td style="text-align:center">
 			
-			<a href="../board/p_info?num=${b.num}&subcode=${subcode}&boardid=${boardid}">
+			<a href="../board/s_info?num=${b.num}&subcode=${subcode}&boardid=${boardid}">
 			${b.title}</a></td>
 
 			<td><fmt:formatDate value="${b.regdate}" pattern="yyyy-MM-dd" var="rdate" />
@@ -74,10 +74,10 @@
 		</c:if>
 		</td>
 	</tr>
-		<c:if test="${boardid=='1'}">
+		<c:if test="${boardid=='2'}">
 			<tr>
 				<td colspan="5" style="text-align:right">
-				<form action="../board/p_writeForm" method="get" accept-charset="UTF-8"  name="f" >
+				<form action="../board/s_writeForm" method="get" accept-charset="UTF-8"  name="f" >
 					<button type="submit" class="btn-primary text-center">글쓰기</button>
 					<input type="hidden" name="subcode" value="${param.subcode}"/>
 					<input type="hidden" name="boardid" value="${boardid}"/>

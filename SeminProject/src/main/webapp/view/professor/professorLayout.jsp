@@ -19,7 +19,7 @@
    	 <style>
           body {
               font-family: 'Noto Sans', sans-serif;
-              margin: 40px;
+              margin: 20px;
                }
           h1 {
              font-weight: 700;
