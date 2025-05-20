@@ -10,7 +10,7 @@
 </head>
 <body>
 <br>
-  <h2 class="breadcrumb-item active  mx-5">  학생 관리</h2>
+  <h2 class="breadcrumb-item active  mx-5" style="padding:5px;">  학생 관리</h2>
   <div class="card mb-4  mx-5">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
@@ -19,7 +19,7 @@
      <form name="sf" method="post" accept-charset="UTF-8" action="professor-student-manage">
      <input type="hidden" name="pageNum" id="pageNum" value="${pageNum}" />
      <div class="card-body">
-       <table id="datatablesSimple" border="1">
+       <table border="1">
          <tr>
             <th style="background-color: #2c3e50 !important;">학번</th><th style="background-color: #2c3e50 !important;">이름</th>
          </tr>
@@ -28,9 +28,11 @@
 	    	<tr onclick="location.href='professor-student-info?studno=${s.studno}'"> 
 	    	<td>${s["studno"]}</td>
 	    		<c:forEach var="u" items="${user}" varStatus="vs">
-					<c:if test="${s['studno'] eq u.id}">
-					    <td>${u.name}</td>
-					</c:if>
+	    				<c:if test="${s.studno == u.id }">
+	    					<td onclick="location.href='professor-student-info?studno=${s.studno}'">
+	    							<u>${u.name}</u>
+	    					</td>
+	    				</c:if>
 	    		</c:forEach>
 	        </tr>
 	  </c:forEach>

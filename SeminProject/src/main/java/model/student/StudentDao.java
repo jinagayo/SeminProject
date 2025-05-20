@@ -109,7 +109,6 @@ public class StudentDao {
 		    }
 		return false;
 	}
-
 	public int countProfessorStudents(Integer id) {
 		 SqlSession session = MybatisConnection.getConnection();
 		    try {
@@ -133,4 +132,5 @@ public class StudentDao {
 		    }
 		    return null;
 	}
+
 }

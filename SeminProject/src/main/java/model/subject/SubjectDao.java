@@ -63,10 +63,10 @@ public class SubjectDao {
 		 return null;
 	}
 
-	public List<Map<String, Object>> selectPsubject(Map<String, Object> param) {
+	public List<Subject> selectPsubject(Integer id) {
 		SqlSession session  = MybatisConnection.getConnection();
 		 try {
-			 return session.getMapper(cls).selectStudentPage(param);
+			 return session.getMapper(cls).selectPsubject(id);
 		 } catch (Exception e) {
 			 e.printStackTrace();
 		 } finally {

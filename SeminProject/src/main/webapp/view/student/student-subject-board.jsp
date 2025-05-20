@@ -12,30 +12,35 @@
 </head>
 <body>
 
-	<h2 class=" mx-5">${s.subname}</h2>
-  <div class="card mb-4  mx-5">
+	<h2 style="padding:25px;">${s.subname}</h2>
+  <div class="card mb-4  mx-5" >
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
-              ${boardName }
+              ${boardName}
      </div>
      <div style="display: flex;align-items: center;justify-content: space-between;flex-direction: column;">
 	
-<table style="padding-top:100px;">
+<table class="table" style="padding:100px;">
 	<c:if test="${boardCount==0}">
 		<tr>
 			<td colspan="5">등록된 게시글이 없습니다.</td>
 		</tr>
 	</c:if>
+		<tr>	
+			<td></td>
+		</tr>
 		<tr>
-			<th style="background-color: #2c3e50 !important;" width="50%">제목</th>
-			<th style="background-color: #2c3e50 !important;" width="%">등록일</th>
-			<th style="background-color: #2c3e50 !important;" width="20%" >작성자</th>
+			<th width="50%" style="color:black;">제목</th>
+			<th width="%" style="color:black;">등록일</th>
+			<th width="20%" style="color:black;">작성자</th>
 		</tr>
 	<c:forEach var="b" items="${list}" varStatus="status">
 		<tr>
-			<td>
 			
-			<a href="student-subject-board-info?num=${b.num}">
+
+			<td style="text-align:center">
+			
+			<a href="../board/s_info?num=${b.num}&subcode=${subcode}&boardid=${boardid}">
 			${b.title}</a></td>
 
 			<td><fmt:formatDate value="${b.regdate}" pattern="yyyy-MM-dd" var="rdate" />
@@ -56,7 +61,7 @@
 	<tr>
 		<td colspan="5" align="center">
 		<c:if test="${pageNum <=1 }">[이전]</c:if>
-		<c:if test="${pageNum > 1 }"><a href="list?pageNum=${pageNum-1}">[이전]</a></c:if>
+		<c:if test="${pageNum > 1 }"><a href="javascript:listsubmit(${pageNum-1})">[이전]</a></c:if>
 		<c:forEach var="a" begin="${startpage}" end="${endpage}">
 			<c:if test="${a==pageNum}">[${a}]</c:if>
 			<c:if test="${a!=pageNum}">
@@ -72,8 +77,8 @@
 		<c:if test="${boardid=='2'}">
 			<tr>
 				<td colspan="5" style="text-align:right">
-				<form action="student-subject-board-writeForm" method="get" accept-charset="UTF-8"  name="f" >
-					<button type="submit" class="btn btn-secondary text-center">글쓰기</button>
+				<form action="../board/s_writeForm" method="get" accept-charset="UTF-8"  name="f" >
+					<button type="submit" class="btn btn-primary text-center">글쓰기</button>
 					<input type="hidden" name="subcode" value="${param.subcode}"/>
 					<input type="hidden" name="boardid" value="${boardid}"/>
 				</form>
@@ -82,7 +87,7 @@
 			</tr>
 		</c:if>
 </table>
-</div>    <button onclick = "history.back()" class="btn btn-secondary" style="width:50px">←</button>
+</div>
 </div>
 <script type="text/javascript">
 	function listsubmit(page){

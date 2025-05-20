@@ -84,4 +84,16 @@ public class UserDao{
 		 }
 		return false;
 	}
+	public boolean updatePicture(Integer id, String fname) {
+		 SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).updatePicture(id, fname);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		 return false;	
+	}
+	
 }
