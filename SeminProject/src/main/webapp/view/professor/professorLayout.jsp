@@ -61,15 +61,15 @@
                                 </nav>
                             </div>
                             <a class="nav-link" onclick="location.href='../board/notice'">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-clipboard"></i></div>
                                 알림마당
                             </a>
                             <a class="nav-link" href="professor-myclass">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-calendar-days"></i></div>
                                 내강의실
                             </a>
                             <a class="nav-link" href="professor-student-manage">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-regular fa-circle-user"></i></div>
                                 학생관리
                             </a>
                            

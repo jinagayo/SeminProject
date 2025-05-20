@@ -13,6 +13,8 @@ public class User implements Serializable {
 	private String address;
 	private String email;
 	private String password;
+	private String img;
+	
 	private int position;
 	public int getId() {
 		return id;
@@ -62,6 +64,15 @@ public class User implements Serializable {
 	}
 	public void setPosition(int position) {
 		this.position = position;
+	}
+	
+	
+	
+	public String getImg() {
+		return img;
+	}
+	public void setImg(String img) {
+		this.img = img;
 	}
 	@Override
 	public String toString() {

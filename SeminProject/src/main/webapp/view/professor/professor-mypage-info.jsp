@@ -13,43 +13,56 @@
   <br>
   <h2 class="breadcrumb-item active  mx-5">  교수 정보 조회</h2>
   <div class="card mb-4 mx-5">
-
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
              교수 정보 조회
      </div>
-     <div class="card-body">
-    	<table id="datatablesSimple" >
+     <div class="card-body" style="height:700px; background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),  url('../assets/img/logo1.png'); 
+     	background-repeat: no-repeat;  background-position: center center;   display: flex;  gap: 10px;  padding: 40px 60px; " >
+     	<div style="flex: 0.4; min-width: 300px; text-align: center;">
+     	 <img src="../picture/${user_prof.img}"  style="width: 200px !important; height: 300px !important; object-fit: cover;" id="pic"><br>
+         <font size="1"><a href="javascript:win_upload()">사진수정</a></font>
+     	</div>
+     	<div style="flex: 2;">
+    	<table class="table table-borderless" style=" border-collapse: separate; border-spacing: 5px 40px;  border: none; font-size: 20px; " >
        		<tr>
-       			<th style="background-color: #2c3e50 !important;">이름</th>
+       			<th>이름</th>
        			<td>${user_prof.name}</td>
-       			<th style="background-color: #2c3e50 !important;">계열</th>
+       			<th>계열</th>
        			<td>자연대학</td>
        		</tr>
        		<tr>
-       			<th style="background-color: #2c3e50 !important;">교수번호</th>
+       			<th>교수번호</th>
        			<td>${user_prof.id}</td>
-       			<th style="background-color: #2c3e50 !important;">소속학과</th>
+       			<th>소속학과</th>
        			<td>${prof.major}</td>
        		</tr>
        		<tr>
-       			<th style="background-color: #2c3e50 !important;">생년월일</th>
+       			<th>생년월일</th>
        			<td>${user_prof.birth}</td>
        		</tr>
        		<tr>
-       			<th style="background-color: #2c3e50 !important;">전화번호</th>
+       			<th>전화번호</th>
        			<td>${user_prof.phone}</td>
        		</tr>
        		<tr>
-       			<th style="background-color: #2c3e50 !important;">이메일</th>
+       			<th>이메일</th>
        			<td>${user_prof.email}</td>
        		</tr>
        		<tr>
-       			<th style="background-color: #2c3e50 !important;">주소</th>
+       			<th>주소</th>
        			<td>${user_prof.address}</td>
        		</tr>
     	</table>
+    	</div>
     </div>
  </div>
+ 
+ <script type="text/javascript">
+ function win_upload(){
+	   var op = "width=500,height=400,left=50, top=150";
+	   open("pictureForm","",op);
+ }
+ </script>
   </body>
 </html>>

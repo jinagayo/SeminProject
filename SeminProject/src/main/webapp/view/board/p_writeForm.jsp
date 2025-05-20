@@ -1,15 +1,15 @@
-<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>과목공지사항</title>
+
 </head>
 <body>
-<form action="professor-subject-board-write" method="post" enctype="multipart/form-data" name="f">
-	<h2 class="text-center">Q&A</h2>
+<form action="write2" method="post" enctype="multipart/form-data" name="f">
+	<h2 class="text-center">과목 공지사항 글쓰기</h2>
 	<input type="hidden" name="subcode" value="${param.subcode}">
 	<input type="hidden" name="boardid" value="${param.boardid}">
 	<table class="table">
@@ -36,7 +36,9 @@ function inputcheck(){
 		return;
 	}
 	f.submit();//submit 발생 =>form의 action 페이지로 요청
-}</script>
+}
+
+</script>
 
 <%--summernote 관련 구현 --%>
 <script type="text/javascript">
@@ -53,28 +55,26 @@ function inputcheck(){
 				}
 			}
 		})
-	}
-function sendFile(file){
-	let data = new FormData(); //폼데이터를 수집하고 전송 가능한 객체. 파일 업로드에 사용됨
-	data.append("file",file); //file : 이미지파일
-	$.ajax({
-		url:"${path}/uploadImage",
-		type:"post",
-		data:data,
-		processData:false,
-		contentType : false,
-		success :function(url){
-			//url: 업로드 된 이미지의 접근 url 정보
-			$("#summernote").summernote("insertImage",url);
-			//<img src="url">변경.
-		},
-		error : function(e){
-			alert("이미지 업로드 실패 : "+e.status)
-		}
 	})
-}
-
+	function sendFile(file){
+		let data = new FormData(); //폼데이터를 수집하고 전송 가능한 객체. 파일 업로드에 사용됨
+		data.append("file",file); //file : 이미지파일
+		$.ajax({
+			url:"${path}/uploadImage",
+			type:"post",
+			data:data,
+			processData:false,
+			contentType : false,
+			success :function(url){
+				//url: 업로드 된 이미지의 접근 url 정보
+				$("#summernote").summernote("insertImage",url);
+				//<img src="url">변경.
+			},
+			error : function(e){
+				alert("이미지 업로드 실패 : "+e.status)
+			}
+		})
+	}
 </script>
 </body>
-
 </html>

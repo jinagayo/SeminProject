@@ -424,8 +424,9 @@ public interface ModelMapper {
 
 	@Insert("Insert into attendance (studno,subcode) values (#{studno},#{subcode})")
 	boolean insertsub(@Param("subcode")int subcode, @Param("studno")Integer id);
-	
 
+	@Update("UPDATE user SET img = #{fname} WHERE id = #{id}")
+	boolean updatePicture(@Param("id") Integer id, @Param("fname") String fname);
 	
 	
 }
