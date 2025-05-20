@@ -398,7 +398,7 @@ public interface ModelMapper {
 	//history
 	@Select({
 	    "<script>",
-	    "SELECT year, subject",
+	    "SELECT year, subject,grade",
 	    "FROM history",
 	    "<where>",
 	    "  studno = #{studno}",
@@ -463,6 +463,9 @@ public interface ModelMapper {
 
 	@Update("update professor set mcode=#{mcode} where profno=#{profno} ")
 	boolean updateProfessor(Professor professor);
+
+	@Update("update teacher set personsubmit='1' where studno=#{studno}")
+	boolean updatePersonYN(Integer studno);
 
 	
 }

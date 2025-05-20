@@ -602,7 +602,7 @@ public class StudentController extends MskimRequestMapping{
 	    }
 
 	    List<Map<String, Object>> map = his_dao.selectHistory(param);
-	    
+	    System.out.println(map);
 	    request.setAttribute("option", year);
 	    request.setAttribute("semester", semester);
 	    request.setAttribute("list", map);

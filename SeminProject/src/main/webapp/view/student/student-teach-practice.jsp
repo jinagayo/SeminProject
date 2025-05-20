@@ -7,6 +7,7 @@
 <title>교육 실습</title>
 </head>
 <body>
+<br>
 <h2 class="breadcrumb-item active  mx-5">  실습 일지 작성</h2>
   <div class="card mb-4  mx-5">
      <div class="card-header">

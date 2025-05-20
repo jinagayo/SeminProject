@@ -57,4 +57,16 @@ public class TeacherDao {
 		
 	}
 
+	public boolean updatePersonYN(Integer studno) {
+		 SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).updatePersonYN(studno);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		return false;
+	}
+
 }
