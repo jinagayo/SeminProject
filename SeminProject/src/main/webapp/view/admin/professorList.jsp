@@ -92,7 +92,7 @@
 				</c:if>
 			</ul>
 		</div>
-			<script type="text/javascript">
+	<script type="text/javascript">
 	    function listsubmit(page) {
 	        document.getElementById("pageNum").value = page;
 	        document.sf.submit();
