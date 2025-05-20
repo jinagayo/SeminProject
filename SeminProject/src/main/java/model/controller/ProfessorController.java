@@ -38,6 +38,7 @@ import model.student.Student;
 import model.student.StudentDao;
 import model.subject.Subject;
 import model.subject.SubjectDao;
+import model.teacher.TeacherDao;
 import model.user.User;
 import model.user.UserDao;
 
@@ -54,6 +55,7 @@ public class ProfessorController extends MskimRequestMapping {
 	private PersonalityDao pdao = new PersonalityDao();
 	private BoardDao boadao = new BoardDao();
 	private CommentDao commdao = new CommentDao();
+	private TeacherDao teadao = new TeacherDao(); 
 	
 	public String noticecheck(HttpServletRequest request, HttpServletResponse response ) {
 		Integer id = (Integer) request.getSession().getAttribute("login");
@@ -395,7 +397,7 @@ public class ProfessorController extends MskimRequestMapping {
 		
 		request.setAttribute("url","professor-Ckpersonality?studno="+studno);
 
-		if(pdao.perChek(p)) {
+		if(pdao.perChek(p)&&teadao.updatePersonYN(studno)) {
 			request.setAttribute("msg", "등록되었습니다");
 		}else {
 			request.setAttribute("msg", "등록 실패");	

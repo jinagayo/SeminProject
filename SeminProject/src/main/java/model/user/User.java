@@ -14,6 +14,16 @@ public class User implements Serializable {
 	private String email;
 	private String password;
 	private int position;
+	private String img;
+	public void setImg(String img) {
+		this.img = img;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	public String getImg() {
+		return img;
+	}
 	public int getId() {
 		return id;
 	}
@@ -66,7 +76,7 @@ public class User implements Serializable {
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", birth=" + birth + ", phone=" + phone + ", address=" + address
-				+ ", email=" + email + ", password=" + password + ", position=" + position + "]";
+				+ ", email=" + email + ", password=" + password + ", position=" + position + ", img=" + img + "]";
 	}
 	
 	

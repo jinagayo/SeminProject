@@ -29,10 +29,12 @@ public interface ModelMapper {
 	@Select("select * from user where id = #{id}")
 	User selectOne(@Param("id")int id);
 	
-	@Select("SELECT s.tograde,s.entry,s.grade, m.mname AS major FROM student s JOIN major m ON s.mcode = m.mcode where s.studno = #{id}")
+	@Select("\n"
+			+ "SELECT s.tograde,s.entry,s.grade, m.mcode,m.mname as major,m1.mname AS college  FROM student s JOIN major m ON s.mcode = m.mcode JOIN major m1 on m.ccode=m1.mcode"
+			+ " where s.studno = #{id}")
 	Map<String, Object> selectStudent(@Param("id") int id);
 
-	@Select("SELECT m.mname AS major FROM professor p JOIN major m ON p.mcode = m.mcode where p.profno = #{id}")
+	@Select("SELECT m.mname AS major , p.mcode as mcode FROM professor p JOIN major m ON p.mcode = m.mcode where p.profno = #{id}")
 	Map<String, Object> selectProfessor(@Param("id") int id);
 
 	@Select("SELECT * from graduation where studno= #{id}")
@@ -117,8 +119,8 @@ public interface ModelMapper {
 
 
 	
-	@Insert("insert into user (id,name,birth,phone,address,email,position)"
-			+ " values (#{id},#{name},#{birth},#{phone},#{address},#{email},#{position})")
+	@Insert("insert into user (id,name,birth,phone,address,email,position,img)"
+			+ " values (#{id},#{name},#{birth},#{phone},#{address},#{email},#{position},#{img})")
 	int InsertUser(User user);
 	
 	@Insert("insert into student (studno,entry,profno,mcode)"
@@ -392,11 +394,11 @@ public interface ModelMapper {
 
 	
 
-	
+
 	//history
 	@Select({
 	    "<script>",
-	    "SELECT year, subject",
+	    "SELECT year, subject,grade",
 	    "FROM history",
 	    "<where>",
 	    "  studno = #{studno}",
@@ -445,6 +447,25 @@ public interface ModelMapper {
 	List<Student> studentManagePage(Map<String, Object> param);
 
 	
+
+
+
+	@Select("select * from major where ccode is null")
+	List<Major> allccode();
+
+	@Select("select * from major where ccode is not null")
+	List<Major> allMajor();
+
+	@Update("Update user set name=#{name},birth=#{birth},phone=#{phone},address=#{address},email=#{email} ,img=#{img} where id=#{id}")
+	boolean updateUser(User user);
+	@Update("update student set grade=#{grade},mcode=#{mcode} where studno=#{studno}")
+	boolean updateStudent(Student student);
+
+	@Update("update professor set mcode=#{mcode} where profno=#{profno} ")
+	boolean updateProfessor(Professor professor);
+
+	@Update("update teacher set personsubmit='1' where studno=#{studno}")
+	boolean updatePersonYN(Integer studno);
+
 	
 }
-

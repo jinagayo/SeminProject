@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -39,7 +40,7 @@
 
   <div class="card-body d-flex flex-column justify-content-center align-items-center text-center w-100">
 
-    <h1 class="h4 text-gray-900 mb-4">구디대학교</h1>
+    <h1 class="h4 text-gray-900 mb-4" onclick="location.href='../main/main'">구디대학교</h1>
 
     <form class="w-75">
     <div class="user">

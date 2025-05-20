@@ -21,15 +21,15 @@
      <!-- 게시판 전용 테이블 -->
      <table>
 		<tr>
-			<th width="10%" >제목</th>
+			<th style="background-color: #2c3e50 !important;" width="10%" >제목</th>
 			<td width="80%" style="text-align:left;  padding:10px;"><h5>${b.title}</h5></td>
 		</tr>
 		<tr>
-			<th width="10%">글쓴이</th>
+			<th style="background-color: #2c3e50 !important;" width="10%">글쓴이</th>
 			<td width="80%" style="text-align:left; padding:10px;">${b.writer}</td>
 		</tr>
 		<tr>
-			<th>내용</th>
+			<th style="background-color: #2c3e50 !important;">내용</th>
 			<td>
 				<table style="width:100%; height:250px;">
 					<tr>
@@ -41,7 +41,7 @@
 			</td>
 		</tr>
 		<tr>
-			<th>첨부파일</th>
+			<th style="background-color: #2c3e50 !important;">첨부파일</th>
 			<td>
 				<c:if test="${empty b.file1}">&nbsp;</c:if>
 				<c:if test="${!empty b.file1}">

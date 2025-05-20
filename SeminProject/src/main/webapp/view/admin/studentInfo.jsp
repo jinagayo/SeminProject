@@ -18,10 +18,11 @@
      <div class="card-body">
     	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align: center;">
        		<tr>
+	    			<td rowspan=7><img src="../picture/${user_std.img }" style="width:200px; height:300px; padding-left:0px"></td>
        			<th style="background-color: #2c3e50 !important;">이름</th>
        			<td>${user_std.name}</td>
        			<th style="background-color: #2c3e50 !important;">계열</th>
-       			<td>자연대학</td>
+       			<td>${std.college}</td>
        		</tr>
        		<tr>
        			<th style="background-color: #2c3e50 !important;">학번</th>
@@ -49,7 +50,12 @@
        		</tr>
        		<tr>
        			<th style="background-color: #2c3e50 !important;">주소</th>
-       			<td>${user_std.address}</td>
+       			<td colspan=3>${user_std.address}</td>
+       		</tr>
+       		<tr>
+       			<td colspan=4>
+       				<a href="updateStudentForm?studno=${user_std.id}" class="btn btn-secondary">수정</a>
+       			</td>
        		</tr>
     	</table>
     </div>

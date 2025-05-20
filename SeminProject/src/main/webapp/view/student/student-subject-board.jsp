@@ -27,9 +27,9 @@
 		</tr>
 	</c:if>
 		<tr>
-			<th width="50%">제목</th>
-			<th width="%">등록일</th>
-			<th width="20%" >작성자</th>
+			<th style="background-color: #2c3e50 !important;" width="50%">제목</th>
+			<th style="background-color: #2c3e50 !important;" width="%">등록일</th>
+			<th style="background-color: #2c3e50 !important;" width="20%" >작성자</th>
 		</tr>
 	<c:forEach var="b" items="${list}" varStatus="status">
 		<tr>

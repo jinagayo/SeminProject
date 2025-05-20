@@ -7,6 +7,7 @@
 <title>교육 실습</title>
 </head>
 <body>
+<br>
 <h2 class="breadcrumb-item active  mx-5">  실습 일지 작성</h2>
   <div class="card mb-4  mx-5">
      <div class="card-header">
@@ -17,27 +18,27 @@
      	<form action="praticesubmit" method="post" accept-charset="UTF-8"  name="f" enctype="multipart/form-data" onsubmit="return inputcheck();">
 	    	<table  border="1" >
 	    		<tr>
-	    			<th>날짜</th>
+	    			<th style="background-color: #2c3e50 !important;">날짜</th>
 	    			<td><input type="text" name="date" class="form-control"></td>
 	    		</tr>
 	    		<tr>
-	    			<th>활동명</th>
+	    			<th style="background-color: #2c3e50 !important;">활동명</th>
 	    			<td><input type="text" name="activename" class="form-control"></td>
 	    		</tr>
 	    		<tr style="width:50px;">
-	    			<th>활동 내역</th>
+	    			<th style="background-color: #2c3e50 !important;">활동 내역</th>
 	    			<td>
 	    				 <textarea name="content" class="form-control" rows="5" cols="50" style="resize: none;"></textarea>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<th>활동 소감</th>
+	    			<th style="background-color: #2c3e50 !important;">활동 소감</th>
 	    			<td>
 	    				 <textarea name="emotion" class="form-control" rows="15" cols="50" style="resize: none;"></textarea>
 	    			</td>
 	    		</tr>
 				<tr>
-					<th>활동 증명서</th>
+					<th style="background-color: #2c3e50 !important;">활동 증명서</th>
 					<td>
 					    <input type="file" name="file1" />
 					</td>

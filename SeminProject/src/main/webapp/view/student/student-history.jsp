@@ -10,11 +10,11 @@
   </head>
   <body>
   <br>
-  <h2 class="breadcrumb-item active  mx-5">  수강 신청 내역</h2>
+  <h2 class="breadcrumb-item active  mx-5">  지난 성적 조회</h2>
   <div class="card mb-4  mx-5">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
-              수강 신청 내역
+              지난 수강 내역
      </div>
      <form action="student-history" name="f" method="post" accept-charset="UTF-8">
 	     <div class="card-body" style="position:relative;align-items:center;">
@@ -41,11 +41,9 @@
 	     	</div>
 	    	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align: center;margin-top:50px">
 	       		<tr>
-
 	       			<th style="background-color: #2c3e50 !important;">학기</th>
 	       			<th style="background-color: #2c3e50 !important;">강의명</th>
 	       			<th style="background-color: #2c3e50 !important;">성적</th>
-
 	       		</tr>
 	       		<c:if test="${empty list}">
 				   	<tr><td colspan="3">조회 결과가 없습니다.</td></tr>
