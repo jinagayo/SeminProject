@@ -143,7 +143,7 @@ public class BoardController extends MskimRequestMapping{
 		request.setAttribute("boardid", boardid);
 		return "p_writeForm";
 	}
-	
+
 	@RequestMapping("s_writeForm") 
 	public String s_writeForm(HttpServletRequest request,HttpServletResponse response) {
 		String boardid=request.getParameter("boardid");
@@ -152,6 +152,7 @@ public class BoardController extends MskimRequestMapping{
 		return "s_writeForm";
 	}
 	
+
 	@MSLogin("noticecheck")
 	@RequestMapping("write")
 	public String write(HttpServletRequest request, HttpServletResponse response ) {
@@ -230,7 +231,7 @@ public class BoardController extends MskimRequestMapping{
 		}
 		return "alert";
 	}
-	
+
 	
 	@RequestMapping("write3")
 	public String write3(HttpServletRequest request, HttpServletResponse response ) {
@@ -270,6 +271,7 @@ public class BoardController extends MskimRequestMapping{
 		return "alert";
 	}
 	
+
 	@RequestMapping("info")
 	public String info(HttpServletRequest request, HttpServletResponse response ) {
 		int num = Integer.parseInt(request.getParameter("num"));
@@ -305,6 +307,7 @@ public class BoardController extends MskimRequestMapping{
 		request.setAttribute("commlist", commentlist) ;
 		return "p_info";
 	}
+
 	
 	@RequestMapping("s_info")
 	public String s_info(HttpServletRequest request, HttpServletResponse response ) {
@@ -322,6 +325,7 @@ public class BoardController extends MskimRequestMapping{
 		return "s_info";
 	}
 	
+
 	@MSLogin("noticecheck")
 	@RequestMapping("updateForm")
 	public String updateForm(HttpServletRequest request, HttpServletResponse response ) {
@@ -344,6 +348,7 @@ public class BoardController extends MskimRequestMapping{
 		
 		return "p_updateForm";
 	}
+
 	
 
 	@RequestMapping("s_updateForm")
@@ -357,6 +362,8 @@ public class BoardController extends MskimRequestMapping{
 		
 		return "s_updateForm";
 	}
+
+
 	   @RequestMapping("update")
 	   public String update(HttpServletRequest request,HttpServletResponse response) {
 	      String path = request.getServletContext().getRealPath("/") + "/upload/board";

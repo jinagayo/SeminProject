@@ -14,6 +14,7 @@ public class User implements Serializable {
 	private String email;
 	private String password;
 	private String img;
+
 	private int position;
 
 	public void setImg(String img) {
@@ -75,7 +76,7 @@ public class User implements Serializable {
 		this.position = position;
 	}
 	
-	
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", birth=" + birth + ", phone=" + phone + ", address=" + address

@@ -444,6 +444,6 @@ public interface ModelMapper {
 	@Update("update professor set mcode=#{mcode} where profno=#{profno} ")
 	boolean updateProfessor(Professor professor);
 
-	
+
 }
 

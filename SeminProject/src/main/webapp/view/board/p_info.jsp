@@ -188,6 +188,7 @@
 
 		</c:if>
 			<a href="../professor/professor-subject-Mboard?num=${b.num}&subcode=${s.subcode}&boardid=${b.boardid}">목록</a>
+
   </div>
 </div>
 <script>
