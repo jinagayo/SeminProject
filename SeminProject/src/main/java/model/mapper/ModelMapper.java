@@ -394,8 +394,8 @@ public interface ModelMapper {
 
 	
 
-
 	//history
+
 	@Select({
 	    "<script>",
 	    "SELECT year, subject,grade",
@@ -417,7 +417,6 @@ public interface ModelMapper {
 	@Update("update teacher set teacherYN=true where studno=#{studno}")
 	boolean updateTeach(Teacher teach_info);
 	
-	
 
 	@Select({"<script>",
 				 "select count(*) from subject s join user u ON u.id=s.profno where 1=1 "
@@ -430,24 +429,9 @@ public interface ModelMapper {
 
 	@Insert("Insert into attendance (studno,subcode) values (#{studno},#{subcode})")
 	boolean insertsub(@Param("subcode")int subcode, @Param("studno")Integer id);
-	
-	//======================================================================
-	
-	
-	@Select("SELECT COUNT(*) FROM student WHERE profno = #{id}")
-	int countProfessorStudents(Integer id);
-	
-	@Select("SELECT u.name as name, u.id as studno"
-			+ " FROM attendance a"
-			+ " JOIN user u ON a.studno = u.id"
-			+ " JOIN subject s ON s.subcode = a.subcode"
-			+ " WHERE profno = #{id}"
-			+ " ORDER BY studno"
-			+ " LIMIT #{startRow}, #{pagesize}")
-	List<Student> studentManagePage(Map<String, Object> param);
 
-	
-
+	@Update("UPDATE user SET img = #{fname} WHERE id = #{id}")
+	boolean updatePicture(@Param("id") Integer id, @Param("fname") String fname);
 
 
 	@Select("select * from major where ccode is null")
@@ -463,6 +447,27 @@ public interface ModelMapper {
 
 	@Update("update professor set mcode=#{mcode} where profno=#{profno} ")
 	boolean updateProfessor(Professor professor);
+
+
+}
+
+	
+	
+	@Select("SELECT COUNT(*) FROM student WHERE profno = #{id}")
+	int countProfessorStudents(Integer id);
+	
+	@Select("SELECT u.name as name, u.id as studno"
+			+ " FROM attendance a"
+			+ " JOIN user u ON a.studno = u.id"
+			+ " JOIN subject s ON s.subcode = a.subcode"
+			+ " WHERE profno = #{id}"
+			+ " ORDER BY studno"
+			+ " LIMIT #{startRow}, #{pagesize}")
+	List<Student> studentManagePage(Map<String, Object> param);
+
+
+	
+
 
 	@Update("update teacher set personsubmit='1' where studno=#{studno}")
 	boolean updatePersonYN(Integer studno);

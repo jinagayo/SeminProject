@@ -19,8 +19,9 @@ public class Sitemesh extends ConfigurableSiteMeshFilter{
             .addExcludedPath("/professor/professor-subject-board")
             .addExcludedPath("/professor/professor-subject-QA-board")
             .addExcludedPath("/professor/professor-subject-board-info")
-            .addExcludedPath("/professor/professor-subject-board2");
-     
+            .addExcludedPath("/professor/professor-subject-board2")
+            .addExcludedPath("/professor/pictureForm");
+      
 }
 }
 

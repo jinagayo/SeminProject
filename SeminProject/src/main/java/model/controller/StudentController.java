@@ -1,4 +1,3 @@
-
 package model.controller;
 import java.io.File;
 import java.io.IOException;
@@ -101,7 +100,6 @@ public class StudentController extends MskimRequestMapping{
 		request.setAttribute("std", student); //student 테이블 정보
 		return "student-mypage-info";
 	}
-	
 	@MSLogin("noticecheck")
 	@RequestMapping("student-mypage-grad") 
 	public String MypageGrade(HttpServletRequest request,
@@ -114,7 +112,6 @@ public class StudentController extends MskimRequestMapping{
 		request.setAttribute("teach", teach_info);
 		return "student-mypage-grad";
 	}
-	
 	@MSLogin("noticecheck")
 	@RequestMapping("student-mypage-time") 
 	public String MypageTime(HttpServletRequest request,
@@ -194,13 +191,11 @@ public class StudentController extends MskimRequestMapping{
 			}
 			return "student-teach-practice";
 		}
-
 		else {
-
 			return "student-teach-practice";
 	}
+
 	}
-	
 	@MSLogin("noticecheck")
 	@RequestMapping("praticesubmit")
 	public String praticesubmit(HttpServletRequest request,
@@ -609,4 +604,3 @@ public class StudentController extends MskimRequestMapping{
 	    return "student-history";
 	}
 }
-

@@ -12,15 +12,15 @@
 </head>
 <body>
 
-	<h2 class="">${s.subname}</h2>
-  <div class="card mb-4  mx-5">
+	<h2 style="padding:25px;">${s.subname}</h2>
+  <div class="card mb-4  mx-5" >
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
-              ${boardName }
+              ${boardName}
      </div>
      <div style="display: flex;align-items: center;justify-content: space-between;flex-direction: column;">
 	
-<table class="table" style="padding-top:100px;">
+<table class="table" style="padding:100px;">
 	<c:if test="${boardCount==0}">
 		<tr>
 			<td colspan="5">등록된 게시글이 없습니다.</td>
@@ -40,7 +40,7 @@
 
 			<td style="text-align:center">
 			
-			<a href="professor-subject-Mboard-info?num=${b.num}">
+			<a href="../board/p_info?num=${b.num}&subcode=${subcode}&boardid=${boardid}">
 			${b.title}</a></td>
 
 			<td><fmt:formatDate value="${b.regdate}" pattern="yyyy-MM-dd" var="rdate" />
@@ -77,9 +77,12 @@
 	<c:if test="${boardid=='1'}">
 			<tr>
 				<td colspan="5" style="text-align:right">
+
+				
 					  <input type="hidden" name="pageNum" />
 					  <input type="hidden" name="subcode" value="${param.subcode}" />
 					  <input type="hidden" name="boardid" value="${boardid}" />
+
 					<button type="submit" class="btn-primary text-center">글쓰기</button>
 					<input type="hidden" name="subcode" value="${param.subcode}"/>
 					<input type="hidden" name="boardid" value="${boardid}"/>

@@ -13,8 +13,12 @@ public class User implements Serializable {
 	private String address;
 	private String email;
 	private String password;
-	private int position;
 	private String img;
+
+	private int position;
+
+	private String img;
+
 	public void setImg(String img) {
 		this.img = img;
 	}
@@ -73,6 +77,8 @@ public class User implements Serializable {
 	public void setPosition(int position) {
 		this.position = position;
 	}
+	
+
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", birth=" + birth + ", phone=" + phone + ", address=" + address

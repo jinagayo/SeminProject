@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import model.MybatisConnection;
 import model.mapper.BoardMapper;
+import model.subject.Subject;
 
 public class BoardDao {
 	private static Class<BoardMapper> cls = BoardMapper.class;
@@ -270,5 +271,18 @@ public class BoardDao {
 		}
 		return null;
 	}
+
+	public int countQA(Subject i) {
+		SqlSession session = MybatisConnection.getConnection();
+		try {
+			return session.getMapper(cls).countQA(i);
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			MybatisConnection.close(session);
+		}
+		return 0;
+
+}
 
 }

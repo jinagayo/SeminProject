@@ -10,18 +10,20 @@
 </head>
 <body>
 <br>
-  <h2 class="breadcrumb-item active  mx-5">  내 강의실</h2>
+  <h2 class="breadcrumb-item active  mx-5" style="padding:5px;">  내 강의실</h2>
   <div class="card mb-4 mx-5">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
               강의 목록
      </div>
-     <div class="card-body">
+     <div class="card-body" >
        <table id="datatablesSimple" border="1" style="border-collapse: collapse ; ">
 	  <c:forEach var="s" items="${sublist}" varStatus="vs">
 	    	<tr> 
 	    	<td style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; border-left: none; border-right: none; padding: 8px; ">${s.subname} (${s.subcode})  </td>
-	    	<td style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; border-left: none; border-right: none; padding: 8px;"> Q&A </td>
+	    	<td style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; border-left: none; border-right: none; padding: 8px;"> 
+	    		  ${countQA[vs.index]}<br>Q&A
+	    	</td>
 	    	<td style="border-top: 1px solid #ccc; border-bottom: 1px solid #ccc; border-left: none; border-right: none; padding: 8px;"><button onclick="location.href='professor-classHome?subcode=${s.subcode}'">강의홈 바로가기</button></td>
 	      </tr>
 	  </c:forEach>

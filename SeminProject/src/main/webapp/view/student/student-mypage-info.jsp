@@ -20,7 +20,9 @@
 	    	<table id="datatablesSimple" border="1">
 	    		
 	       		<tr>
+
 	    			<td rowspan=7><img src="../picture/${user_std.img }" style="width:200px; height:300px; padding-left:0px"></td>
+
 	       			<th style="background-color: #2c3e50 !important;">이름</th>
 	       			<td>${user_std.name}</td>
 	       			<th style="background-color: #2c3e50 !important;">계열</th>
