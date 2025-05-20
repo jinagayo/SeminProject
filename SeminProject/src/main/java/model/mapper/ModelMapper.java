@@ -1,4 +1,3 @@
-
 package model.mapper;
 
 import java.util.List;
@@ -26,6 +25,7 @@ import model.service.Service;
 import model.teacher.Teacher;
 import model.user.User;
 public interface ModelMapper {
+	
 	@Select("select * from user where id = #{id}")
 	User selectOne(@Param("id")int id);
 	
@@ -447,11 +447,6 @@ public interface ModelMapper {
 
 	@Update("update professor set mcode=#{mcode} where profno=#{profno} ")
 	boolean updateProfessor(Professor professor);
-
-
-}
-
-	
 	
 	@Select("SELECT COUNT(*) FROM student WHERE profno = #{id}")
 	int countProfessorStudents(Integer id);
@@ -471,6 +466,9 @@ public interface ModelMapper {
 
 	@Update("update teacher set personsubmit='1' where studno=#{studno}")
 	boolean updatePersonYN(Integer studno);
+
+	@Select("select * from professor p JOIN major m ON p.mcode = m.mcode WHERE p.profno = #{id}")
+	List<Subject> selectPsubject2(Integer id);
 
 	
 }

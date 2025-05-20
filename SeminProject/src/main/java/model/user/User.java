@@ -13,10 +13,7 @@ public class User implements Serializable {
 	private String address;
 	private String email;
 	private String password;
-	private String img;
-
 	private int position;
-
 	private String img;
 
 	public void setImg(String img) {
