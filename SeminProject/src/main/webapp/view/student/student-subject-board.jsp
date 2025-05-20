@@ -33,6 +33,7 @@
 			<th width="8%" style="color:black;">번호</th><th width="50%" style="color:black;">제목</th>
 			<th width="%" style="color:black;">등록일</th>
 			<th width="20%" style="color:black;">작성자</th>
+
 		</tr>
 	<c:forEach var="b" items="${list}" varStatus="status">
 		<tr>
@@ -70,19 +71,23 @@
 		</c:forEach>
 		<c:if test="${pageNum>=maxpage}">다음</c:if>
 		<c:if test="${pageNum<maxpage}">
-			<a href="javascript:listsubmit(${pageNum+1})">다음</a>
+			<a href="javascript:listsubmit(${pageNum+1})">[다음]</a>
 		</c:if>
 		</td>
 	</tr>
 		<c:if test="${boardid=='2'}">
 			<tr>
 				<td colspan="5" style="text-align:right">
-				<form action="../board/s_writeForm" method="get" accept-charset="UTF-8"  name="f" >
-					<button type="submit" class="btn-primary text-center">글쓰기</button>
+
+				<form action="student-subject-board" method="get" accept-charset="UTF-8"  name="sf" >
+					  <input type="hidden" name="pageNum" />
+					  <input type="hidden" name="subcode" value="${param.subcode}" />
+					  <input type="hidden" name="boardid" value="${boardid}" />
+					<button type="submit" class="btn btn-secondary text-center">글쓰기</button>
+
 					<input type="hidden" name="subcode" value="${param.subcode}"/>
 					<input type="hidden" name="boardid" value="${boardid}"/>
 				</form>
-				
 				</td>
 			</tr>
 		</c:if>

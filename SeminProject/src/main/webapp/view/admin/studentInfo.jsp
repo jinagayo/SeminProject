@@ -48,6 +48,8 @@
        			<th style="background-color: #2c3e50 !important;">졸업 요건 충족</th>
        			<td>x</td>
        		</tr>
+
+       		<tr>
        			<th style="background-color: #2c3e50 !important;">주소</th>
        			<td colspan=3>${user_std.address}</td>
        		</tr>

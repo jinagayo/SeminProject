@@ -72,7 +72,7 @@ public interface ModelMapper {
 	})
 	List<Subject> selectSub(List<Integer> subcodes);
 
-	@Select("SELECT studno FROM student s JOIN professor p ON s.profno = p.profno where p.profno = #{id} ")
+	@Select("SELECT * FROM student s JOIN professor p ON s.profno = p.profno where p.profno = #{id} ")
 	List<Student> selectStudentId(int id);
 
 	@Select({
@@ -86,9 +86,12 @@ public interface ModelMapper {
 	})
 	List<User> selectMany(List<Integer> studno);
 
-	@Select("SELECT * FROM subject WHERE profno=#{id}")
-	List<Subject> selectPsubject(int id);
+	@Select("SELECT * FROM subject WHERE profno=#{id} LIMIT #{startRow},#{pagesize}")
+	List<Map<String, Object>> selectStudentPage(Map<String, Object> param);
 
+	@Select("select count(*) FROM subject where profno=#{id}")
+	int selectPsubjectCount(int id);
+	
 	@Select("SELECT * FROM student WHERE studno = #{id}")
 	Student pickStudent(int id);
 
@@ -334,6 +337,7 @@ public interface ModelMapper {
 	@Update("UPDATE user SET password=#{chgpass} WHERE id=#{id}")
 	boolean updatePass(@Param("id")Integer id, @Param("chgpass")String chgpass);
 
+
 	
 	@Select("SELECT * FROM pratice where studno=#{id}")
 	Practice InfoPracticeOne(int id);
@@ -394,7 +398,7 @@ public interface ModelMapper {
 
 	@Select({
 	    "<script>",
-	    "SELECT year, subject",
+	    "SELECT year, subject,grade",
 	    "FROM history",
 	    "<where>",
 	    "  studno = #{studno}",
@@ -447,3 +451,26 @@ public interface ModelMapper {
 
 }
 
+	
+	
+	@Select("SELECT COUNT(*) FROM student WHERE profno = #{id}")
+	int countProfessorStudents(Integer id);
+	
+	@Select("SELECT u.name as name, u.id as studno"
+			+ " FROM attendance a"
+			+ " JOIN user u ON a.studno = u.id"
+			+ " JOIN subject s ON s.subcode = a.subcode"
+			+ " WHERE profno = #{id}"
+			+ " ORDER BY studno"
+			+ " LIMIT #{startRow}, #{pagesize}")
+	List<Student> studentManagePage(Map<String, Object> param);
+
+
+	
+
+
+	@Update("update teacher set personsubmit='1' where studno=#{studno}")
+	boolean updatePersonYN(Integer studno);
+
+	
+}

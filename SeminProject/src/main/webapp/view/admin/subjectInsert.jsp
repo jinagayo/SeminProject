@@ -18,7 +18,7 @@
      </div>
      <div class="card-body">
      <form action="subjectInsert" name="f" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
-    	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align:left;">
+    	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;">
        		<tr class="text-center">
        			<th style="background-color: #2c3e50 !important;">과목코드</th>
        			<td><input type="text" name="subcode" style="width:100%;" class="input-group-text"></td>
@@ -50,13 +50,16 @@
        		<tr class="text-center">
        			<th style="background-color: #2c3e50 !important;">교직이수</th>
        			<td>
-	       			<input type="checkbox" name="teachsub" value="1" id="sub1" class="form-check-input"> O &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	       			<input type="checkbox" name="teachsub" value="2" id="sub2" class="form-check-input"> X 
+					<input type="checkbox" name="teachsub" value="1" class="btn-check" id="sub1" autocomplete="off">
+					<label class="btn btn-outline-success" for="sub1">&nbsp;O&nbsp;</label>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<input type="checkbox" name="teachsub" value="2" class="btn-check" id="sub2" autocomplete="off"> 
+					<label class="btn btn-outline-danger" for="sub2">&nbsp;X&nbsp;</label>
        			</td>
        		</tr>
        		<tr>
        			<td colspan="2">
-       				<button type="submit" class="btn btn-primary text-center">등록</button>
+       				<button type="submit" class="btn btn-primary text-center" style=" text-align: center;width:150px">등록</button>
        			</td>
        		</tr>
     	</table>

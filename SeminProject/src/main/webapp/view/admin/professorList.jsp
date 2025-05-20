@@ -20,13 +20,15 @@
 		</c:if>
    		<input type="hidden" name="pageNum" id="pageNum" value="${pageNum}">
 	     <div class="card-body" style="position:relative;align-items:center;">
-	     	<select id="select" name="select" style="position:absolute;align-items:center;left:30%">
+	     	<select id="select" name="select" style="position:absolute;align-items:center;left:28%;width:150px" class="form-select form-select-m mb-3">
 	     		<option value="profno" selected>교수번호</option>
 	     		<option value="major">전공</option>
 	     		<option value="name">이름</option>
 	     	</select>
-	     	<input type="text" name="searchList" placeholder="(검색어입력)" style="position:absolute;left:38%;width:400px;">
-	     	<button type="submit" id="searchbtn" class="btn btn-primary" style="position:absolute;left:64%;height:35px">검색</button>
+	     	<div class="container-fluid">
+	     		<input type="text" name="searchList" placeholder="(검색어입력)" style="position:absolute;left:38%;width:400px;" class="form-control me-2">
+	     		<button type="submit" id="searchbtn" class="btn btn-outline-success" style="position:absolute;left:64%;height:35px">검색</button>
+	     	</div>
 	    	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align: center;margin-top:50px">
 		       		<tr>
 		       			<th style="background-color: #2c3e50 !important;">교수번호</th>
@@ -34,6 +36,9 @@
 		       			<th style="background-color: #2c3e50 !important;">이름</th>
 		       		</tr>
 		       		
+		       		<c:if test="${empty list}">
+				   		<tr><td colspan="3">조회 결과가 없습니다.</td></tr>
+					</c:if>
 		       		<c:forEach var="row" items="${list}">
 		       			<tr onclick="location.href='../admin/professorInfo?profno=${row.profno}'">	
 		       				<td>${row.profno}</td>
@@ -45,29 +50,47 @@
 	    </div>
     </form>
  </div>
-  		<div class="text-xxl-center text-secondary">
-			<c:if test="${pageNum > 1}">
-		    <a href="javascript:listsubmit(${pageNum-1})" class="text-decoration-none">◀️</a>
-			</c:if>
-			<c:if test="${pageNum <= 1}">
-			    ◀️
-			</c:if>
-			
-			<c:forEach var="a" begin="${startpage}" end="${endpage}">
-			    <c:if test="${a == pageNum}">
-			    	<span class="num text-decoration-none">[${a}]</span>
-			    </c:if>
-			    <c:if test="${a != pageNum}">
-			        <a href="javascript:listsubmit(${a})" class="num text-decoration-none">${a}</a>
-			    </c:if>
-			</c:forEach>
-			
-			<c:if test="${pageNum < maxpage}">
-			    <a href="javascript:listsubmit(${pageNum+1})" class="text-decoration-none">▶️</a>
-			</c:if>
-			<c:if test="${pageNum >= maxpage}">
-			    ▶️
-			</c:if>
+  		<div aria-label="Page navigation example" class="d-flex justify-content-center sticky-bottom">
+  			<ul class="pagination sticky-xl-bottom">
+				<c:if test="${pageNum > 1}">
+				    <li class="page-item">
+				    	<a href="javascript:listsubmit(${pageNum-1})" class="page-link" aria-label="Previous">
+				    		<span aria-hidden="true">&laquo;</span>
+				    	</a>
+				    </li>
+				</c:if>
+				<c:if test="${pageNum <= 1}">
+				   	<li class="page-item">
+				   		<a class="page-link" href="#" aria-label="Previous">
+				    		<span aria-hidden="true">&laquo;</span>
+				    	</a>
+				    </li>
+				</c:if>
+				
+				<c:forEach var="a" begin="${startpage}" end="${endpage}">
+				    <c:if test="${a == pageNum}">
+				    	<li class="page-item"><a class="page-link">${a}</a></li>
+				    </c:if>
+				    <c:if test="${a != pageNum}">
+				        <li class="page-item"><a href="javascript:listsubmit(${a})" class="page-link">${a}</a></li>
+				    </c:if>
+				</c:forEach>
+				
+				<c:if test="${pageNum < maxpage}">
+				    <li class="page-item">
+				    	<a href="javascript:listsubmit(${pageNum+1})" class="page-link" aria-label="Next">
+				    		<span aria-hidden="true">&raquo;</span>
+				    	</a>
+				    </li>
+				</c:if>
+				<c:if test="${pageNum >= maxpage}">
+				   	<li class="page-item">
+				   		<a class="page-link" href="#" aria-label="Next">
+				    		<span aria-hidden="true">&raquo;</span>
+				    	</a>	
+				    </li>
+				</c:if>
+			</ul>
 		</div>
 	<script type="text/javascript">
 	    function listsubmit(page) {
@@ -75,14 +98,6 @@
 	        document.sf.submit();
 	    }
 	    
-	    const emojiMap = ['0️⃣','1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣','7️⃣','8️⃣','9️⃣','🔟'];
-	    document.querySelectorAll('.num').forEach(el => {
-	      const n = el.textContent.replace(/\D/g, ''); // 숫자만 추출
-	      const i = parseInt(n, 10);
-	      if (i >= 0 && i <= 10) {
-	        el.textContent = emojiMap[i];
-	      }
-	    });
 	</script>
   </body>
 </html>

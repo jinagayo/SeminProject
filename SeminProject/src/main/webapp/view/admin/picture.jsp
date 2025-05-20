@@ -16,4 +16,5 @@
 	opener.document.f.img.value="${fname}" ;
 	//self : 현재페이지의 window 객체
 	window.close() ;
+
 </script>

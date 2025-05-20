@@ -44,4 +44,5 @@ imagefile.addEventListener('change',function(e){ //이벤트 핸들러 등록
 </script>
 
 </body>
+
 </html>

@@ -30,5 +30,53 @@
       </table>
    </div>
  </div>
+   		<div aria-label="Page navigation example" class="d-flex justify-content-center sticky-bottom">
+  			<ul class="pagination sticky-xl-bottom">
+				<c:if test="${pageNum > 1}">
+				    <li class="page-item">
+				    	<a href="javascript:listsubmit(${pageNum-1})" class="page-link" aria-label="Previous">
+				    		<span aria-hidden="true">&laquo;</span>
+				    	</a>
+				    </li>
+				</c:if>
+				<c:if test="${pageNum <= 1}">
+				   	<li class="page-item">
+				   		<a class="page-link" aria-label="Previous">
+				    		<span aria-hidden="true">&laquo;</span>
+				    	</a>
+				    </li>
+				</c:if>
+				
+				<c:forEach var="a" begin="${startpage}" end="${endpage}">
+				    <c:if test="${a == pageNum}">
+				    	<li class="page-item"><a class="page-link">${a}</a></li>
+				    </c:if>
+				    <c:if test="${a != pageNum}">
+				        <li class="page-item"><a href="javascript:listsubmit(${a})" class="page-link">${a}</a></li>
+				    </c:if>
+				</c:forEach>
+				
+				<c:if test="${pageNum < maxpage}">
+				    <li class="page-item">
+				    	<a href="javascript:listsubmit(${pageNum+1})" class="page-link" aria-label="Next">
+				    		<span aria-hidden="true">&raquo;</span>
+				    	</a>
+				    </li>
+				</c:if>
+				<c:if test="${pageNum >= maxpage}">
+				   	<li class="page-item">
+				   		<a class="page-link" href="#" aria-label="Next">
+				    		<span aria-hidden="true">&raquo;</span>
+				    	</a>	
+				    </li>
+				</c:if>
+			</ul>
+		</div>
+ 	<script type="text/javascript">
+	    function listsubmit(page) {
+	        document.getElementById("pageNum").value = page;
+	        document.sf.submit();
+	    }
+	</script>
 </body>
 </html>

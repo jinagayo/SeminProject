@@ -193,7 +193,8 @@ public class StudentController extends MskimRequestMapping{
 		}
 		else {
 			return "student-teach-practice";
-		}
+	}
+
 	}
 	@MSLogin("noticecheck")
 	@RequestMapping("praticesubmit")
@@ -596,7 +597,7 @@ public class StudentController extends MskimRequestMapping{
 	    }
 
 	    List<Map<String, Object>> map = his_dao.selectHistory(param);
-	    
+	    System.out.println(map);
 	    request.setAttribute("option", year);
 	    request.setAttribute("semester", semester);
 	    request.setAttribute("list", map);

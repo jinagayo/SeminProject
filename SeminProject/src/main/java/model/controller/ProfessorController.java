@@ -4,7 +4,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+
+import java.util.Collections;
+
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -36,6 +40,7 @@ import model.student.Student;
 import model.student.StudentDao;
 import model.subject.Subject;
 import model.subject.SubjectDao;
+import model.teacher.TeacherDao;
 import model.user.User;
 import model.user.UserDao;
 
@@ -52,6 +57,7 @@ public class ProfessorController extends MskimRequestMapping {
 	private PersonalityDao pdao = new PersonalityDao();
 	private BoardDao boadao = new BoardDao();
 	private CommentDao commdao = new CommentDao();
+	private TeacherDao teadao = new TeacherDao(); 
 	
 	public String noticecheck(HttpServletRequest request, HttpServletResponse response ) {
 		Integer id = (Integer) request.getSession().getAttribute("login");
@@ -93,11 +99,19 @@ public class ProfessorController extends MskimRequestMapping {
 		
 		List<Subject> lcodeList = subdao.selectLcode(id);
 		request.setAttribute("lcodeList", lcodeList);
-		List<Integer> subcodes = lcodeList.stream()
-                .map(Subject::getSubcode)
-                .collect(Collectors.toList());
 		
-		List<Subject>  sub_info = subdao.selectSub(subcodes);
+		List<Subject>  sub_info = new ArrayList<Subject>();
+		
+		if(lcodeList != null && !lcodeList.isEmpty()) {
+			List<Integer> subcodes = lcodeList.stream()
+	                .map(Subject::getSubcode)
+	                .collect(Collectors.toList());
+			if(!subcodes.isEmpty()) {
+				sub_info = subdao.selectSub(subcodes);
+			}
+		}
+		
+		//List<Subject>  sub_info = subdao.selectSub(subcodes);
 		request.setAttribute("sub", sub_info);
 		
 	    String[] time = new String[10];
@@ -133,18 +147,56 @@ public class ProfessorController extends MskimRequestMapping {
 	@RequestMapping("professor-student-manage") 
 	public String StudentManage(HttpServletRequest request,
 			HttpServletResponse response) {
-		Integer id = (Integer) request.getSession().getAttribute("login");
-		
-		List<Student> studentList = stddao.selectStudentId(id);
-		request.setAttribute("studentList",studentList);
-		List<Integer> studno = studentList.stream()
-				.map(Student::getStudno)
-				.collect(Collectors.toList());
-		
-		List<User> user_info = userdao.selectMany(studno);
-		request.setAttribute("user",user_info);
-		
-		return "professor-student-manage";
+	    Integer id = (Integer) request.getSession().getAttribute("login");
+
+	    // 1. 페이지 관련 설정
+	    int pagesize = 10;
+	    String pageNumStr = request.getParameter("pageNum");
+	    int pageNum = (pageNumStr != null && !pageNumStr.trim().equals("")) ? Integer.parseInt(pageNumStr) : 1;
+	    int startRow = (pageNum - 1) * pagesize;
+
+	    // 2. 쿼리 파라미터 준비
+	    Map<String, Object> param = new HashMap<>();
+	    param.put("id", id);
+	    param.put("startRow", startRow);
+	    param.put("pagesize", pagesize);
+
+	    // 3. 페이징된 학생 목록 조회
+	    List<Student> studentList = stddao.selectStudentIdPage(param);
+	    request.setAttribute("studentList", studentList);
+
+	    System.out.println("stdList"+studentList);
+	    
+	    // 4. 학생의 studno만 추출
+	    List<Integer> studno = studentList.stream()
+	            .map(Student::getStudno)
+	            .collect(Collectors.toList());
+	    
+	    if (studentList == null || studentList.isEmpty()) {
+	        request.setAttribute("studentList", Collections.emptyList());
+	        request.setAttribute("user", Collections.emptyList());
+	        request.setAttribute("pageNum", 1);
+	        request.setAttribute("startpage", 1);
+	        request.setAttribute("endpage", 1);
+	        request.setAttribute("maxpage", 1);
+	        return "professor-student-manage";
+	    }
+
+	    List<User> user_info = userdao.selectMany(studno);
+	    request.setAttribute("user", user_info);
+
+	    // 5. 전체 학생 수 계산
+	    int total = stddao.countProfessorStudents(id);
+	    int maxpage = (int)((total + pagesize - 1) / pagesize);
+	    int startpage = ((pageNum - 1) / 10) * 10 + 1;
+	    int endpage = Math.min(startpage + 9, maxpage);
+
+	    request.setAttribute("pageNum", pageNum);
+	    request.setAttribute("startpage", startpage);
+	    request.setAttribute("endpage", endpage);
+	    request.setAttribute("maxpage", maxpage);
+
+	    return "professor-student-manage";
 	}
 	
 	@MSLogin("noticecheck")
@@ -168,7 +220,14 @@ public class ProfessorController extends MskimRequestMapping {
 	@MSLogin("noticecheck")
 	@RequestMapping("professor-myclass")
 	public String MyClass(HttpServletRequest request,HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
 		Integer id = (Integer) request.getSession().getAttribute("login");
+
 		List<Subject>sublist = subdao.selectPsubject(id);
 		request.setAttribute("sublist",sublist);
 		ArrayList countQA = new ArrayList();
@@ -176,7 +235,6 @@ public class ProfessorController extends MskimRequestMapping {
 		    int x = boadao.countQA(i);
 		    countQA.add(x);
 		}
-		
 		request.setAttribute("countQA",countQA);
 		return "professor-myclass";
 	}
@@ -311,7 +369,7 @@ public class ProfessorController extends MskimRequestMapping {
 		
 		request.setAttribute("url","professor-Ckpersonality?studno="+studno);
 
-		if(pdao.perChek(p)) {
+		if(pdao.perChek(p)&&teadao.updatePersonYN(studno)) {
 			request.setAttribute("msg", "등록되었습니다");
 		}else {
 			request.setAttribute("msg", "등록 실패");	

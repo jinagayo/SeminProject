@@ -17,6 +17,8 @@ public class User implements Serializable {
 
 	private int position;
 
+	private String img;
+
 	public void setImg(String img) {
 		this.img = img;
 	}

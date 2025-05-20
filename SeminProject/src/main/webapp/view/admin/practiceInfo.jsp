@@ -5,6 +5,8 @@
 <html>
   <head>
   	<link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" />
+  	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" 
+  	 integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
     <title>교육 실습 일지 </title>
   </head>
   <body>
@@ -47,19 +49,15 @@
        		</tr>
        	</table>
        	<form action="practiceaccept?studno=${list.studno }" method="post" accept-charset="UTF-8"  name="f" >
-       		<table>
-	       		<tr>
-	       			<td colspan=2>
-	       				<input type="radio" name="accept" value="1"/>승인
-	       				<input type="radio" name="accept" value="0"/>반려
-	       			</td>
-	       		</tr>
-	       		<tr>
-				    <td class="text-center">
-				      <button type="submit" class="btn btn-secondary">제출</button>
-				    </td>
-	       		</tr>
-       		</table>
+	       	<div class="text-center">
+	       	<input type="radio" name="accept" value="1" class="btn-check" id="success-outlined" autocomplete="off"/>
+	       	<label class="btn btn-outline-success" for="success-outlined">&nbsp;승인&nbsp;</label>
+	       	&nbsp;&nbsp;
+	       	<input type="radio" name="accept" value="0" class="btn-check"  id="danger-outlined" autocomplete="off"/>
+	       	<label class="btn btn-outline-danger" for="danger-outlined">&nbsp;반려&nbsp;</label>
+	       	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	       	<button type="submit" class="btn btn-primary" style=" text-align: center;width:150px">제출</button>
+	       	</div> 
        	</form>
     	
     </div>

@@ -73,6 +73,7 @@ public class UserDao{
 		 return false;	
 	}
 
+
 	public boolean updatePicture(Integer id, String fname) {
 		 SqlSession session  = MybatisConnection.getConnection();
 		 try {
@@ -84,7 +85,8 @@ public class UserDao{
 		 }
 		 return false;	
 	}
-	
+
+  
 	public boolean updateUser(User user) {
 		 SqlSession session  = MybatisConnection.getConnection();
 		 try {
@@ -96,5 +98,5 @@ public class UserDao{
 		 }
 		return false;
 	}
-	
+
 }
