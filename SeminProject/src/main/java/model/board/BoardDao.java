@@ -262,8 +262,7 @@ public class BoardDao {
 			map2.put("limit", limit);
 			map2.put("boardid", boardid);
 			map2.put("subcode", subcode);	
-			System.out.println("map2==========="+map2);
-			return session.getMapper(cls).subbBoardlist3(map);
+			return session.getMapper(cls).subbBoardlist3(map2);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {

@@ -56,7 +56,7 @@
 	<tr>
 		<td colspan="5" align="center">
 		<c:if test="${pageNum <=1 }">[이전]</c:if>
-		<c:if test="${pageNum > 1 }"><a href="list?pageNum=${pageNum-1}">[이전]</a></c:if>
+		<c:if test="${pageNum > 1 }"><a href="javascript:listsubmit(${pageNum-1})">[이전]</a></c:if>
 		<c:forEach var="a" begin="${startpage}" end="${endpage}">
 			<c:if test="${a==pageNum}">[${a}]</c:if>
 			<c:if test="${a!=pageNum}">
@@ -65,19 +65,21 @@
 		</c:forEach>
 		<c:if test="${pageNum>=maxpage}">다음</c:if>
 		<c:if test="${pageNum<maxpage}">
-			<a href="javascript:listsubmit(${pageNum+1})">다음</a>
+			<a href="javascript:listsubmit(${pageNum+1})">[다음]</a>
 		</c:if>
 		</td>
 	</tr>
 		<c:if test="${boardid=='2'}">
 			<tr>
 				<td colspan="5" style="text-align:right">
-				<form action="student-subject-board-writeForm" method="get" accept-charset="UTF-8"  name="f" >
+				<form action="student-subject-board" method="get" accept-charset="UTF-8"  name="sf" >
+					  <input type="hidden" name="pageNum" />
+					  <input type="hidden" name="subcode" value="${param.subcode}" />
+					  <input type="hidden" name="boardid" value="${boardid}" />
 					<button type="submit" class="btn btn-secondary text-center">글쓰기</button>
 					<input type="hidden" name="subcode" value="${param.subcode}"/>
 					<input type="hidden" name="boardid" value="${boardid}"/>
 				</form>
-				
 				</td>
 			</tr>
 		</c:if>
