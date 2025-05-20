@@ -63,10 +63,10 @@ public class SubjectDao {
 		 return null;
 	}
 
-	public List<Subject> selectPsubject(Integer id) {
+	public List<Map<String, Object>> selectPsubject(Map<String, Object> param) {
 		SqlSession session  = MybatisConnection.getConnection();
 		 try {
-			 return session.getMapper(cls).selectPsubject(id);
+			 return session.getMapper(cls).selectStudentPage(param);
 		 } catch (Exception e) {
 			 e.printStackTrace();
 		 } finally {
@@ -74,6 +74,20 @@ public class SubjectDao {
 		 }
 		 return null;
 	}
+	
+	 public int subjectCount(int id) {
+		 SqlSession session = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).selectPsubjectCount(id);
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		 return 0;
+	 }
+	
+	
 	public List<Map<String, Object>> selectall(int pageNum, int limit, String column, String find) {
 		SqlSession session  = MybatisConnection.getConnection();
 		 try {
@@ -133,4 +147,5 @@ public class SubjectDao {
 		 return null;
 	}
 
+	
 }

@@ -16,6 +16,8 @@
          <i class="fas fa-table me-1"></i>
               학생 목록
      </div>
+     <form name="sf" method="post" accept-charset="UTF-8" action="professor-student-manage">
+     <input type="hidden" name="pageNum" id="pageNum" value="${pageNum}" />
      <div class="card-body">
        <table id="datatablesSimple" border="1">
          <tr>
@@ -23,20 +25,32 @@
          </tr>
    
 	  <c:forEach var="s" items="${studentList}" varStatus="vs">
-	    	<tr> 
-	    	<td>${s.studno}</td>
+	    	<tr onclick="location.href='professor-student-info?studno=${s.studno}'"> 
+	    	<td>${s["studno"]}</td>
 	    		<c:forEach var="u" items="${user}" varStatus="vs">
-	    				<c:if test="${s.studno == u.id }">
-	    					<td onclick="location.href='professor-student-info?studno=${s.studno}'">
-	    							${u.name}
-	    					</td>
-	    				</c:if>
+					<c:if test="${s['studno'] eq u.id}">
+					    <td>${u.name}</td>
+					</c:if>
 	    		</c:forEach>
 	        </tr>
 	  </c:forEach>
       </table>
    </div>
+   </form>
  </div>
+ <ul class="pagination">
+  <c:forEach var="i" begin="${startpage}" end="${endpage}">
+    <li class="page-item">
+      <a href="javascript:listsubmit(${i})" class="page-link">${i}</a>
+    </li>
+  </c:forEach>
+</ul>
+ <script>
+  function listsubmit(page) {
+    document.getElementById("pageNum").value = page;
+    document.sf.submit();
+  }
+</script>
 </body>
 </html>
 

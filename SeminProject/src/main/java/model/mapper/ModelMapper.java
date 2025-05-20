@@ -72,7 +72,7 @@ public interface ModelMapper {
 	})
 	List<Subject> selectSub(List<Integer> subcodes);
 
-	@Select("SELECT studno FROM student s JOIN professor p ON s.profno = p.profno where p.profno = #{id} ")
+	@Select("SELECT * FROM student s JOIN professor p ON s.profno = p.profno where p.profno = #{id} ")
 	List<Student> selectStudentId(int id);
 
 	@Select({
@@ -86,9 +86,12 @@ public interface ModelMapper {
 	})
 	List<User> selectMany(List<Integer> studno);
 
-	@Select("SELECT * FROM subject WHERE profno=#{id}")
-	List<Subject> selectPsubject(int id);
+	@Select("SELECT * FROM subject WHERE profno=#{id} LIMIT #{startRow},#{pagesize}")
+	List<Map<String, Object>> selectStudentPage(Map<String, Object> param);
 
+	@Select("select count(*) FROM subject where profno=#{id}")
+	int selectPsubjectCount(int id);
+	
 	@Select("SELECT * FROM student WHERE studno = #{id}")
 	Student pickStudent(int id);
 
@@ -334,6 +337,7 @@ public interface ModelMapper {
 	@Update("UPDATE user SET password=#{chgpass} WHERE id=#{id}")
 	boolean updatePass(@Param("id")Integer id, @Param("chgpass")String chgpass);
 
+
 	
 	@Select("SELECT * FROM pratice where studno=#{id}")
 	Practice InfoPracticeOne(int id);
@@ -391,18 +395,27 @@ public interface ModelMapper {
 	
 
 
-
-	
 	//history
+	@Select({
+	    "<script>",
+	    "SELECT year, subject",
+	    "FROM history",
+	    "<where>",
+	    "  studno = #{studno}",
+	    "  <if test='year != null and year != \"\"'>",
+	    "    AND year = #{year}",
+	    "  </if>",
+	    "</where>",
+	    "</script>"
+	})
+	List<Map<String, Object>> selectHistory(Map<String, Object> param);
+	
+
 	@Update("update graduation set graduation=true where studno=#{studno}")
 	boolean updateGrad(Graduation grad_info);
 
 	@Update("update teacher set teacherYN=true where studno=#{studno}")
 	boolean updateTeach(Teacher teach_info);
-
-	
-	
-	
 	
 	
 
@@ -418,21 +431,24 @@ public interface ModelMapper {
 	@Insert("Insert into attendance (studno,subcode) values (#{studno},#{subcode})")
 	boolean insertsub(@Param("subcode")int subcode, @Param("studno")Integer id);
 	
+	//======================================================================
 	
-	//history
-	@Select({
-	    "<script>",
-	    "SELECT year, subject, grade",
-	    "FROM history",
-	    "<where>",
-	    "  studno = #{studno}",
-	    "  <if test='year != null and year != \"\"'>",
-	    "    AND year = #{year}",
-	    "  </if>",
-	    "</where>",
-	    "</script>"
-	})
-	List<Map<String, Object>> selectHistory(Map<String, Object> param);
+	
+	@Select("SELECT COUNT(*) FROM student WHERE profno = #{id}")
+	int countProfessorStudents(Integer id);
+	
+	@Select("SELECT u.name as name, u.id as studno"
+			+ " FROM attendance a"
+			+ " JOIN user u ON a.studno = u.id"
+			+ " JOIN subject s ON s.subcode = a.subcode"
+			+ " WHERE profno = #{id}"
+			+ " ORDER BY studno"
+			+ " LIMIT #{startRow}, #{pagesize}")
+	List<Student> studentManagePage(Map<String, Object> param);
+
+	
+
+
 
 	@Select("select * from major where ccode is null")
 	List<Major> allccode();
