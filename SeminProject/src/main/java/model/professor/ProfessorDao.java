@@ -33,5 +33,17 @@ public class ProfessorDao {
 		    }
 		    return null;
 		}
+
+	public boolean updateProfessor(Professor professor) {
+	    SqlSession session = MybatisConnection.getConnection();
+	    try {
+	        return session.getMapper(ModelMapper.class).updateProfessor(professor);
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    } finally {
+	        MybatisConnection.close(session);
+	    }
+		return false;
+	}
 	
 }	

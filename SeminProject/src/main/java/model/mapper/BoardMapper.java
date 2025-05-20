@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import model.board.Board;
+import model.subject.Subject;
 
 public interface BoardMapper {
 
@@ -83,4 +84,9 @@ public interface BoardMapper {
 			+ " ORDER BY regdate DESC"
 			+" limit #{start},#{limit} ")
 	List<Board> subbBoardlist3(Map<String, Object> map);
+
+
+	@Select("select count(*) from board where boardid='2' and subcode=#{subcode}")
+	int countQA(Subject i);
+
 }

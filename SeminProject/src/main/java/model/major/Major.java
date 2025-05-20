@@ -3,6 +3,13 @@ package model.major;
 public class Major {
 	private int mcode;
 	private String mname;
+	private int ccode;
+	public void setCcode(int ccode) {
+		this.ccode = ccode;
+	}
+	public int getCcode() {
+		return ccode;
+	}
 	public int getMcode() {
 		return mcode;
 	}

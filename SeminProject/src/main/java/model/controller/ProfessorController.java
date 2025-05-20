@@ -3,6 +3,7 @@ package model.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -54,7 +55,7 @@ public class ProfessorController extends MskimRequestMapping {
 	
 	public String noticecheck(HttpServletRequest request, HttpServletResponse response ) {
 		Integer id = (Integer) request.getSession().getAttribute("login");
-		System.out.println(id);
+
 		if(id==null) {
 			request.setAttribute("msg", "로그인 후 접근가능합니다.");
 			request.setAttribute("url", "/main/login");
@@ -77,6 +78,8 @@ public class ProfessorController extends MskimRequestMapping {
 		User user_prof = dao.selectOne(id);
 		Map<String, Object> professor = dao.selectProfessor(id);
 		
+		String path = request.getServletContext().getRealPath("") + "picture/";
+		request.setAttribute("path",path);
 		request.setAttribute("user_prof", user_prof); //user 테이블 정보
 		request.setAttribute("prof", professor); //professor 테이블 정보
 		return "professor-mypage-info";
@@ -168,6 +171,13 @@ public class ProfessorController extends MskimRequestMapping {
 		Integer id = (Integer) request.getSession().getAttribute("login");
 		List<Subject>sublist = subdao.selectPsubject(id);
 		request.setAttribute("sublist",sublist);
+		ArrayList countQA = new ArrayList();
+		for (Subject i : sublist) {
+		    int x = boadao.countQA(i);
+		    countQA.add(x);
+		}
+		
+		request.setAttribute("countQA",countQA);
 		return "professor-myclass";
 	}
 	
@@ -405,53 +415,6 @@ public class ProfessorController extends MskimRequestMapping {
 	
 
 	
-	@MSLogin("noticecheck")
-	@RequestMapping("professor-subject-board-writeForm")
-	public String subBoardWriteForm(HttpServletRequest request,HttpServletResponse response) {
-		String boardid=request.getParameter("boardid");
-		String subcode=request.getParameter("subcode");
-		request.setAttribute("boardid", boardid);
-		return "professor-subject-board-writeForm";
-	}
-	
-	@MSLogin("noticecheck")
-	@RequestMapping("professor-subject-board-write")
-	public String subBoardWrite(HttpServletRequest request,HttpServletResponse response) {
-		Integer id = (Integer) request.getSession().getAttribute("login");
-		User user= dao.selectOne(id);
-		String path=request.getServletContext().getRealPath("/")+"/upload/QNA/";
-		File f= new File(path);
-		if(!f.exists()) f.mkdirs(); 
-		int size=10*1024*1024;	//10M. 업로드 파일의 최대 크기
-		MultipartRequest multi = null; //파일 업로드 클래스
-		try {
-			multi = new MultipartRequest(request,path,size,"UTF-8"); //파일 업롣,
-		}catch(IOException e) {
-			e.printStackTrace();
-		}
-		String boardid= multi.getParameter("boardid");
-		int subcode= Integer.parseInt(multi.getParameter("subcode"));
-		
-		Board board = new Board();
-		board.setWriter(user.getName());
-		board.setTitle(multi.getParameter("title"));
-		board.setContent(multi.getParameter("content"));
-		board.setFile1(multi.getFilesystemName("file1"));
-		board.setBoardid(boardid);
-		board.setSubcode(subcode);
-
-		
-		if(boadao.writeboard(board)) {
-			request.setAttribute("msg", "등록되었습니다.");
-			request.setAttribute("url", "professor-subject-Mboard?subcode="+subcode+"&boardid="+boardid);
-			
-		}else {
-			request.setAttribute("msg", "등록실패.");
-			request.setAttribute("url", "redirect:professor-subject-Mboard?subcode="+subcode+"&boardid="+boardid);
-			
-		}
-		return "alert";
-	}
 	
 	
 	@RequestMapping("professor-subject-Mboard")
@@ -603,9 +566,44 @@ public class ProfessorController extends MskimRequestMapping {
 			   return "redirect:professor-subject-board-info?num="+comm.getNum2()+"&readcnt=f" ;
 		   }
 		   request.setAttribute("msg", "답글 등록시 오류 발생") ;
-		   request.setAttribute("url", "info?num="+comm.getNum2()+"&readcnt=f") ;
+		   request.setAttribute("url", "p_info?num="+comm.getNum2()+"&readcnt=f") ;
 		   return "alert";
 	}
+	
+	@RequestMapping("pictureForm") 
+	public String pictureForm (HttpServletRequest request,
+			   HttpServletResponse response) {
+		
+		return "pictureForm";
+	}
+	
+	/*
+	   1. request 객체로 이미지 업로드 불가 => cos.jar  
+	   2. 이미지 업로드 폴더 : 현재폴더/picture 설정 
+	   3. opener 화면에 이미지 볼수 있도록 결과 전달 => javascript
+	   4. 현재 화면 close 하기                   => javascript
+	 */
+	   @RequestMapping("picture")
+	   public String picture (HttpServletRequest request,
+			   HttpServletResponse response) {
+		   String path = request.getServletContext().getRealPath("") + "picture/";
+		   String fname = null;
+		   File f = new File(path); //업로드되는 폴더 정보
+		   System.out.println(f);
+		   if(!f.exists()) f.mkdirs(); //폴더 생성
+		   MultipartRequest multi = null;
+		   try {
+	     	multi =   new MultipartRequest(request,path, 10*1024*1024,"utf-8");
+		   } catch (IOException e) {
+			   e.printStackTrace();
+		   }
+		   fname = multi.getFilesystemName("picture"); //선택된 파일의 이름
+		   request.setAttribute("fname", fname);
+		   Integer id = (Integer) request.getSession().getAttribute("login");
+		   userdao.updatePicture(id, fname); // DB에 사진 파일명 저장
+		
+		   return "picture";
+	   }
 }
 
 

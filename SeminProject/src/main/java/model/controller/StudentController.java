@@ -1,4 +1,3 @@
-
 package model.controller;
 import java.io.File;
 import java.io.IOException;
@@ -28,6 +27,8 @@ import model.attendance.Attendance;
 import model.attendance.AttendanceDao;
 import model.board.Board;
 import model.board.BoardDao;
+import model.comment.Comment;
+import model.comment.CommentDao;
 import model.graduation.Graduation;
 import model.graduation.GraduationDao;
 import model.history.History;
@@ -65,6 +66,7 @@ public class StudentController extends MskimRequestMapping{
 	private MajorDao majdao=new MajorDao();
 	private BoardDao boadao=new BoardDao();
 	private HistoryDao his_dao = new HistoryDao();
+	private CommentDao commdao = new CommentDao();
 	
 	public String noticecheck(HttpServletRequest request, HttpServletResponse response ) {
 		Integer id = (Integer) request.getSession().getAttribute("login");
@@ -98,7 +100,6 @@ public class StudentController extends MskimRequestMapping{
 		request.setAttribute("std", student); //student 테이블 정보
 		return "student-mypage-info";
 	}
-	
 	@MSLogin("noticecheck")
 	@RequestMapping("student-mypage-grad") 
 	public String MypageGrade(HttpServletRequest request,
@@ -111,7 +112,6 @@ public class StudentController extends MskimRequestMapping{
 		request.setAttribute("teach", teach_info);
 		return "student-mypage-grad";
 	}
-	
 	@MSLogin("noticecheck")
 	@RequestMapping("student-mypage-time") 
 	public String MypageTime(HttpServletRequest request,
@@ -191,16 +191,10 @@ public class StudentController extends MskimRequestMapping{
 			}
 			return "student-teach-practice";
 		}
-
 		else {
-			request.setAttribute("msg", "실습 일지가 존재하지 않습니다.");
-			request.setAttribute("url", "student-teach-info" );
-			return "alert";
-
+			return "student-teach-practice";
 		}
-	
 	}
-	
 	@MSLogin("noticecheck")
 	@RequestMapping("praticesubmit")
 	public String praticesubmit(HttpServletRequest request,
@@ -503,6 +497,22 @@ public class StudentController extends MskimRequestMapping{
 		return "student-subject-board";
 	
 	}
+	@RequestMapping("student-subject-board-info")
+	public String subBoardInfo(HttpServletRequest request,
+			HttpServletResponse response) {
+		Integer id =(Integer)request.getSession().getAttribute("login");
+		String num = request.getParameter("num");
+		Board board = boadao.selectOne(Integer.parseInt(num));
+		Subject subject = subdao.selectSubject(Integer.toString(board.getSubcode()));
+		User user = dao.selectOne(id);
+		request.setAttribute("b", board);
+		request.setAttribute("s", subject);
+		request.setAttribute("u", user);
+		List<Comment> commentlist= commdao.list(num) ;
+		request.setAttribute("commlist", commentlist) ;
+		return "student-subject-board-info";
+	}
+	
 
 	@MSLogin("noticecheck")
 	@RequestMapping("student-subject-board-writeForm")
@@ -591,7 +601,5 @@ public class StudentController extends MskimRequestMapping{
 	    request.setAttribute("semester", semester);
 	    request.setAttribute("list", map);
 	    return "student-history";
-
 	}
 }
-

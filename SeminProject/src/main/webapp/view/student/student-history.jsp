@@ -44,7 +44,6 @@
 	       			<th style="background-color: #2c3e50 !important;">학기</th>
 	       			<th style="background-color: #2c3e50 !important;">강의명</th>
 	       			<th style="background-color: #2c3e50 !important;">성적</th>
-
 	       		</tr>
 	       		<c:if test="${empty list}">
 				   	<tr><td colspan="2">조회 결과가 없습니다.</td></tr>

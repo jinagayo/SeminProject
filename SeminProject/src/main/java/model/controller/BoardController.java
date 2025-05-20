@@ -19,7 +19,10 @@ import gdu.mskim.RequestMapping;
 import model.board.Board;
 import model.board.BoardDao;
 import model.comment.Comment;
+import model.comment.CommentDao;
 import model.student.StudentDao;
+import model.subject.Subject;
+import model.subject.SubjectDao;
 import model.user.User;
 import model.user.UserDao;
 
@@ -29,7 +32,9 @@ public class BoardController extends MskimRequestMapping{
 	private BoardDao boardDao = new BoardDao();
 	private StudentDao stuDao = new StudentDao();
 	private UserDao userDao= new UserDao();
-
+	private SubjectDao subDao = new SubjectDao();
+	private CommentDao comDao = new CommentDao();
+	
 	public String noticecheck(HttpServletRequest request, HttpServletResponse response ) {
 		Integer id = (Integer) request.getSession().getAttribute("login");
 		System.out.println(id);
@@ -40,6 +45,24 @@ public class BoardController extends MskimRequestMapping{
 		}else {
 			User user_std = userDao.selectOne(id);
 			if(user_std.getPosition()!=3) {
+				request.setAttribute("msg", "접근 불가");
+				request.setAttribute("url", "/main/main");
+				return "/alert";
+			}
+			return null;
+		}
+	}
+	
+	public String noticecheck2(HttpServletRequest request, HttpServletResponse response ) {
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		System.out.println(id);
+		if(id==null) {
+			request.setAttribute("msg", "접근 불가");
+			request.setAttribute("url", "/main/main");
+			return "/alert";
+		}else {
+			User user_std = userDao.selectOne(id);
+			if(user_std.getPosition()!=2) {
 				request.setAttribute("msg", "접근 불가");
 				request.setAttribute("url", "/main/main");
 				return "/alert";
@@ -112,8 +135,25 @@ public class BoardController extends MskimRequestMapping{
 		return "writeForm";
 	}
 	
-	@RequestMapping("write")
+	@MSLogin("noticecheck2")
+	@RequestMapping("p_writeForm") 
+	public String p_writeForm(HttpServletRequest request,HttpServletResponse response) {
+		String boardid=request.getParameter("boardid");
+		String subcode=request.getParameter("subcode");
+		request.setAttribute("boardid", boardid);
+		return "p_writeForm";
+	}
+	
+	@RequestMapping("s_writeForm") 
+	public String s_writeForm(HttpServletRequest request,HttpServletResponse response) {
+		String boardid=request.getParameter("boardid");
+		String subcode=request.getParameter("subcode");
+		request.setAttribute("boardid", boardid);
+		return "s_writeForm";
+	}
+	
 	@MSLogin("noticecheck")
+	@RequestMapping("write")
 	public String write(HttpServletRequest request, HttpServletResponse response ) {
 		//파일업로드 되는 폴더 설정
 		String path=request.getServletContext().getRealPath("/")+"/upload/board/";
@@ -151,6 +191,85 @@ public class BoardController extends MskimRequestMapping{
 		request.setAttribute("url", url);
 		return "alert";
 	}
+	
+	@MSLogin("noticecheck2")
+	@RequestMapping("write2")
+	public String write2(HttpServletRequest request, HttpServletResponse response ) {
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		User user= userDao.selectOne(id);
+		String path=request.getServletContext().getRealPath("/")+"/upload/subjectnotice/";
+		File f= new File(path);
+		if(!f.exists()) f.mkdirs(); 
+		int size=10*1024*1024;	//10M. 업로드 파일의 최대 크기
+		MultipartRequest multi = null; //파일 업로드 클래스
+		try {
+			multi = new MultipartRequest(request,path,size,"UTF-8"); //파일 업롣,
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		String boardid= multi.getParameter("boardid");
+		int subcode= Integer.parseInt(multi.getParameter("subcode"));
+		
+		Board board = new Board();
+		board.setWriter(user.getName());
+		board.setTitle(multi.getParameter("title"));
+		board.setContent(multi.getParameter("content"));
+		board.setFile1(multi.getFilesystemName("file1"));
+		board.setBoardid(boardid);
+		board.setSubcode(subcode);
+
+		
+		if(boardDao.writeboard(board)) {
+			request.setAttribute("msg", "등록되었습니다.");
+			request.setAttribute("url", "../professor/professor-subject-Mboard?subcode="+subcode+"&boardid="+boardid);
+			
+		}else {
+			request.setAttribute("msg", "등록실패.");
+			request.setAttribute("url", "redirect:../professor/professor-subject-Mboard?subcode="+subcode+"&boardid="+boardid);
+			
+		}
+		return "alert";
+	}
+	
+	
+	@RequestMapping("write3")
+	public String write3(HttpServletRequest request, HttpServletResponse response ) {
+		Integer id = (Integer) request.getSession().getAttribute("login");
+		User user= userDao.selectOne(id);
+		String path=request.getServletContext().getRealPath("/")+"/upload/subjectQ&A/";
+		File f= new File(path);
+		if(!f.exists()) f.mkdirs(); 
+		int size=10*1024*1024;	//10M. 업로드 파일의 최대 크기
+		MultipartRequest multi = null; //파일 업로드 클래스
+		try {
+			multi = new MultipartRequest(request,path,size,"UTF-8"); //파일 업롣,
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+		String boardid= multi.getParameter("boardid");
+		int subcode= Integer.parseInt(multi.getParameter("subcode"));
+		
+		Board board = new Board();
+		board.setWriter(user.getName());
+		board.setTitle(multi.getParameter("title"));
+		board.setContent(multi.getParameter("content"));
+		board.setFile1(multi.getFilesystemName("file1"));
+		board.setBoardid(boardid);
+		board.setSubcode(subcode);
+
+		
+		if(boardDao.writeboard(board)) {
+			request.setAttribute("msg", "등록되었습니다.");
+			request.setAttribute("url", "../student/student-subject-board?subcode="+subcode+"&boardid="+boardid);
+			
+		}else {
+			request.setAttribute("msg", "등록실패.");
+			request.setAttribute("url", "redirect:../student/student-subject-board?subcode="+subcode+"&boardid="+boardid);
+			
+		}
+		return "alert";
+	}
+	
 	@RequestMapping("info")
 	public String info(HttpServletRequest request, HttpServletResponse response ) {
 		int num = Integer.parseInt(request.getParameter("num"));
@@ -171,6 +290,38 @@ public class BoardController extends MskimRequestMapping{
 		return "info";
 	}
 	
+	@RequestMapping("p_info")
+	public String p_info(HttpServletRequest request, HttpServletResponse response ) {
+	
+		Integer id =(Integer)request.getSession().getAttribute("login");
+		String num = request.getParameter("num");
+		Board board = boardDao.selectOne(Integer.parseInt(num));
+		Subject subject = subDao.selectSubject(Integer.toString(board.getSubcode()));
+		User user = userDao.selectOne(id);
+		request.setAttribute("b", board);
+		request.setAttribute("s", subject);
+		request.setAttribute("u", user);
+		List<Comment> commentlist= comDao.list(num) ;
+		request.setAttribute("commlist", commentlist) ;
+		return "p_info";
+	}
+	
+	@RequestMapping("s_info")
+	public String s_info(HttpServletRequest request, HttpServletResponse response ) {
+	
+		Integer id =(Integer)request.getSession().getAttribute("login");
+		String num = request.getParameter("num");
+		Board board = boardDao.selectOne(Integer.parseInt(num));
+		Subject subject = subDao.selectSubject(Integer.toString(board.getSubcode()));
+		User user = userDao.selectOne(id);
+		request.setAttribute("b", board);
+		request.setAttribute("s", subject);
+		request.setAttribute("u", user);
+		List<Comment> commentlist= comDao.list(num) ;
+		request.setAttribute("commlist", commentlist) ;
+		return "s_info";
+	}
+	
 	@MSLogin("noticecheck")
 	@RequestMapping("updateForm")
 	public String updateForm(HttpServletRequest request, HttpServletResponse response ) {
@@ -180,10 +331,41 @@ public class BoardController extends MskimRequestMapping{
 		
 		return "updateForm";
 	}
+	
+	@MSLogin("noticecheck2")
+	@RequestMapping("p_updateForm")
+	public String p_updateForm(HttpServletRequest request, HttpServletResponse response ) {
+		int num = Integer.parseInt(request.getParameter("num"));
+		Board b = BoardDao.getBoard(num);
+		Subject subject = subDao.selectSubject(Integer.toString(b.getSubcode()));
+		System.out.println(subject);
+		request.setAttribute("s", subject);
+		request.setAttribute("b", b);
+		
+		return "p_updateForm";
+	}
+	
+
+	@RequestMapping("s_updateForm")
+	public String s_updateForm(HttpServletRequest request, HttpServletResponse response ) {
+		int num = Integer.parseInt(request.getParameter("num"));
+		Board b = BoardDao.getBoard(num);
+		Subject subject = subDao.selectSubject(Integer.toString(b.getSubcode()));
+		System.out.println(subject);
+		request.setAttribute("s", subject);
+		request.setAttribute("b", b);
+		
+		return "s_updateForm";
+	}
 	   @RequestMapping("update")
 	   public String update(HttpServletRequest request,HttpServletResponse response) {
 	      String path = request.getServletContext().getRealPath("/") + "/upload/board";
-	      
+	      Integer id = (Integer) request.getSession().getAttribute("login");
+		  Integer subcode = Integer.parseInt(request.getParameter("subcode"));
+		  Integer boardid = Integer.parseInt(request.getParameter("boardid"));
+		  Integer num = Integer.parseInt(request.getParameter("num"));
+		  User user_std = userDao.selectOne(id);
+		   
 	      File f= new File(path);
 	      String msg = "";
 	      String url = "";
@@ -214,8 +396,13 @@ public class BoardController extends MskimRequestMapping{
 
 	      if(boardDao.update(board)) {   //수정 성공
 	         msg = "게시글 수정 성공";
+	         if(user_std.getPosition()==3) {
 	         url = "info?num=" + board.getNum();
-	         return "redirect:info?num="+ board.getNum();
+	         }else if(user_std.getPosition()==2){
+	        	 url="p_info?boardid="+boardid+"&subcode="+subcode+"&num="+num;
+	         }else {
+	        	 url="s_info?boardid="+boardid+"&subcode="+subcode+"&num="+num;
+	         }
 	      }else { //수정실패
 	         msg = "게시글 수정 실패";
 	         url = "updateForm";
@@ -229,8 +416,11 @@ public class BoardController extends MskimRequestMapping{
 	   
 	   @RequestMapping("delete")
 	   public String delete(HttpServletRequest request,HttpServletResponse response) {
+		   Integer id = (Integer) request.getSession().getAttribute("login");
+		   Integer subcode = Integer.parseInt(request.getParameter("subcode"));
+		   Integer boardid = Integer.parseInt(request.getParameter("boardid"));
+		   User user_std = userDao.selectOne(id);
 			int num = Integer.parseInt(request.getParameter("num"));
-			System.out.println("nanan"+num);
 			Board board= BoardDao.getBoard(num);
 			String msg , url;
 			if(!boardDao.delete(board)) {
@@ -238,12 +428,42 @@ public class BoardController extends MskimRequestMapping{
 				url="deleteForm?num="+num;
 			}else {
 				msg="삭제되었습니다.";
+				if(user_std.getPosition()==3) {
 				url="notice";
+				}
+				else{
+					url="../professor/professor-subject-Mboard?boardid="+boardid+"&subcode="+subcode;
+				}
 			}
 		System.out.println("delete 함수 실행됨");
 		request.setAttribute("msg", msg);
 		request.setAttribute("url",url);
 			return "alert";
 	   }
+	   
+	   @RequestMapping("comment")
+		public String comment(HttpServletRequest request,HttpServletResponse response) {
+		      try {
+		          request.setCharacterEncoding("UTF-8");
+		       } catch (UnsupportedEncodingException e) {
+		          e.printStackTrace();
+		       }
+				Integer id =(Integer)request.getSession().getAttribute("login");
+				Integer subcode = Integer.parseInt(request.getParameter("subcode"));
+				Integer boardid = Integer.parseInt(request.getParameter("boardid"));
+			   Comment comm = new Comment() ;
+			   User user =userDao.selectOne(id);
+			   comm.setNum2(Integer.parseInt(request.getParameter("num")));
+			   comm.setContent(request.getParameter("content")) ;
+			   comm.setWriter(user.getName());
+			   int seq =comDao.maxseq(comm.getNum2()) ;
+			   comm.setSeq(++seq) ;
+			   if(comDao.insert(comm)) {
+				   return "redirect:p_info?num="+comm.getNum2()+"&boardid="+boardid+"&subcode="+subcode;
+			   }
+			   request.setAttribute("msg", "답글 등록시 오류 발생") ;
+			   request.setAttribute("url", "p_info?num="+comm.getNum2()+"&readcnt=f") ;
+			   return "alert";
 	
+}
 }

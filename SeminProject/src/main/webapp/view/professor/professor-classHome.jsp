@@ -10,7 +10,8 @@
 <body>
 
 <br>
-<div class="card mb-4 mx-5">
+<div class="card mb-4 mx-5" style="height:800px; background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)),  url('../assets/img/logo1.png'); 
+     	background-repeat: no-repeat;  background-position: center center;">
      <div class="card-header">
          <i class="fas fa-table me-1"></i>
              ${subject.subname}
@@ -33,7 +34,7 @@
     left: 20vw;
     right: 20vw;
     display: flex;
-    gap: 100px;
+    gap: 150px;
     justify-content: space-between;
     z-index: 1000;
   "

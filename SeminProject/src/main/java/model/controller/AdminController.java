@@ -16,11 +16,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.oreilly.servlet.MultipartRequest;
 
 import gdu.mskim.MSLogin;
 import gdu.mskim.MskimRequestMapping;
 import gdu.mskim.RequestMapping;
 import model.admin.AdminDao;
+import model.major.Major;
+import model.major.MajorDao;
 import model.practice.Practice;
 import model.practice.PracticeDao;
 import model.professor.Professor;
@@ -47,6 +50,7 @@ public class AdminController extends MskimRequestMapping {
 	private PracticeDao pra_dao = new PracticeDao();
 	private TeacherDao tea_dao = new TeacherDao();
 	private ServiceDao ser_dao = new ServiceDao();
+	private MajorDao major_dao = new MajorDao();
 	
 	//관리자체크
 	public String noticecheck(HttpServletRequest request, HttpServletResponse response ) {
@@ -85,6 +89,29 @@ public class AdminController extends MskimRequestMapping {
 	}
 	
 	//학생 정보
+	@RequestMapping("pictureForm")
+	public String pictureForm(HttpServletRequest request,HttpServletResponse response) {
+		return "pictureForm";
+	}
+
+	@RequestMapping("picture")
+	public String pircture(HttpServletRequest request,HttpServletResponse response) {
+		String path=request.getServletContext().getRealPath("")+"picture/" ;
+		String fname=null ;
+		File f = new File(path) ;	//업로드 되는 폴더 정보
+		if(!f.exists()) f.mkdir() ;//폴더 생성
+		MultipartRequest multi =null ;
+		try {
+			multi= new MultipartRequest(request,path,10*1024*1024,"UTF-8") ;
+		}catch(IOException e) {
+			e.printStackTrace() ;
+		}
+		fname=multi.getFilesystemName("picture") ;
+		request.setAttribute("fname", fname) ;
+	    System.out.println("업로드된 파일명: " + fname);  
+		return "picture";
+	}
+	//학생 정보
 	@MSLogin("noticecheck")
 	@RequestMapping("studentInfo")
 	public String adminStudentInfo(HttpServletRequest request,HttpServletResponse response) {
@@ -97,32 +124,104 @@ public class AdminController extends MskimRequestMapping {
 		request.setAttribute("std", student); //student 테이블 정보
 		return "studentInfo";
 	}
+	@RequestMapping("updateStudentForm")
+	public String updateStudent(HttpServletRequest request,HttpServletResponse response) {
+		int id = Integer.parseInt(request.getParameter("studno"));
+		User user=dao.selectOne(id);
+		Map<String, Object> student = dao.selectStudent(id);
+		List<Major> college = major_dao.allccode();
+		List<Major> major = major_dao.allMajor();
+		request.setAttribute("major", major);
+		request.setAttribute("college", college);
+		request.setAttribute("user_std", user);
+		request.setAttribute("std", student);
+		
+	
+		return "updateStudentForm";
+	}
+
+	@RequestMapping("updateStudent")
+	public String update(HttpServletRequest request, HttpServletResponse response) {     
+		try {
+	        request.setCharacterEncoding("UTF-8");
+	     } catch (UnsupportedEncodingException e) {
+	        e.printStackTrace();
+	     }
+		int id = Integer.parseInt(request.getParameter("studno") ); // 
+		User user = new User();
+		Student student = new Student();
+		String name = request.getParameter("name") ;
+		String email = request.getParameter("email") ;
+		int mcode =Integer.parseInt( request.getParameter("major")) ;
+		int grade = Integer.parseInt(request.getParameter("grade") );
+		String phone = request.getParameter("phone") ;
+		String address = request.getParameter("address") ;
+		user.setName(name);
+		user.setAddress(address);
+		user.setPhone(phone);
+		user.setEmail(email);
+		user.setName(name);
+		user.setId(id);
+		user.setImg(request.getParameter("img")) ;
+		student.setMcode(mcode);
+		student.setGrade(grade);
+		student.setStudno(id);
+		if(user_dao.updateUser(user)&&dao.updateStudent(student)) {
+			request.setAttribute("msg", "수정 완료");
+			request.setAttribute("url", "studentInfo?studno="+user.getId());
+		}else {
+			request.setAttribute("msg", "수정 실패");
+			request.setAttribute("url", "updateStudentForm?studno="+user.getId());
+			
+		}
+		return "alert" ;
+	}
+
 	
 	// 학생 등록
 	@MSLogin("noticecheck")
 	@RequestMapping("studentInsert")
 	public String adminStudentInsert(HttpServletRequest request,HttpServletResponse response){
+		
+		return "studentInsert";
+	}
+	@MSLogin("noticecheck")
+	@RequestMapping("studentInsertaction")
+	public String adminStudentInsertaction(HttpServletRequest request,HttpServletResponse response){
 		try {
 			request.setCharacterEncoding("UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		
+
+		String path=request.getServletContext().getRealPath("/")+"/picture/";
+		File f= new File(path);
+		if(!f.exists()) f.mkdirs(); //폴더 생성.
+		//mkdir() :  한단계 폴더만 생성
+		//mkdirs() : 여러단계 폴더 생성
+		int size=10*1024*1024;	//10M. 업로드 파일의 최대 크기
+		MultipartRequest multi = null; //파일 업로드 클래스
+		try {
+			multi = new MultipartRequest(request,path,size,"UTF-8"); //파일 업롣,
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
 		User user = new User();
 		Student std = new Student();
 		String msg = "";
 		String url = "";
 		
-		String name = request.getParameter("name");
-		String birth = request.getParameter("birth");
-		String phone = request.getParameter("phone");
-		String  address = request.getParameter("address");
-		String email = request.getParameter("email");
-		String entry = request.getParameter("entry");
-		String majorcode = request.getParameter("majorcode");
-		String profcode = request.getParameter("profcode");
+		String name = multi.getParameter("name");
+		String birth = multi.getParameter("birth");
+		String phone = multi.getParameter("phone");
+		String  address = multi.getParameter("address");
+		String email = multi.getParameter("email");
+		String entry = multi.getParameter("entry");
+		String majorcode = multi.getParameter("majorcode");
+		String profcode = multi.getParameter("profcode");
+		String file1 = multi.getFilesystemName("file1");
 		
-		if(entry == null || majorcode == null) {
+		if(entry == null || majorcode == null||file1==null) {
 			return "studentInsert";
 		}
 		
@@ -135,7 +234,7 @@ public class AdminController extends MskimRequestMapping {
 		user.setAddress(address);
 		user.setEmail(email);
 		user.setPosition(1);
-		
+		user.setImg(file1);
 		
 		std.setStudno(r_stdno);
 		std.setEntry(entry);
@@ -222,10 +321,28 @@ public class AdminController extends MskimRequestMapping {
 	//교수 등록
 	@MSLogin("noticecheck")
 	@RequestMapping("professorInsert")
+	public String professorInsert(HttpServletRequest request,HttpServletResponse response) {
+		return "professorInsert";
+	}
+	@MSLogin("noticecheck")
+	@RequestMapping("professorInsertaction")
 	public String adminProfessorInsert(HttpServletRequest request,HttpServletResponse response) {
 		try {
 			request.setCharacterEncoding("UTF-8");
 		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+
+		String path=request.getServletContext().getRealPath("/")+"/picture/";
+		File f= new File(path);
+		if(!f.exists()) f.mkdirs(); //폴더 생성.
+		//mkdir() :  한단계 폴더만 생성
+		//mkdirs() : 여러단계 폴더 생성
+		int size=10*1024*1024;	//10M. 업로드 파일의 최대 크기
+		MultipartRequest multi = null; //파일 업로드 클래스
+		try {
+			multi = new MultipartRequest(request,path,size,"UTF-8"); //파일 업롣,
+		}catch(IOException e) {
 			e.printStackTrace();
 		}
 		User user = new User();
@@ -235,13 +352,14 @@ public class AdminController extends MskimRequestMapping {
 		
 
 		
-		String name = request.getParameter("name");
-		String birth = request.getParameter("birth");
-		String phone = request.getParameter("phone");
-		String address = request.getParameter("address");
-		String email = request.getParameter("email");
-		String major = request.getParameter("majorcode");
-		String sub = request.getParameter("subcode");
+		String name = multi.getParameter("name");
+		String birth = multi.getParameter("birth");
+		String phone = multi.getParameter("phone");
+		String address = multi.getParameter("address");
+		String email = multi.getParameter("email");
+		String major = multi.getParameter("majorcode");
+		String sub = multi.getParameter("subcode");
+		String img = multi.getFilesystemName("file1");
 						
 	    if(name == null || birth == null || phone == null || address == null || email == null || major == null || sub == null) {
 	        return "professorInsert";
@@ -257,6 +375,7 @@ public class AdminController extends MskimRequestMapping {
 		user.setAddress(address);
 		user.setEmail(email);
 		user.setPosition(2);
+		user.setImg(img);
 		
 		pro.setProfno(r_profno);
 		pro.setSub(sub);
@@ -275,7 +394,74 @@ public class AdminController extends MskimRequestMapping {
 		request.setAttribute("url", url);
 		return "alert";
 	}
+
+	@RequestMapping("updateProfessorForm")
+	public String updateProfessorForm(HttpServletRequest request,HttpServletResponse response) {
+		int id = Integer.parseInt(request.getParameter("profno"));
+		User user=user_dao.selectOne(id);
+		Map<String, Object> professor = pro_dao.selectProfessor(id);
+		List<Major> college = major_dao.allccode();
+		List<Major> major = major_dao.allMajor();
+		System.out.println(professor);
+		System.out.println(user);
+		
+		request.setAttribute("major", major);
+		request.setAttribute("college", college);
+		request.setAttribute("user", user);
+		request.setAttribute("prof", professor);
+		
 	
+		return "updateProfessorForm";
+	}
+
+	@RequestMapping("updateProfessor")
+	public String updateProfessor(HttpServletRequest request, HttpServletResponse response) {     
+		System.out.println("1updateProfessor==================");
+		try {
+	        request.setCharacterEncoding("UTF-8");
+	     } catch (UnsupportedEncodingException e) {
+	        e.printStackTrace();
+	     }
+		int id= Integer.parseInt(request.getParameter("profno"));
+		System.out.println(id);
+		User user = new User();
+		Professor professor = new Professor();
+		String name = request.getParameter("name") ;
+		String email = request.getParameter("email") ;
+		String major = request.getParameter("major");
+		int mcode;
+		if(major ==null||major.equals("")) {
+			Map<String, Object> prof = pro_dao.selectProfessor(id);
+			mcode=(int) prof.get("mcode");
+		}else {
+			 mcode =Integer.parseInt( request.getParameter("major")) ;
+			
+		}
+		System.out.println(mcode);
+		String phone = request.getParameter("phone") ;
+		String birth = request.getParameter("birth") ;
+		String address = request.getParameter("address") ;
+		user.setName(name);
+		user.setAddress(address);
+		user.setPhone(phone);
+		user.setEmail(email);
+		user.setBirth(birth);
+		user.setName(name);
+		user.setId(id);
+		user.setImg(request.getParameter("img")) ;
+		professor.setMcode(mcode);
+		professor.setProfno(id);
+		if(user_dao.updateUser(user)&&pro_dao.updateProfessor(professor)) {
+			request.setAttribute("msg", "수정 완료");
+			request.setAttribute("url", "professorInfo?profno="+user.getId());
+		}else {
+			request.setAttribute("msg", "수정 실패");
+			request.setAttribute("url", "updateStudentForm?studno="+user.getId());
+			
+		}
+		return "alert" ;
+	}
+
 	//교수 리스트
 	@MSLogin("noticecheck")
 	@RequestMapping("professorList")
@@ -579,5 +765,4 @@ public class AdminController extends MskimRequestMapping {
 		return "alert";
 	}
 
-	
 }

@@ -15,7 +15,7 @@
               교수 등록
      </div>
      <div class="card-body">
-     <form action="professorInsert" name="f" method="post" accept-charset="UTF-8">
+     <form action="professorInsertaction" name="f" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
     	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align:left;">
        		<tr class="text-center">
        			<th style="background-color: #2c3e50 !important;">이름</th>
@@ -45,6 +45,12 @@
        			<th style="background-color: #2c3e50 !important;">담당과목</th>
        			<td><input type="text" name="subcode" style="width:100%;" class="input-group-text"></td>
        		</tr>
+				<tr>
+					<th style="background-color: #2c3e50 !important; text-align:center;">사진</th>
+					<td>
+					    <input type="file" name="file1" />
+					</td>
+				</tr>
        		<tr>
        			<td colspan="2">
        				<button type="submit" class="btn btn-primary text-center">등록</button>

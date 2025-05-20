@@ -18,10 +18,9 @@
      <form action="student-history" name="f" method="post" accept-charset="UTF-8">
 	     <div class="card-body">
 	    	<table id="datatablesSimple" border="1">
-	    		<tr>
-	    			<td><img width="30" height="30"></td>
-	    		</tr>
+	    		
 	       		<tr>
+	    			<td rowspan=7><img width="30" height="30"></td>
 	       			<th style="background-color: #2c3e50 !important;">이름</th>
 	       			<td>${user_std.name}</td>
 	       			<th style="background-color: #2c3e50 !important;">계열</th>

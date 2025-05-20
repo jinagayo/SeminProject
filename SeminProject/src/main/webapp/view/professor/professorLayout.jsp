@@ -14,7 +14,24 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
        <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" />
+       <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;700&display=swap" rel="stylesheet">
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+   	 <style>
+          body {
+              font-family: 'Noto Sans', sans-serif;
+              margin: 40px;
+               }
+          h1 {
+             font-weight: 700;
+              }
+          p {
+            font-weight: 400;
+             }
+          .light {
+            font-weight: 300;
+              }
+  </style>
+  
     </head>
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark" style="background-color: #2c3e50 !important;">
@@ -61,15 +78,15 @@
                                 </nav>
                             </div>
                             <a class="nav-link" onclick="location.href='../board/notice'">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fas fa-clipboard"></i></div>
                                 알림마당
                             </a>
                             <a class="nav-link" href="professor-myclass">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-calendar-days"></i></div>
                                 내강의실
                             </a>
                             <a class="nav-link" href="professor-student-manage">
-                                <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-regular fa-circle-user"></i></div>
                                 학생관리
                             </a>
                            

@@ -13,7 +13,18 @@ public class User implements Serializable {
 	private String address;
 	private String email;
 	private String password;
+	private String img;
 	private int position;
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
+	public String getImg() {
+		return img;
+	}
 	public int getId() {
 		return id;
 	}
@@ -63,10 +74,12 @@ public class User implements Serializable {
 	public void setPosition(int position) {
 		this.position = position;
 	}
+	
+	
 	@Override
 	public String toString() {
 		return "User [id=" + id + ", name=" + name + ", birth=" + birth + ", phone=" + phone + ", address=" + address
-				+ ", email=" + email + ", password=" + password + ", position=" + position + "]";
+				+ ", email=" + email + ", password=" + password + ", position=" + position + ", img=" + img + "]";
 	}
 	
 	
