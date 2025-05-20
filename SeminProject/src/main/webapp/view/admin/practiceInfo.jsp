@@ -18,31 +18,31 @@
      <div class="card-body">
     	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align: center;">
        		<tr>
-       			<th>학번</th>
+       			<th style="background-color: #2c3e50 !important;">학번</th>
        			<td>${list.studno}</td>
        		</tr>
        		<tr>
-       			<th>이름</th>
+       			<th style="background-color: #2c3e50 !important;">이름</th>
        			<td>${user.name}</td>
        		</tr>
        		<tr>
-       			<th>실습 일시</th>
+       			<th style="background-color: #2c3e50 !important;">실습 일시</th>
        			<td>${list.day}</td>
        		</tr>
        		<tr>
-       			<th>활동명</th>
+       			<th style="background-color: #2c3e50 !important;">활동명</th>
        			<td>${list.activename}</td>
        		</tr>
        		<tr>
-       			<th>활동 내역</th>
+       			<th style="background-color: #2c3e50 !important;">활동 내역</th>
        			<td>${list.content}</td>
        		</tr>
        		<tr>
-       			<th>활동 소감</th>
+       			<th style="background-color: #2c3e50 !important;">활동 소감</th>
        			<td>${list.emotion}</td>
        		</tr>
        		<tr>
-       			<th>증명서</th>
+       			<th style="background-color: #2c3e50 !important;">증명서</th>
        			<td><a href="../upload/practice/${list.file1}">${list.file1}</a></td>
        		</tr>
        	</table>

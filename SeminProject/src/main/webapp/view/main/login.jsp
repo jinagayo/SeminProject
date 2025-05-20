@@ -2,8 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="en">\
 <head>
 
     <meta charset="utf-8">
@@ -29,56 +28,40 @@
 <body style="background-image: url('../assets/img/bgimg.jpg');background-repeat: no-repeat; background-size : cover;">
 
     <form action="login" method="POST" name="f">
-    	<div class="container">
-
+    	<div class="container d-flex justify-content-center align-items-center">
+            
         <!-- Outer Row -->
         <div class="row justify-content-center">
 
-            <div class="col-xl-10 col-lg-12 col-md-9 m-5">
+            <div class="col-xl-10 col-lg-12 col-md-9" style="padding-top: 200px;">
 
-                <div class="card o-hidden border-0 shadow-lg" style="margin-top:10rem">
-                    <div class="card-body p-0 m-5">
-                        <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
-                            <div class="col-lg-6">
-                                <div  class="mx-auto p-2">
-                                    <div class="text-start">
-                                        <h1 class="h4 text-gray-900 mb-4">구디대학교</h1>
-                                    </div>
-                                    <div class="user">
-                                        <div class="form-group">
-                                            <input type="text" class="form-control form-control-user"
-                                                id="exampleInputEmail" name = "id" id="id" aria-describedby="emailHelp"
-                                                placeholder="ID">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
-                                                id="exampleInputPassword" name = "pass" id="pass" placeholder="Password">
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="custom-control custom-checkbox small">
-                                                <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
-                                            </div>
-                                        </div>
-                                        <a class="btn btn-primary btn-user btn-block" id="btn_login" href="javascript:inputcheck()">
-                                            Login
-                                        </a>
-                                    </div>
-                                    <hr>
-                                    <div class="text-center">
-                                        <a class="small" onclick="location.href='../main/p_searchForm'">Forgot Password?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div class="card o-hidden border-0 shadow-lg d-flex justify-content-center align-items-center"
+     style="width: 500px; height: 500px; margin: auto;">
 
+  <div class="card-body d-flex flex-column justify-content-center align-items-center text-center w-100">
+
+    <h1 class="h4 text-gray-900 mb-4" onclick="location.href='../main/main'">구디대학교</h1>
+
+    <form class="w-75">
+    <div class="user">
+      <div class="form-group">
+        <input type="text" class="form-control mb-2" name="id" placeholder="ID">
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control mb-2" name="pass" placeholder="Password">
+      </div>
+    
+      <button type="submit" class="btn btn-primary w-100 mx-auto">Login</button>
+        <div class="form-check text-start mb-2">
+   
+        </div>
+      <a href="p_searchForm" class="small d-block">Forgot Password?</a>
+      <a href="id_searchForm" class="small d-block">Forgot Id?</a>
+      </div>
+    </form>
+
+  </div>
+</div>
             </div>
 
         </div>

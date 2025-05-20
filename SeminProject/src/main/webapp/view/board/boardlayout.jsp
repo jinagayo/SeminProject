@@ -44,9 +44,10 @@
                           <c:choose>
                              <c:when test="${sessionScope.user.position == 1}">
                                  <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../student/student-mypage-info'">마이페이지</a></li>
+                                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../student/student-myclass'">내 강의실</a></li>
                              </c:when>
                              <c:when test="${sessionScope.user.position == 2}">
-                                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../professor/professor-mypage-info'">마이페이지</a></li>
+                                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../professor/professor-myclass'">마이페이지</a></li>
                              </c:when>
                              <c:when test="${sessionScope.user.position == 3}">
                                  <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../admin/studentList'">관리자페이지</a></li>
@@ -59,7 +60,6 @@
                        </c:if>
 
                         <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="../board/notice">알림마당</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">내 강의실</a></li>
                     </ul>
                 </div>
             </div>

@@ -52,10 +52,8 @@
     "
   >
     <iframe
-      src="professor-subject-board?subcode=${subcode}";
-      style="width: 100%; height: 100%; border: none;"
-      scrolling="auto"
-    ></iframe>
+      src="professor-subject-board?subcode=${subcode}"
+      style="width: 100%; height: 100%; border: none;"></iframe>
   </div>
 
   <!-- 오른쪽 박스 -->
@@ -72,10 +70,8 @@
     "
   >
     <iframe
-      src="professor-subject-board2?subcode=${subcode}";
-      style="width: 100%; height: 100%; border: none;"
-      scrolling="auto"
-    ></iframe>
+      src="professor-subject-board2?subcode=${subcode}"
+      style="width: 100%; height: 100%; border: none;"  scrolling="auto"></iframe>
   </div>
 </div>
 
@@ -85,12 +81,12 @@
    <script type="text/javascript">
    		function openAttPopup() {
    			const url = "professor-CkAtt?subcode="+${subject.subcode};
-     	  	window.open( url, "professor-CkAtt", "width=350,height=400, left=500,top=100, scrollbars=yes");
+     	  	window.open( url, "professor-CkAtt", "width=500,height=400, left=500,top=100, scrollbars=yes");
  		}
    
         function openGradePopup() {
         	const url = "professor-InGrade?subcode="+${subject.subcode};
-            window.open( url, "professor-InGrade", 'width=350,height=400, left=500,top=100, scrollbars=yes');
+            window.open( url, "professor-InGrade", 'width=500,height=400, left=500,top=100, scrollbars=yes');
         }
         
     </script>

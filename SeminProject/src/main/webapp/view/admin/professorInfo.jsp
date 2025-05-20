@@ -17,32 +17,38 @@
      <div class="card-body">
     	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align: center;">
        		<tr>
-       			<th>이름</th>
+	    		<td rowspan=7><img src="../picture/${user_pro.img }" style="width:200px; height:300px; padding-left:0px"></td>
+       			<th style="background-color: #2c3e50 !important;">이름</th>
        			<td>${user_pro.name}</td>
        		</tr>
        		<tr>	
-       			<th>생년월일</th>
+       			<th style="background-color: #2c3e50 !important;">생년월일</th>
        			<td>${user_pro.birth}</td>
        		</tr>
        		<tr>	
-       			<th>전화번호</th>
+       			<th style="background-color: #2c3e50 !important;">전화번호</th>
        			<td>${user_pro.phone}</td>
        		</tr>
        		<tr>	
-       			<th>주소</th>
+       			<th style="background-color: #2c3e50 !important;">주소</th>
        			<td>${user_pro.address}</td>
        		</tr>
        		<tr>	
-       			<th>이메일</th>
+       			<th style="background-color: #2c3e50 !important;">이메일</th>
        			<td>${user_pro.email}</td>
        		</tr>
        		<tr>	
-       			<th>교수번호</th>
+       			<th style="background-color: #2c3e50 !important;">교수번호</th>
        			<td>${user_pro.id}</td>
        		</tr>
        		<tr>	
-       			<th>학과코드</th>
+       			<th style="background-color: #2c3e50 !important;">학과코드</th>
        			<td>${pro.major}</td>
+       		</tr>
+       		<tr>
+       			<td colspan=4>
+       				<a href="updateProfessorForm?profno=${user_pro.id}" class="btn btn-secondary">수정</a>
+       			</td>
        		</tr>
     	</table>
     	<button onclick = "history.back()" class="btn btn-secondary" style="width:50px">←</button>

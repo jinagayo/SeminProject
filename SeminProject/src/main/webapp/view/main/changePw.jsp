@@ -29,27 +29,20 @@
 
 </head>
 
-<body class="bg-gradient-primary">
+<body style="background-image: url('../assets/img/bgimg.jpg');background-repeat: no-repeat; background-size : cover;">
 
-    <div class="container">
+   <div class="container d-flex justify-content-center align-items-center">
 
         <!-- Outer Row -->
         <div class="row justify-content-center">
 
-            <div class="col-xl-10 col-lg-12 col-md-9">
-
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
-                        <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
-                            <div class="col-lg-6">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-2">비밀번호 변경</h1>
-                   
-                                    </div>
-     
+            <div class="col-xl-10 col-lg-12 col-md-9" style="padding-top: 200px;">
+                <div class="card o-hidden border-0 shadow-lg d-flex justify-content-center align-items-center"
+     			      style="width: 500px; height: 500px; margin: auto;">
+     			      
+        
+                               <h1 class="h4 text-gray-900" style="margin-bottom: 5px !important;">비밀번호 변경</h1>
+                   					<div style="padding:20px">
                                      <form action="password" method="post" name="f" onsubmit="return input_check(this)">
                                     <div class="user">
                                         <div class="form-group">
@@ -78,11 +71,6 @@
                     </div>
                 </div>
 
-            </div>
-
-        </div>
-
-    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>

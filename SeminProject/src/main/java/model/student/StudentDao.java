@@ -97,4 +97,16 @@ public class StudentDao {
 		    }
 		    return null;
 	}
+
+	public boolean updateStudent(Student student) {
+		 SqlSession session = MybatisConnection.getConnection();
+		    try {
+		        return session.getMapper(ModelMapper.class).updateStudent(student);
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    } finally {
+		        MybatisConnection.close(session);
+		    }
+		return false;
+	}
 }

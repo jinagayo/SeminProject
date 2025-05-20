@@ -18,10 +18,10 @@
 	     <div class="card-body" style="position:relative;align-items:center;">
 	    	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;text-align: center;">
 		       		<tr>
-		       			<th>학번</th>
-		       			<th>이름</th>
-		       			<th>날짜</th>
-		       			<th>승인여부</th>
+		       			<th style="background-color: #2c3e50 !important;">학번</th>
+		       			<th style="background-color: #2c3e50 !important;">이름</th>
+		       			<th style="background-color: #2c3e50 !important;">날짜</th>
+		       			<th style="background-color: #2c3e50 !important;">승인여부</th>
 		       		</tr>
 		       		<c:forEach var="row" items="${list}">
 		       			<tr onclick="location.href='../admin/practiceInfo?studno=${row.studno}'">

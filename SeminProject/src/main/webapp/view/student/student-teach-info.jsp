@@ -19,13 +19,13 @@
      <div class="card-body">
     	<table id="datatablesSimple" border="1">
     		<tr>
-       			<th></th>
-       			<th>기준값</th>
-       			<th>계산값</th>
-       			<th>결과</th>
+       			<th style="background-color: #2c3e50 !important;"></th>
+       			<th style="background-color: #2c3e50 !important;">기준값</th>
+       			<th style="background-color: #2c3e50 !important;">계산값</th>
+       			<th style="background-color: #2c3e50 !important;">결과</th>
     		</tr>
     		<tr>
-    			<th>교육 실습 일지</th>
+    			<th style="background-color: #2c3e50 !important;">교육 실습 일지</th>
     			<td></td>
     			<td></td>
        			<c:if test="${teacher.practice == true}">
@@ -36,7 +36,7 @@
 				</c:if>  
     		</tr>
     		<tr>
-    			<th>적성 검사</th>
+    			<th style="background-color: #2c3e50 !important;">적성 검사</th>
     			<td></td>
     			<td></td>
        			<c:if test="${teacher.personsubmit == true}">
@@ -47,7 +47,7 @@
 				</c:if>  
     		</tr>
     		<tr>
-    			<th>교육봉사</th>
+    			<th style="background-color: #2c3e50 !important;">교육봉사</th>
     			<td>8</td>
     			<td>${teacher.service}</td>
        			<c:if test="${teacher.service >= 8}">
@@ -58,7 +58,7 @@
 				</c:if>
     		</tr>
     		<tr>
-    			<th>교원 자격 취득</th>
+    			<th style="background-color: #2c3e50 !important;">교원 자격 취득</th>
     			<td></td>
     			<td></td>
        			<c:if test="${teacher.teacherYN == true}">

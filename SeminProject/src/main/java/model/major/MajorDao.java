@@ -12,8 +12,29 @@ import model.subject.Subject;
 public class MajorDao {
 	private Class<ModelMapper> cls = ModelMapper.class;
 
-	public List<Subject> selectall() {
-		// TODO Auto-generated method stub
+
+	public List<Major> allccode() {
+		 SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).allccode();
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
+		return null;
+	}
+
+
+	public List<Major> allMajor() {
+		 SqlSession session  = MybatisConnection.getConnection();
+		 try {
+			 return session.getMapper(cls).allMajor();
+		 } catch (Exception e) {
+			 e.printStackTrace();
+		 } finally {
+			 MybatisConnection.close(session);
+		 }
 		return null;
 	}
 

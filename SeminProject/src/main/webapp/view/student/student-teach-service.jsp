@@ -18,35 +18,35 @@
      	<form action="servicesubmit"  method="post" accept-charset="UTF-8"  name="f" enctype="multipart/form-data"  onsubmit="return inputcheck();">
 	    	<table  border="1" >
 	    		<tr>
-	    			<th>날짜</th>
+	    			<th style="background-color: #2c3e50 !important;">날짜</th>
 	    			<td><input type="text" name="date" class="form-control"></td>
 	    		</tr>
 	    		<tr>
-	    			<th>봉사 활동명</th>
+	    			<th style="background-color: #2c3e50 !important;">봉사 활동명</th>
 	    			<td><input type="text" name="servicename" class="form-control"></td>
 	    		</tr>
 	    		<tr>
-	    			<th>봏사 단체명</th>
+	    			<th style="background-color: #2c3e50 !important;">봏사 단체명</th>
 	    			<td><input type="text" name="groupname" class="form-control"></td>
 	    		</tr>
 	    		<tr>
-	    			<th>봏사 시간</th>
+	    			<th style="background-color: #2c3e50 !important;">봏사 시간</th>
 	    			<td><input type="text" name="time" class="form-control"></td>
 	    		</tr>
 	    		<tr style="width:50px;">
-	    			<th>활동 내역</th>
+	    			<th style="background-color: #2c3e50 !important;">활동 내역</th>
 	    			<td>
 	    				 <textarea name="content" class="form-control" rows="5" cols="50" style="resize: none;"></textarea>
 	    			</td>
 	    		</tr>
 	    		<tr>
-	    			<th>활동 소감</th>
+	    			<th style="background-color: #2c3e50 !important;">활동 소감</th>
 	    			<td>
 	    				 <textarea name="emotion" class="form-control" rows="15" cols="50" style="resize: none;"></textarea>
 	    			</td>
 	    		</tr>
 				<tr>
-					<th>활동 증명서</th>
+					<th style="background-color: #2c3e50 !important;">활동 증명서</th>
 					<td>
 					    <input type="file" name="file1" />
 					</td>
