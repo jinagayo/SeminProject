@@ -11,7 +11,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Forgot Password</title>
+    <title>Forgot Password</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -24,58 +24,49 @@
 
 </head>
 
-<body class="bg-gradient-primary">
+<body style="background-image: url('../assets/img/bgimg.jpg');background-repeat: no-repeat; background-size : cover;">
 
-    <div class="container">
-
+    	<div class="container d-flex justify-content-center align-items-center">
+            
         <!-- Outer Row -->
         <div class="row justify-content-center">
 
-            <div class="col-xl-10 col-lg-12 col-md-9">
-
-                <div class="card o-hidden border-0 shadow-lg my-5">
-                    <div class="card-body p-0">
-                        <!-- Nested Row within Card Body -->
-                        <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block bg-password-image"></div>
-                            <div class="col-lg-6">
-                                <div class="p-5">
-                                    <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-2">비밀번호 찾기</h1>
-                   
-                                    </div>
+            <div class="col-xl-10 col-lg-12 col-md-9" style="padding-top: 200px;">
+			<div class="card o-hidden border-0 shadow-lg d-flex justify-content-center align-items-center"
+     			style="width: 500px; height: 500px; margin: auto;">
+			
+					<h1 class="h4 text-gray-900" style="margin-bottom: 5px !important;">비밀번호 찾기</h1>
+           					<div style="padding:20px">
+                                    <form action="pw" method="post" onsubmit="return input_check(this)">
                                     <div class="user">
                                         <div class="form-group">
                                             <input type="text" class="form-control form-control-user"
                                                 name = "id" id="id" placeholder="ID">
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user"
+                                            <input type="text" class="form-control form-control-user"
                                                 name = "email" id="email" placeholder="Email">
                                         </div>
+                                         <div class="form-group">
+                                            <input type="text" class="form-control form-control-user"
+                                                name = "tel" id="tel" placeholder="Tel">
+                                        </div>
                                        
-                                        <a class="btn btn-primary btn-user btn-block" id="btn_login" href="javascript:inputcheck()">
+                                        <button class="btn btn-primary btn-user btn-block" id="btn_login" >
                                             Search
-                                        </a>
+                                        </button>
                                     </div>
-                                     <hr>
-                                    <div class="text-center">
+                                    </form>
+                               </div>
+                                     
                                         <a class="small" onclick="location.href='../main/id_searchForm'">Forgot ID?</a>
-                                    </div>
-                                    <div class="text-center">
-                                        <a class="small" href="register.html">Create an Account!</a>
-                                    </div>
+                                        <a class="small" href="login">login</a>
+
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            </div>
-
-        </div>
-
-    </div>
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -86,6 +77,48 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
+    <script type="text/javascript">
+   function input_check(f) {
+	   if(f.id.value.trim() == "") {
+		   alert("아이디를 입력하세요");
+		   f.id.focus();
+		   return false;
+	   }
+	   if(f.email.value.trim() == "") {
+		   alert("이메일을 입력하세요");
+		   f.email.focus();
+		   return false;
+	   }
+	   if(f.tel.value.trim() == "") {
+		   alert("전화번호를 입력하세요");
+		   f.tel.focus();
+		   return false;
+	   }
+	
+	   if(!isValidEmail(f.email.value.trim())) {
+		   alert("이메일형식이 아닙니다");
+		   f.email.focus();
+		   return false;
+	   }
+	  
+   }
+	//정규식을 이용한 이메일,전화번호 형식 검증 
+   function isValidEmail(email) {
+	   const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+	   /*
+	     /^   ... $/ => 정규표현식 시작과 끝
+	     [a-zA-Z0-9._%+-]+ => 소문자 대문자 숫자 _ % + - 중 문자가 한개 이상
+	     @  : @문자
+	     [a-zA-Z0-9.-]+ => 소문자 대문자 숫자 . - 중 문자한개 이상
+	     \. : . 문자
+	   [a-zA-Z]{2,} => 소문자 대문자 2자 이상
+	   */
+	   return regex.test(email); // 정규식표현식일치 : true 리턴, 불일치 : false 리턴
+    }
+
+   
+   
+</script>
 
 </body>
 

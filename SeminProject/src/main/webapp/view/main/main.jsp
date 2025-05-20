@@ -31,18 +31,28 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                    	<!--  로그인 되었을때 -->
-                    	<c:if test="${sessionScope.login != null }">
-                    	    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../main/logout'">로그아웃</a></li>
-                    		<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../student/student-mypage-info'">마이페이지</a></li>
-                    	</c:if>
-                    	<!-- 로그인되지 않았을때 -->
-                    	<c:if test="${sessionScope.login == null }">
-                    		<li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../main/login'">로그인</a></li>
-                    	</c:if>
-
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#about">알림마당</a></li>
-                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#contact">내 강의실</a></li>
+                       <!--  로그인 되었을때 -->
+                       <c:if test="${sessionScope.login != null}">
+                       <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../main/logout'">로그아웃</a></li>
+                          <c:choose>
+                             <c:when test="${sessionScope.user.position == 1}">
+                                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../student/student-mypage-info'">마이페이지</a></li>
+                    			    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../student/student-myclass'">내 강의실</a></li>
+                             </c:when>
+                             <c:when test="${sessionScope.user.position == 2}">
+                                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../professor/professor-mypage-info'">마이페이지</a></li>
+                    			    <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../professor/professor-myclass'">내 강의실</a></li>
+                             </c:when>
+                             <c:when test="${sessionScope.user.position == 3}">
+                                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../admin/studentList'">관리자페이지</a></li>
+                             </c:when>
+                          </c:choose>
+                       </c:if>
+                       <!-- 로그인되지 않았을때 -->
+                       <c:if test="${sessionScope.login == null }">
+                          <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" onclick="location.href='../main/login'">로그인</a></li>
+                       </c:if>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="../board/notice">알림마당</a></li>
                     </ul>
                 </div>
             </div>
@@ -61,7 +71,7 @@
                     <div class="divider-custom-line"></div>
                 </div>
                 <!-- Masthead Subheading-->
-                <p class="masthead-subheading font-weight-light mb-0">구디사범대에서 미래를 준비하세요.</p>
+                <p class="masthead-subheading font-weight-light mb-0" >구디사범대에서 미래를 준비하세요.</p>
             </div>
         </header>
         <!-- Portfolio Section-->
@@ -75,37 +85,32 @@
                 <div class="row">
                     <!-- Footer Location-->
                     <div class="col-lg-4 mb-5 mb-lg-0">
-                        <h4 class="text-uppercase mb-4">Location</h4>
+                        <h4 class="text-uppercase mb-4">CAMPUS INFO</h4>
                         <p class="lead mb-0">
-                            2215 John Daniel Drive
-                            <br />
-                            Clark, MO 65243
+                           서울특별시 구로구 구로동<br>구디사범대학교
                         </p>
                     </div>
                     <!-- Footer Social Icons-->
                     <div class="col-lg-4 mb-5 mb-lg-0">
                         <h4 class="text-uppercase mb-4">Around the Web</h4>
-                        <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-facebook-f"></i></a>
-                        <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-twitter"></i></a>
-                        <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-linkedin-in"></i></a>
-                        <a class="btn btn-outline-light btn-social mx-1" href="#!"><i class="fab fa-fw fa-dribbble"></i></a>
+                        <a class="btn btn-outline-light btn-social mx-1" href="https://gdu.co.kr/main/main.html"><i class="fab fa-blogger"></i></a>
+                        <a class="btn btn-outline-light btn-social mx-1" href="https://m.blog.naver.com/PostList.naver?blogId=goodee0205&tab=1"><i class="fas fa-house-damage"></i></a>
+                        <a class="btn btn-outline-light btn-social mx-1" href="https://www.instagram.com/it_edu_goodee?igsh=YXYybDFuZnRjd3F3"><i class="fab fa-fw fa-linkedin-in"></i></a>
                     </div>
                     <!-- Footer About Text-->
                     <div class="col-lg-4">
-                        <h4 class="text-uppercase mb-4">About Freelancer</h4>
+                        <h4 class="text-uppercase mb-4">ABOUT GUDILMS</h4>
                         <p class="lead mb-0">
-                            Freelance is a free to use, MIT licensed Bootstrap theme created by
-                            <a href="http://startbootstrap.com">Start Bootstrap</a>
-                            .
+                            "진리 탐구와 지혜의 실천"<br>
+                            "인격 완성과 상호 존중"<br>
+                            "창의적 리더십과 도전정신"<br>
+                            
                         </p>
                     </div>
                 </div>
             </div>
         </footer>
-        <!-- Copyright Section-->
-        <div class="copyright py-4 text-center text-white">
-            <div class="container"><small>Copyright &copy; Your Website 2023</small></div>
-        </div>
+     
         <!-- Portfolio Modals-->
         <!-- Portfolio Modal 1-->
         <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" aria-labelledby="portfolioModal1" aria-hidden="true">
@@ -275,7 +280,7 @@
                     <div class="modal-body text-center pb-5">
                         <div class="container">
                             <div class="row justify-content-center">
-                                <div class="col-lg-8">
+   		                            <div class="col-lg-8">
                                     <!-- Portfolio Modal - Title-->
                                     <h2 class="portfolio-modal-title text-secondary text-uppercase mb-0">Submarine</h2>
                                     <!-- Icon Divider-->

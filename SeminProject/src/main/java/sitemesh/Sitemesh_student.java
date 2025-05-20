@@ -11,3 +11,4 @@ public class Sitemesh_student extends ConfigurableSiteMeshFilter{
 		builder.addDecoratorPath("/student/*", "/view/student/studentLayout.jsp");
 	}
 }
+

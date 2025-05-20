@@ -15,5 +15,4 @@ public class Admin {
 	public String toString() {
 		return "Admin [admno=" + admno + "]";
 	}
-	
 }
