@@ -469,6 +469,7 @@ public interface ModelMapper {
 
 
 
+
 	@Select("SELECT * FROM subject WHERE profno=#{id}")
 	List<Subject> selectPsubject(Integer id);
 

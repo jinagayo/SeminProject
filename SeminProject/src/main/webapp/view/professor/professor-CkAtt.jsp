@@ -61,11 +61,18 @@
                    		<c:if test="${u.id == a.studno}">
                         <th style="border: 1px solid black; padding: 5px;">${u.name}</th>
                         	<c:forEach var="i" begin="1" end="15">
+                        	 <c:set var="key" value="${'WEEK'}${i}" />
                         		<td style="border: 1px solid black; padding: 5px;">
-										<!-- 체크 안됐을 때 넘길 값 -->
-										<input type="hidden" name="att" value="${u.id}_0_${subcode}">
-										<!-- 체크됐을 때 덮어쓰기 됨 -->
-                        				<input type="checkbox" name="att" value="${u.id}_1_${subcode}" checked}>
+										 <input 
+        type="checkbox"
+        class="attbox"
+        name="att"
+        value="${u.id}_1_${subcode}_${i}" 
+        data-studno="${u.id}" 
+        data-week="${i}"
+        data-subcode="${subcode}"
+        <c:if test="${a[key] == 1}">checked</c:if> 
+    />
                         		</td>	
                     		</c:forEach>
                     	</c:if>
@@ -81,7 +88,31 @@
    		function fixing() {
    			alert("저장되었습니다.")
  		}
+   	</script>
    
-    </script>
+   <script>
+document.querySelector("form").addEventListener("submit", function (e) {
+    // 기존 hidden 제거
+    document.querySelectorAll(".att-hidden").forEach(el => el.remove());
+
+    // 모든 체크박스 반복
+    document.querySelectorAll(".attbox").forEach(box => {
+        if (!box.checked) {
+            const studno = box.dataset.studno;
+            const week = box.dataset.week;
+            const subcode = box.dataset.subcode;
+
+            const hidden = document.createElement("input");
+            hidden.type = "hidden";
+            hidden.name = "att";
+            hidden.classList.add("att-hidden");
+            hidden.value = `${studno}_0_${subcode}_${week}`;
+            box.parentElement.appendChild(hidden);
+        }
+    });
+});
+</script>
+
+
 </body>
 </html>

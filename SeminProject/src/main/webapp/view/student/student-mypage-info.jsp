@@ -53,6 +53,7 @@
 	       			<th style="color: black;">이메일</th>
 	       			<td>${user_std.email}</td>
 	       			<th style="color: black;">졸업 요건 충족</th>
+
 	       			<td>
 	       				<c:if test="${grad.graduation==true }">
 	       					Y
@@ -60,6 +61,7 @@
 	       				<c:if test="${grad.graduation==false }">
 	       					N
 	       				</c:if>
+
 	       			</td>
 	       		</tr>
 	       		<tr>
@@ -77,4 +79,4 @@
     </form>
  </div>
   </body>
-</html>>
+</html>

@@ -264,8 +264,9 @@ public class ProfessorController extends MskimRequestMapping {
 		
 		List<User> std_list = userdao.selectMany(stdnos);
 		request.setAttribute("std_list", std_list);
-		
+
 		List<Attendance> att = attdao.fixatt(subcode);
+
 		request.setAttribute("att",att);
 		
 		
@@ -274,43 +275,52 @@ public class ProfessorController extends MskimRequestMapping {
 	
 	@MSLogin("noticecheck")
 	@RequestMapping("professor-CkAtt-fix")	
-	public String CkAttFix(HttpServletRequest request,HttpServletResponse response) {
-		String[] values = request.getParameterValues("att");
-		Integer subcode = Integer.parseInt(values[1].substring(11));
-		Integer[] id = new Integer[values.length];
-		Integer[] att = new Integer[values.length];
-		for(int i=0; i<values.length; i++) {
-			id[i] =  Integer.parseInt(values[i].substring(0, 8));
-			att[i] = Integer.parseInt(values[i].substring(9,10));
-		}
-		for(int i=14; i<id.length; i+=15) {
-			System.out.println(id[i]);
-			System.out.println(subcode);
-			Attendance attendance = attdao.selectAtt(id[i],subcode);
-			attendance.setWEEK1(att[i-14]);
-			attendance.setWEEK2(att[i-13]);
-			attendance.setWEEK3(att[i-12]);
-			attendance.setWEEK4(att[i-11]);
-			attendance.setWEEK5(att[i-10]);
-			attendance.setWEEK6(att[i-9]);
-			attendance.setWEEK7(att[i-8]);
-			attendance.setWEEK8(att[i-7]);
-			attendance.setWEEK9(att[i-6]);
-			attendance.setWEEK10(att[i-5]);
-			attendance.setWEEK11(att[i-4]);
-			attendance.setWEEK12(att[i-3]);
-			attendance.setWEEK13(att[i-2]);
-			attendance.setWEEK14(att[i-1]);
-			attendance.setWEEK15(att[i-0]);
-			
-			boolean a = attdao.updateAttendance(attendance);
-			System.out.println(a);
-			
-		}
-		
-		
-		return "professor-CkAtt-fix";
+	public String CkAttFix(HttpServletRequest request, HttpServletResponse response) {
+		 String[] values = request.getParameterValues("att");
+
+		    Map<Integer, int[]> studentAttendance = new HashMap<>();
+		    int subcode = 0;
+		    for (String value : values) {
+		        String[] parts = value.split("_");
+		        if (parts.length != 4) continue;
+
+		        int studno = Integer.parseInt(parts[0]);
+		        int att = Integer.parseInt(parts[1]);
+		        subcode = Integer.parseInt(parts[2]);
+		        int week = Integer.parseInt(parts[3]);
+
+		        studentAttendance.putIfAbsent(studno, new int[15]);
+		        studentAttendance.get(studno)[week - 1] = att;
+		    }
+
+		    for (Map.Entry<Integer, int[]> entry : studentAttendance.entrySet()) {
+		        int studno = entry.getKey();
+		        int[] weeks = entry.getValue();
+
+		        Attendance attendance = attdao.selectAtt(studno, subcode);
+		        attendance.setWEEK1(weeks[0]);
+		        attendance.setWEEK2(weeks[1]);
+		        attendance.setWEEK3(weeks[2]);
+		        attendance.setWEEK4(weeks[3]);
+		        attendance.setWEEK5(weeks[4]);
+		        attendance.setWEEK6(weeks[5]);
+		        attendance.setWEEK7(weeks[6]);
+		        attendance.setWEEK8(weeks[7]);
+		        attendance.setWEEK9(weeks[8]);
+		        attendance.setWEEK10(weeks[9]);
+		        attendance.setWEEK11(weeks[10]);
+		        attendance.setWEEK12(weeks[11]);
+		        attendance.setWEEK13(weeks[12]);
+		        attendance.setWEEK14(weeks[13]);
+		        attendance.setWEEK15(weeks[14]);
+
+		        attdao.updateAttendance(attendance);
+		    }
+
+		    return "professor-CkAtt-fix";
 	}
+	    
+
 	
 	@MSLogin("noticecheck")
 	@RequestMapping("professor-InGrade")	
