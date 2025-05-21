@@ -181,9 +181,6 @@
 
   <div class="notice-footer">
     
-		<c:if test="${user.position==1 && b.boardid==2}">
-			<a href="s_updateForm?num=${b.num}&subcode=${s.subcode}&boardid=${b.boardid}">수정</a>
-		</c:if>
 			<a href="../student/student-subject-board?num=${b.num}&subcode=${s.subcode}&boardid=${b.boardid}">목록</a>
   </div>
 </div>
