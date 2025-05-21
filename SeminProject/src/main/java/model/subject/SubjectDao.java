@@ -63,17 +63,6 @@ public class SubjectDao {
 		 return null;
 	}
 
-	public List<Subject> selectPsubject(Integer id) {
-		SqlSession session  = MybatisConnection.getConnection();
-		 try {
-			 return session.getMapper(cls).selectPsubject(id);
-		 } catch (Exception e) {
-			 e.printStackTrace();
-		 } finally {
-			 MybatisConnection.close(session);
-		 }
-		 return null;
-	}
 	
 	 public int subjectCount(int id) {
 		 SqlSession session = MybatisConnection.getConnection();

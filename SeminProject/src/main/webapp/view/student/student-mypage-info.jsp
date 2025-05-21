@@ -53,7 +53,8 @@
 	       			<th style="color: black;">이메일</th>
 	       			<td>${user_std.email}</td>
 	       			<th style="color: black;">졸업 요건 충족</th>
-	       			<td>x</td>
+	       			<td>x
+	       			</td>
 	       		</tr>
 	       		<tr>
 	       			<th style="color: black;">주소</th>
