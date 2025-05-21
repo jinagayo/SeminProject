@@ -17,7 +17,7 @@
               강의 개설
      </div>
      <div class="card-body">
-     <form action="subjectInsert" name="f" method="post" accept-charset="UTF-8" enctype="multipart/form-data">
+     <form action="subjectInsert" name="f" method="post" accept-charset="UTF-8">
     	<table id="datatablesSimple" border="1" style="width: 100%;height:100%;">
        		<tr class="text-center">
        			<th style="background-color: #2c3e50 !important;">과목코드</th>

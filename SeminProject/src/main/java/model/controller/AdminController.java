@@ -220,11 +220,7 @@ public class AdminController extends MskimRequestMapping {
 		String majorcode = multi.getParameter("majorcode");
 		String profcode = multi.getParameter("profcode");
 		String file1 = multi.getFilesystemName("file1");
-		
-		if(entry == null || majorcode == null||file1==null) {
-			return "studentInsert";
-		}
-		
+				
 		//학번 랜덤 생성번호
 		int r_stdno = Integer.parseInt(StudentId(entry, majorcode));
 		user.setId(r_stdno);
@@ -240,7 +236,6 @@ public class AdminController extends MskimRequestMapping {
 		std.setEntry(entry);
 		std.setProfno(Integer.parseInt(profcode));
 		std.setMcode(Integer.parseInt(majorcode));
-		
 		
 		if(admin_dao.insertUser(user) && admin_dao.insertStudent(std)) {
 			msg = "학생등록이 완료되었습니다.";
@@ -381,7 +376,6 @@ public class AdminController extends MskimRequestMapping {
 		pro.setSub(sub);
 		pro.setMcode(Integer.parseInt(major));
 		
-		
 		if(admin_dao.insertUser(user) && admin_dao.insertProfessor(pro)) {
 			msg = "교수 등록이 완료되었습니다.";
 			url = "professorList";
@@ -504,6 +498,8 @@ public class AdminController extends MskimRequestMapping {
 			map = admin_dao.listPrno(param);	//검색어 존재 안할때
 		}
 		
+		System.out.println("map" + map);
+		
 		int totalpage = admin_dao.professorCount(param);
 		int maxpage = (int)(totalpage + pagesize -1) / pagesize;
 	    // 현재 페이지가 포함될 시작 페이지 번호
@@ -574,14 +570,14 @@ public class AdminController extends MskimRequestMapping {
 			sub.setLocation(location);
 			sub.setProfno(Integer.parseInt(profno));
 			
+			System.out.println("sub" + sub);
+			
 			if(teachsub[0].equals("1")) {
 				sub.setTeachsub(true);
 			}
 			else {
 				sub.setTeachsub(false);
 			}
-			
-			System.out.println("sub"+sub);
 			
 			if(sub_dao.insertSubject(sub)) {
 				msg = "강의 개설이 완료되었습니다.";

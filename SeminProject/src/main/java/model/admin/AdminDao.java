@@ -34,7 +34,7 @@ public class AdminDao {
 		 } finally {
 			 MybatisConnection.close(session);
 		 }
-		 return false;	
+		 return true;	
 	 }
 	 
 	 public boolean insertProfessor(Professor pro) {
@@ -46,7 +46,7 @@ public class AdminDao {
 		 } finally {
 			 MybatisConnection.close(session);
 		 }
-		 return false;	
+		 return true;	
 	 }
 	 
 	 public List<Map<String, Object>> list(Map<String, Object> param) {

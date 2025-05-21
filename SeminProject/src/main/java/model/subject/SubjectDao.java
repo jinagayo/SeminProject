@@ -25,7 +25,7 @@ public class SubjectDao {
 		 } finally {
 			 MybatisConnection.close(session);
 		 }
-		 return false;
+		 return true;
 	}
 
 	public List<Subject> selectSub(List<Integer> subcodes) {
