@@ -95,7 +95,9 @@ public class StudentController extends MskimRequestMapping{
 		Integer id = (Integer) request.getSession().getAttribute("login");
 		User user_std = dao.selectOne(id);
 		Map<String, Object> student = dao.selectStudent(id);
+		Graduation grad= graddao.selectGrad(id);
 		
+		request.setAttribute("grad", grad);
 		request.setAttribute("user_std", user_std); //user 테이블 정보
 		request.setAttribute("std", student); //student 테이블 정보
 		return "student-mypage-info";
