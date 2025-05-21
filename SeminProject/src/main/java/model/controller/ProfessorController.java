@@ -216,7 +216,7 @@ public class ProfessorController extends MskimRequestMapping {
 		request.setAttribute("plist", plist);
 		return "professor-student-info";
 	}
-	
+
 	@MSLogin("noticecheck")
 	@RequestMapping("professor-myclass")
 	public String MyClass(HttpServletRequest request,HttpServletResponse response) {

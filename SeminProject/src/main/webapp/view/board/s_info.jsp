@@ -139,7 +139,7 @@
 	
 		<!-- 댓글 목록 -->
 	<div class="container">
-		<table class="table">
+		<table class="table" style="width:96%; margin:25px;">
 			<c:forEach var="c" items="${commlist}">
 				<tr>
 					<td>${c.seq}</td><td>${c.writer}</td>
@@ -151,7 +151,7 @@
 	
 	 <!-- 댓글 등록 폼 -->
    <span id="comment"></span>
-   <form action="comment?num=${b.num}&subcode=${s.subcode}&boardid=${b.boardid}" method="post" style="width: 600px; margin-left: 5%;">
+   <form action="comment?num=${b.num}&subcode=${s.subcode}&boardid=${b.boardid}" method="post" style="width: 620px; margin-left: 3%;">
 
       <input type="hidden" name="num" value="${b.num}">
       

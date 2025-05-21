@@ -108,6 +108,8 @@ public class StudentController extends MskimRequestMapping{
 		Graduation grad_info = graddao.selectGrad(id);
 		Teacher teach_info = teadao.selectTeach(id);
 		
+		
+		
 		request.setAttribute("grad", grad_info);
 		request.setAttribute("teach", teach_info);
 		return "student-mypage-grad";
@@ -347,9 +349,15 @@ public class StudentController extends MskimRequestMapping{
 			HttpServletResponse response) {
 		Integer id = (Integer) request.getSession().getAttribute("login");
 		Teacher teach_info = teadao.selectTeach(id);
-		
+		System.out.println(teach_info);
+		if(teach_info.isPersonsubmit()&&teach_info.isPractice()&&teach_info.getService()>=8) {
+			teach_info.setTeacherYN(true);
+			teach_info.setStudno(id);
+			teadao.updateTeach(teach_info);
+		}
 		request.setAttribute("teacher", teach_info);
-		
+
+		System.out.println(teach_info);
 		return "student-teach-info";
 	}
 
@@ -466,7 +474,7 @@ public class StudentController extends MskimRequestMapping{
 		}catch(NumberFormatException e) {}
 		String boardid = request.getParameter("boardid");
 		String subcode = request.getParameter("subcode");
-		
+		Subject subject = subdao.selectSubject(subcode);
 		if(boardid==null||boardid.trim().equals("")) {
 			boardid="1"; //boardid 파라미터가 없는 경우 "1"
 		}
@@ -485,6 +493,7 @@ public class StudentController extends MskimRequestMapping{
 		request.setAttribute("boardCount", boardcount); //게시판별 전체 게시ㅜㄹ 건수
 		request.setAttribute("boardid", boardid); //게시판 동류,ㅈ게시판 코드.
 		request.setAttribute("subcode", subcode);
+		request.setAttribute("s", subject);
 		
 		request.setAttribute("pageNum", pageNum); //현페
 		request.setAttribute("list", list);//현재페이지에 출력할 겜시물 목록

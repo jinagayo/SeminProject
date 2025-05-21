@@ -13,9 +13,9 @@ public class User implements Serializable {
 	private String address;
 	private String email;
 	private String password;
-	private int position;
 	private String img;
 
+	private int position;
 	public void setImg(String img) {
 		this.img = img;
 	}

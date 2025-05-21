@@ -1,3 +1,4 @@
+
 <%@page import="java.io.File"%>
 <%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page language="java" contentType="text/html ; charset=UTF-8"
@@ -16,5 +17,4 @@
 	opener.document.f.img.value="${fname}" ;
 	//self : 현재페이지의 window 객체
 	window.close() ;
-
 </script>

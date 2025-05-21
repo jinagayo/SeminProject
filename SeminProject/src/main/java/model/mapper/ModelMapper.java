@@ -40,7 +40,7 @@ public interface ModelMapper {
 	@Select("SELECT * from graduation where studno= #{id}")
 	Graduation selectGrad(Integer id);
 
-	@Select("SELECT * from teacher where studno= #{id}")
+	@Select("SELECT pracice as practice, personsubmit,service,teacherYN from teacher where studno= #{id}")
 	Teacher selectTeach(Integer id);
 
 	@Select("SELECT subcode from attendance where studno= #{id}")
@@ -392,10 +392,8 @@ public interface ModelMapper {
 	@Select ("select * from comment where num2=${value}")
 	List<Comment> list(String num);
 
-	
 
 	//history
-
 	@Select({
 	    "<script>",
 	    "SELECT year, subject,grade",
@@ -414,7 +412,7 @@ public interface ModelMapper {
 	@Update("update graduation set graduation=true where studno=#{studno}")
 	boolean updateGrad(Graduation grad_info);
 
-	@Update("update teacher set teacherYN=true where studno=#{studno}")
+	@Update("update teacher set teacherYN='1' where studno=#{studno}")
 	boolean updateTeach(Teacher teach_info);
 	
 
@@ -460,7 +458,6 @@ public interface ModelMapper {
 			+ " LIMIT #{startRow}, #{pagesize}")
 	List<Student> studentManagePage(Map<String, Object> param);
 
-
 	
 
 
@@ -470,5 +467,14 @@ public interface ModelMapper {
 	@Select("select * from subject WHERE profno=#{id}")
 	List<Subject> selectPsubject2(Integer id);
 
+	@Update("update teacher set personsubmit='1' where studno=#{studno}")
+	boolean updatePersonYN(Integer studno);
+
 	
+	@Update("UPDATE user SET img = #{fname} WHERE id = #{id}")
+	boolean updatePicture(@Param("id") Integer id, @Param("fname") String fname);
+
+	@Select("SELECT * FROM subject WHERE profno=#{id}")
+	List<Subject> selectPsubject(Integer id);
+
 }

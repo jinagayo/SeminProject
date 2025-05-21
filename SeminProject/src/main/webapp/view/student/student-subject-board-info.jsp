@@ -50,22 +50,21 @@
 			</td>
 		</tr>
 		<tr>
-		</tr>
+		</tr>		
+			<c:forEach var="c" items="${commlist}">
+				<tr>
+					<td >${c.seq}</td><td style="width:100px;">${c.writer}</td>
+					<td style="width:100px;">${c.content}</td><td style="width:100px;">${c.regdate}</td>
+				</tr>
+			</c:forEach>
 	</table>
 	<c:if test="${b.boardid==2}">
 	
 
 	<!-- 댓글 목록 -->
-	<div class="container">
-		<table class="table">
-			<c:forEach var="c" items="${commlist}">
-				<tr>
-					<td>${c.seq}</td><td>${c.writer}</td>
-					<td>${c.content}</td><td>${c.regdate}</td>
-				</tr>
-			</c:forEach>
+		<table class="table" style="margin-left:100px;">
+
 		</table>
-	</div>
 	</c:if>    <button onclick = "history.back()" class="btn btn-secondary" style="width:50px">←</button>
 </body>
 </html>

@@ -139,7 +139,7 @@
 	
 		<!-- 댓글 목록 -->
 	<div class="container">
-		<table class="table">
+		<table class="table" style="width:96%; margin:25px;">
 			<c:forEach var="c" items="${commlist}">
 				<tr>
 					<td>${c.seq}</td><td>${c.writer}</td>

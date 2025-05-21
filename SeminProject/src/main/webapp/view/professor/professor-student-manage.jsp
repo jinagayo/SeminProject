@@ -27,9 +27,7 @@
 	  <c:forEach var="s" items="${studentList}" varStatus="vs">
 	    	<tr onclick="location.href='professor-student-info?studno=${s.studno}'"> 
 	    	<td>${s["studno"]}</td>
-	    		<c:forEach var="u" items="${user}" varStatus="vs">
-
-	    				<c:if test="${s.studno == u.id }">
+	    		<c:forEach var="u" items="${user}" varStatus="vs">	<c:if test="${s.studno == u.id }">
 	    					<td onclick="location.href='professor-student-info?studno=${s.studno}'">
 	    							<u>${u.name}</u>
 	    					</td>
