@@ -57,7 +57,7 @@
        			<td><a href="../upload/service/${service.file1}">${service.file1}</a></td>
        		</tr>
     	</table>
-       
+       &nbsp;&nbsp;&nbsp;
 		<form action="serviceaccept?studno=${service.studno }" method="post" accept-charset="UTF-8"  name="f" >
        		<div class="text-center">
        		<input type="radio" name="accept" value="1" class="btn-check" name="options-outlined" id="success-outlined" autocomplete="off"/>

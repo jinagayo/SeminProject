@@ -38,19 +38,6 @@
    </div>
    </form>
  </div>
- <ul class="pagination">
-  <c:forEach var="i" begin="${startpage}" end="${endpage}">
-    <li class="page-item">
-      <a href="javascript:listsubmit(${i})" class="page-link">${i}</a>
-    </li>
-  </c:forEach>
-</ul>
- <script>
-  function listsubmit(page) {
-    document.getElementById("pageNum").value = page;
-    document.sf.submit();
-  }
-</script>
 </body>
 </html>
 

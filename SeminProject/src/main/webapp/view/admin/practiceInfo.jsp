@@ -48,7 +48,8 @@
        			<td><a href="../upload/practice/${list.file1}">${list.file1}</a></td>
        		</tr>
        	</table>
-       	<form action="practiceaccept?studno=${list.studno }" method="post" accept-charset="UTF-8"  name="f" >
+       	&nbsp;&nbsp;&nbsp;
+       	<form action="practiceaccept?studno=${list.studno }" method="post" accept-charset="UTF-8"  name="f">
 	       	<div class="text-center">
 	       	<input type="radio" name="accept" value="1" class="btn-check" id="success-outlined" autocomplete="off"/>
 	       	<label class="btn btn-outline-success" for="success-outlined">&nbsp;승인&nbsp;</label>

@@ -446,9 +446,6 @@ public interface ModelMapper {
 			+ " LIMIT #{startRow}, #{pagesize}")
 	List<Student> studentManagePage(Map<String, Object> param);
 
-	
-
-
 
 	@Select("select * from major where ccode is null")
 	List<Major> allccode();

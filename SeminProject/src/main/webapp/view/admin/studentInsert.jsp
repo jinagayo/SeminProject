@@ -56,7 +56,7 @@
 					</td>
 				</tr>
        		<tr>
-       			<td colspan="2">
+       			<td colspan="2" class="text-center">
        				<button type="submit" class="btn btn-primary text-center" style=" text-align: center;width:150px">등록</button>
        			</td>
        		</tr>
