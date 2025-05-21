@@ -229,6 +229,7 @@ public class ProfessorController extends MskimRequestMapping {
 		Integer id = (Integer) request.getSession().getAttribute("login");
 
 		List<Subject>sublist = subdao.selectPsubject(id);
+		System.out.println(sublist);
 		request.setAttribute("sublist",sublist);
 		ArrayList countQA = new ArrayList();
 		for (Subject i : sublist) {

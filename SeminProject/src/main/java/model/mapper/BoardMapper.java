@@ -57,7 +57,7 @@ public interface BoardMapper {
 	@Delete("delete from board where num=#{num}")
 	boolean delete(Board board);
 
-	@Select("select count(*) from board where boardid = #{boardid} and subcode = #{subcode} ORDER BY regdate DESC ")
+	@Select("select count(*) from board where boardid = #{boardid} and subcode = #{subcode} ORDER BY regdate DESC limit #{start},#{limit} ")
 	int subBoardCount(Map<String, Object> map);
 
 	@Select(" select * from board where boardid = #{boardid} and subcode = #{subcode} "
