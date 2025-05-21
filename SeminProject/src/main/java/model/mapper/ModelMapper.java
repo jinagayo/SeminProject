@@ -467,12 +467,7 @@ public interface ModelMapper {
 	@Select("select * from subject WHERE profno=#{id}")
 	List<Subject> selectPsubject2(Integer id);
 
-	@Update("update teacher set personsubmit='1' where studno=#{studno}")
-	boolean updatePersonYN(Integer studno);
 
-	
-	@Update("UPDATE user SET img = #{fname} WHERE id = #{id}")
-	boolean updatePicture(@Param("id") Integer id, @Param("fname") String fname);
 
 	@Select("SELECT * FROM subject WHERE profno=#{id}")
 	List<Subject> selectPsubject(Integer id);

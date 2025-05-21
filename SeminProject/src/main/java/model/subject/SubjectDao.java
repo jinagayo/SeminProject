@@ -147,6 +147,7 @@ public class SubjectDao {
 		 return null;
 	}
 
+	/*
 	public List<Subject> selectPsubject(Integer id) {
 		SqlSession session  = MybatisConnection.getConnection();
 		 try {
@@ -158,6 +159,6 @@ public class SubjectDao {
 		 }
 		return null;
 	}
-
+	*/
 	
 }
