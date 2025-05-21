@@ -467,7 +467,7 @@ public interface ModelMapper {
 	@Update("update teacher set personsubmit='1' where studno=#{studno}")
 	boolean updatePersonYN(Integer studno);
 
-	@Select("select * from professor p JOIN major m ON p.mcode = m.mcode WHERE p.profno = #{id}")
+	@Select("select * from subject WHERE profno=#{id}")
 	List<Subject> selectPsubject2(Integer id);
 
 	

@@ -78,15 +78,11 @@
 		<c:if test="${boardid=='2'}">
 			<tr>
 				<td colspan="5" style="text-align:right">
-
-				<form action="student-subject-board" method="get" accept-charset="UTF-8"  name="sf" >
-					  <input type="hidden" name="pageNum" />
+				<form action="../board/s_writeForm" method="get" accept-charset="UTF-8" >
 					  <input type="hidden" name="subcode" value="${param.subcode}" />
 					  <input type="hidden" name="boardid" value="${boardid}" />
 					<button type="submit" class="btn btn-secondary text-center">글쓰기</button>
 
-					<input type="hidden" name="subcode" value="${param.subcode}"/>
-					<input type="hidden" name="boardid" value="${boardid}"/>
 				</form>
 				</td>
 			</tr>
@@ -94,6 +90,11 @@
 </table>
 </div>
 </div>
+<form action="student-subject-board" method="get" name="sf">
+    <input type="hidden" name="pageNum" />
+    <input type="hidden" name="subcode" value="${param.subcode}" />
+	<input type="hidden" name="boardid" value="${boardid}" />
+</form>
 <script type="text/javascript">
 	function listsubmit(page){
 		f=document.sf;
