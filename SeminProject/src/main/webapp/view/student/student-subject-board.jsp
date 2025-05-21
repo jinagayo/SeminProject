@@ -70,25 +70,31 @@
 		</c:forEach>
 		<c:if test="${pageNum>=maxpage}">다음</c:if>
 		<c:if test="${pageNum<maxpage}">
-			<a href="javascript:listsubmit(${pageNum+1})">다음</a>
+			<a href="javascript:listsubmit(${pageNum+1})">[다음]</a>
 		</c:if>
 		</td>
 	</tr>
 		<c:if test="${boardid=='2'}">
 			<tr>
 				<td colspan="5" style="text-align:right">
-				<form action="../board/s_writeForm" method="get" accept-charset="UTF-8"  name="f" >
-					<button type="submit" class="btn btn-primary text-center">글쓰기</button>
-					<input type="hidden" name="subcode" value="${param.subcode}"/>
-					<input type="hidden" name="boardid" value="${boardid}"/>
+				<form action="../board/s_writeForm" method="get" accept-charset="UTF-8" >
+					  <input type="hidden" name="subcode" value="${param.subcode}" />
+					  <input type="hidden" name="boardid" value="${boardid}" />
+					<button type="submit" class="btn btn-secondary text-center">글쓰기</button>
+
+
 				</form>
-				
 				</td>
 			</tr>
 		</c:if>
 </table>
 </div>
 </div>
+<form action="student-subject-board" method="get" name="sf">
+    <input type="hidden" name="pageNum" />
+    <input type="hidden" name="subcode" value="${param.subcode}" />
+	<input type="hidden" name="boardid" value="${boardid}" />
+</form>
 <script type="text/javascript">
 	function listsubmit(page){
 		f=document.sf;

@@ -4,7 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+
 import java.util.Collections;
+
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -214,22 +216,30 @@ public class ProfessorController extends MskimRequestMapping {
 		request.setAttribute("plist", plist);
 		return "professor-student-info";
 	}
+
+	@MSLogin("noticecheck")
+	@RequestMapping("professor-myclass")
+	public String MyClass(HttpServletRequest request,HttpServletResponse response) {
+		try {
+			request.setCharacterEncoding("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		
+		Integer id = (Integer) request.getSession().getAttribute("login");
+
+		List<Subject>sublist = subdao.selectPsubject(id);
+		System.out.println(sublist);
+		request.setAttribute("sublist",sublist);
+		ArrayList countQA = new ArrayList();
+		for (Subject i : sublist) {
+		    int x = boadao.countQA(i);
+		    countQA.add(x);
+		}
+		request.setAttribute("countQA",countQA);
+		return "professor-myclass";
+	}
 	
-	   @MSLogin("noticecheck")
-	   @RequestMapping("professor-myclass")
-	   public String MyClass(HttpServletRequest request,HttpServletResponse response) {
-	      Integer id = (Integer) request.getSession().getAttribute("login");
-	      List<Subject>sublist = subdao.selectPsubject(id);
-	      request.setAttribute("sublist",sublist);
-	      ArrayList countQA = new ArrayList();
-	      for (Subject i : sublist) {
-	          int x = boadao.countQA(i);
-	          countQA.add(x);
-	      }
-	      
-	      request.setAttribute("countQA",countQA);
-	      return "professor-myclass";
-	   }
 	@MSLogin("noticecheck")
 	@RequestMapping("professor-classHome")	
 	public String ClassHome(HttpServletRequest request,HttpServletResponse response) {

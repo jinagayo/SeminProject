@@ -194,9 +194,9 @@ public class StudentController extends MskimRequestMapping{
 			return "student-teach-practice";
 		}
 		else {
-
 			return "student-teach-practice";
 	}
+
 	}
 	@MSLogin("noticecheck")
 	@RequestMapping("praticesubmit")

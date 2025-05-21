@@ -1,4 +1,3 @@
-
 package model.mapper;
 
 import java.util.List;
@@ -26,6 +25,7 @@ import model.service.Service;
 import model.teacher.Teacher;
 import model.user.User;
 public interface ModelMapper {
+	
 	@Select("select * from user where id = #{id}")
 	User selectOne(@Param("id")int id);
 	
@@ -392,9 +392,8 @@ public interface ModelMapper {
 	@Select ("select * from comment where num2=${value}")
 	List<Comment> list(String num);
 
-	
-	//history
 
+	//history
 	@Select({
 	    "<script>",
 	    "SELECT year, subject,grade",
@@ -428,22 +427,9 @@ public interface ModelMapper {
 
 	@Insert("Insert into attendance (studno,subcode) values (#{studno},#{subcode})")
 	boolean insertsub(@Param("subcode")int subcode, @Param("studno")Integer id);
-	
-	//======================================================================
-	
-	
-	@Select("SELECT COUNT(*) FROM student WHERE profno = #{id}")
-	int countProfessorStudents(Integer id);
-	
-	@Select("SELECT u.name as name, u.id as studno"
-			+ " FROM attendance a"
-			+ " JOIN user u ON a.studno = u.id"
-			+ " JOIN subject s ON s.subcode = a.subcode"
-			+ " WHERE profno = #{id}"
-			+ " ORDER BY studno"
-			+ " LIMIT #{startRow}, #{pagesize}")
-	List<Student> studentManagePage(Map<String, Object> param);
 
+	@Update("UPDATE user SET img = #{fname} WHERE id = #{id}")
+	boolean updatePicture(@Param("id") Integer id, @Param("fname") String fname);
 
 
 	@Select("select * from major where ccode is null")
@@ -459,6 +445,27 @@ public interface ModelMapper {
 
 	@Update("update professor set mcode=#{mcode} where profno=#{profno} ")
 	boolean updateProfessor(Professor professor);
+	
+	@Select("SELECT COUNT(*) FROM student WHERE profno = #{id}")
+	int countProfessorStudents(Integer id);
+	
+	@Select("SELECT u.name as name, u.id as studno"
+			+ " FROM attendance a"
+			+ " JOIN user u ON a.studno = u.id"
+			+ " JOIN subject s ON s.subcode = a.subcode"
+			+ " WHERE profno = #{id}"
+			+ " ORDER BY studno"
+			+ " LIMIT #{startRow}, #{pagesize}")
+	List<Student> studentManagePage(Map<String, Object> param);
+
+	
+
+
+	@Update("update teacher set personsubmit='1' where studno=#{studno}")
+	boolean updatePersonYN(Integer studno);
+
+	@Select("select * from subject WHERE profno=#{id}")
+	List<Subject> selectPsubject2(Integer id);
 
 	@Update("update teacher set personsubmit='1' where studno=#{studno}")
 	boolean updatePersonYN(Integer studno);

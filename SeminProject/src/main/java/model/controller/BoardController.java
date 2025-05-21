@@ -474,7 +474,7 @@ public class BoardController extends MskimRequestMapping{
 					   return "redirect:p_info?num="+comm.getNum2()+"&boardid="+boardid+"&subcode="+subcode;
 				   }
 				   
-				   
+
 			   }
 			   request.setAttribute("msg", "답글 등록시 오류 발생") ;
 			   request.setAttribute("url", "p_info?num="+comm.getNum2()+"&readcnt=f") ;

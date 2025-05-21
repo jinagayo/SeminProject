@@ -27,12 +27,12 @@
 	  <c:forEach var="s" items="${studentList}" varStatus="vs">
 	    	<tr onclick="location.href='professor-student-info?studno=${s.studno}'"> 
 	    	<td>${s["studno"]}</td>
-	    		<c:forEach var="u" items="${user}" varStatus="vs">
-	    				<c:if test="${s.studno == u.id }">
+	    		<c:forEach var="u" items="${user}" varStatus="vs">	<c:if test="${s.studno == u.id }">
 	    					<td onclick="location.href='professor-student-info?studno=${s.studno}'">
 	    							<u>${u.name}</u>
 	    					</td>
 	    				</c:if>
+
 	    		</c:forEach>
 	        </tr>
 	  </c:forEach>
@@ -40,19 +40,7 @@
    </div>
    </form>
  </div>
- <ul class="pagination">
-  <c:forEach var="i" begin="${startpage}" end="${endpage}">
-    <li class="page-item">
-      <a href="javascript:listsubmit(${i})" class="page-link">${i}</a>
-    </li>
-  </c:forEach>
-</ul>
- <script>
-  function listsubmit(page) {
-    document.getElementById("pageNum").value = page;
-    document.sf.submit();
-  }
-</script>
+
 </body>
 </html>
 
