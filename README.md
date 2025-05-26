@@ -22,16 +22,24 @@ JSP/Servlet을 이용하여 만든 학사관리 시스템 입니다.
     + HTML5/ CSS3 / JavaScript
     + JSTL
     + MyBatis(ORM 프레임워크)
+
+    
 🎨 프론트 엔드
     + Bootstrap (UI 프레임워크)
     + HTML5 / CSS3
     + JavaScript
+
+    
 🗄 백엔드
     + Java (Servlet/JSP 기반)
     + MyBatis
     + Apache Tomcat 9
+
+    
 🛢 데이터베이스
     + MariaDB (HeidiSQL로 관리)
+
+    
 🧰 개발 도구
     + Eclipse IDE
     + HeidiSQL
