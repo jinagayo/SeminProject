@@ -16,31 +16,32 @@ JSP/Servlet을 이용하여 만든 학사관리 시스템 입니다.
 + 장혜민 : 메인화면, 관리자페이지, DB연동
 
 ⚙️개발 환경
-  🔧 개발 언어 & 기술 스택
-    + Java 11+
-    + SQL (MariaDB)
-    + HTML5/ CSS3 / JavaScript
-    + JSTL
-    + MyBatis(ORM 프레임워크)
+
+🔧 개발 언어 & 기술 스택
++ Java 11
++ SQL (MariaDB)
++ HTML5/ CSS3 / JavaScript
++ JSTL
++ MyBatis(ORM 프레임워크)
 
     
 🎨 프론트 엔드
-    + Bootstrap (UI 프레임워크)
-    + HTML5 / CSS3
-    + JavaScript
++ Bootstrap (UI 프레임워크)
++ HTML5 / CSS3
++ JavaScript
 
     
 🗄 백엔드
-    + Java (Servlet/JSP 기반)
-    + MyBatis
-    + Apache Tomcat 9
++ Java (Servlet/JSP 기반)
++ MyBatis
++ Apache Tomcat 9
 
     
 🛢 데이터베이스
-    + MariaDB (HeidiSQL로 관리)
++ MariaDB (HeidiSQL로 관리)
 
     
 🧰 개발 도구
-    + Eclipse IDE
-    + HeidiSQL
-    + Git / Gitghub
++ Eclipse IDE
++ HeidiSQL
++ Git / Gitghub
