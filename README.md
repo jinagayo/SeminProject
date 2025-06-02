@@ -69,8 +69,8 @@ JSP/Servlet을 이용하여 만든 학사관리 시스템 입니다.
 > 졸업 사정표
 >> ![Image](https://github.com/user-attachments/assets/c53ef4a6-d0a2-49e2-933d-f8c40ba06d5e)
 > 내 시간표 조회
->> <img src="{(https://github.com/user-attachments/assets/b585097c-b596-4a54-a19e-f552f2ab700a)}"  width="400" height="200"/>
+>> <img src="https://github.com/user-attachments/assets/b585097c-b596-4a54-a19e-f552f2ab700a"  width="400" height="200"/>
 > 교원 자격 취득 조회
->> <img src="{(https://github.com/user-attachments/assets/f876d08a-7d07-4083-acb2-96a59eeff9aa)}"  width="400" height="200"/>
+>> <img src="https://github.com/user-attachments/assets/f876d08a-7d07-4083-acb2-96a59eeff9aa"  width="400" height="200"/>
 
 
