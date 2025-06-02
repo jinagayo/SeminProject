@@ -64,14 +64,13 @@ JSP/Servlet을 이용하여 만든 학사관리 시스템 입니다.
 + 마이페이지
 
 **학생**
-> 학적 정보 조회
+
 >> ![Image](https://github.com/user-attachments/assets/9c7f87ca-49e4-465c-a31d-8000c52dc17a)
 > 졸업 사정표
 >> ![Image](https://github.com/user-attachments/assets/c53ef4a6-d0a2-49e2-933d-f8c40ba06d5e)
 > 내 시간표 조회
->>![Image](https://github.com/user-attachments/assets/b585097c-b596-4a54-a19e-f552f2ab700a)
-> 교원자격 취득조회
->> ![Image](https://github.com/user-attachments/assets/f876d08a-7d07-4083-acb2-96a59eeff9aa)
-
+>> <img src="{https://github.com/user-attachments/assets/b585097c-b596-4a54-a19e-f552f2ab700a}"  width="200" height="400"/>
+> 교원 자격 취득 조회
+>> <img src="{https://github.com/user-attachments/assets/f876d08a-7d07-4083-acb2-96a59eeff9aa}"  width="200" height="400"/>
 
 
