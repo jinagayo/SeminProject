@@ -71,7 +71,7 @@ JSP/Servlet을 이용하여 만든 학사관리 시스템 입니다.
 > 내 시간표 조회
 >> <img src="https://github.com/user-attachments/assets/b585097c-b596-4a54-a19e-f552f2ab700a"  width="100%" height="400"/>
 > 교원 자격 취득 조회
->> <img src="https://github.com/user-attachments/assets/f876d08a-7d07-4083-acb2-96a59eeff9aa"  width="100%" height="400"/>
+>> https://github.com/user-attachments/assets/0fa29f20-2f74-4809-9af9-ec139917ac51
 > 수강신청
->> <img src="https://github.com/user-attachments/assets/f196f0a8-ce32-4873-a4f9-670070dd2f50"  width="100%" height="400"/>
+>> 
 
