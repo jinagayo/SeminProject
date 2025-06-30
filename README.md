@@ -92,3 +92,9 @@ https://github.com/user-attachments/assets/bd4f1119-0fd5-4c3d-b88b-0cdb4d8a152e
 https://github.com/user-attachments/assets/675614a8-fdba-4121-8b68-d1b71c7e2d43
 
 
+**교수**
+> 학생 출결/성적 입력
+
+https://github.com/user-attachments/assets/35b034a9-f07f-46a9-afc9-b83d44b2629c
+
+
