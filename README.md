@@ -89,33 +89,50 @@ JSP/Servlet을 이용하여 만든 학사관리 시스템입니다.
 - **내 시간표 조회**  
   <img src="https://github.com/user-attachments/assets/b585097c-b596-4a54-a19e-f552f2ab700a" width="100%" height="400"/>
 
-- **교원 자격 취득 조회**  
-  <img src="https://github.com/user-attachments/assets/703e1cc8-ee5a-47ac-a645-af760ab25ab1" width="100%" height="400"/>
+- **교원 자격 취득 조회**
 
-- **수강신청**  
-  <img src="https://github.com/user-attachments/assets/93a7e3d8-fb3e-47b9-b377-723b094d9336" width="100%" height="400"/>
+  
+https://github.com/user-attachments/assets/703e1cc8-ee5a-47ac-a645-af760ab25ab1
+
+
+- **수강신청**
+
+  
+https://github.com/user-attachments/assets/93a7e3d8-fb3e-47b9-b377-723b094d9336
+
 
 - **게시판**  
   > - 학생: QnA 게시판  
   > - 관리자: 알림마당 게시판  
-  > - 교수: 공지사항 게시판  
-  <img src="https://github.com/user-attachments/assets/bd4f1119-0fd5-4c3d-b88b-0cdb4d8a152e" width="100%" height="400"/>
+  > - 교수: 공지사항 게시판
+
+
+https://github.com/user-attachments/assets/bd4f1119-0fd5-4c3d-b88b-0cdb4d8a152e
+
 
 #### 관리자
 
-- **교육실습일지**  
-  <img src="https://github.com/user-attachments/assets/675614a8-fdba-4121-8b68-d1b71c7e2d43" width="100%" height="400"/>
+- **교육실습일지**
+
+
+https://github.com/user-attachments/assets/675614a8-fdba-4121-8b68-d1b71c7e2d43
+
 
 #### 교수
 
-- **학생 출결/성적 입력**  
-  <img src="https://github.com/user-attachments/assets/35b034a9-f07f-46a9-afc9-b83d44b2629c" width="100%" height="400"/>
+- **학생 출결/성적 입력**
+
+
+https://github.com/user-attachments/assets/35b034a9-f07f-46a9-afc9-b83d44b2629c
+
 
 ---
 
 ### 🔑 ID/PW 찾기 (이메일 인증)
 
-<img src="https://github.com/user-attachments/assets/f99150f9-7121-4436-a959-9f3c1132a026" width="100%" height="400"/>
+
+https://github.com/user-attachments/assets/f99150f9-7121-4436-a959-9f3c1132a026
+
 
 ---
 
