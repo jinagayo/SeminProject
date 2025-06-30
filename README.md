@@ -75,5 +75,10 @@ JSP/Servlet을 이용하여 만든 학사관리 시스템 입니다.
 
 https://github.com/user-attachments/assets/922380d7-2ad6-46d5-8097-25e8ef697b16
 
+> 수강신청
+
+https://github.com/user-attachments/assets/3c6997a1-15f9-4b40-b632-73d7c4fe8c80
+
+
 
 
