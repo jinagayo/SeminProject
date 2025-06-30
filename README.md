@@ -73,12 +73,17 @@ JSP/Servlet을 이용하여 만든 학사관리 시스템 입니다.
 > 교원 자격 취득 조회
 
 
-https://github.com/user-attachments/as판
->> 학생 - QnA게시판 / 관리자 - 알림마당 게시판 / 교수 - 공지사항 게시판
+https://github.com/user-attachments/assets/703e1cc8-ee5a-47ac-a645-af760ab25ab1
 
 
-https://github.com/user-attachments/assets/c216da6b-bbf2-4ce8-a8bf-dfab2ec297ae
+> 수강신청
 
+https://github.com/user-attachments/assets/93a7e3d8-fb3e-47b9-b377-723b094d9336
+
+> 게시판
+>> 학생 - Qna 게시판 / 관리자 - 알림마당 게시판 / 교수 - 공지사항 게시판
+
+https://github.com/user-attachments/assets/bd4f1119-0fd5-4c3d-b88b-0cdb4d8a152e
 
 
 **관리자**
