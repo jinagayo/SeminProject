@@ -97,4 +97,8 @@ https://github.com/user-attachments/assets/675614a8-fdba-4121-8b68-d1b71c7e2d43
 
 https://github.com/user-attachments/assets/35b034a9-f07f-46a9-afc9-b83d44b2629c
 
+**ID/PW찾기(이메일인증)**
+
+https://github.com/user-attachments/assets/f99150f9-7121-4436-a959-9f3c1132a026
+
 
