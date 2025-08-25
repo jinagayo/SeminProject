@@ -1,6 +1,6 @@
-# 🎓 JSP/Servlet LMS Project
+# 🎓 학사관리 시스템 LMS Project
 
-학사관리 시스템
+JSP/Servlet
 
 ---
 
